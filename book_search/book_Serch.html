@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Search</title>
+</head>
+
+<body>
+    <header>
+        <div id="boxer">
+            <h3>enter book id</h3>
+            <input id="book_id" placeholder="bookname" value="hitesh">
+            <button onclick="find_bookid()">search</button>
+        </div>
+
+    </header>
+<div id="data"></div>
+</body>
+<script>function find_bookid() {
+        var var_book_id = {"username": document.getElementById("book_id").value};
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                // Typical action to be performed when the document is ready:
+                document.getElementById("data").innerHTML = xhttp.responseText;
+                // console.log(xhttp.responseText);
+            }
+        };
+        xhttp.open("POST", "http://localhost:5400/mongoose/find", true);
+        xhttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+        // console.log(JSON.stringify(var_book_id));
+        xhttp.send(JSON.stringify(var_book_id));
+    }</script>
+
+</html>
