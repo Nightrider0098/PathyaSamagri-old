@@ -1,6 +1,6 @@
 const express = require("express");
 const Route = express.Router();
-const user_collection_1 = require("./../model/mongoose_model");
+const user_collection_1 = require("../model/mongoose_user");
 
 Route.post("/find/", (req, res) => {
     

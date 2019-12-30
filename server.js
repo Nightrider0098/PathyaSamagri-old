@@ -11,12 +11,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "\\login\\")));
 
 app.use("/login", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\index.html"); process.env.current_url = req.protocol + '://' + req.get('host');
+    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\index.html"); process.env.current_url =  req.get('host');
     console.log(process.env.current_url);
 });
 
 app.use("/mongo", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\Search_book.html"); process.env.current_url = req.protocol + '://' + req.get('host');
+    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\Search_book.html"); process.env.current_url =  req.get('host');
     console.log(process.env.current_url);
 });
 
@@ -24,7 +24,7 @@ app.use("/mongoose", mongoose_route);
 
 
 app.use("/signup", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project\\View\\signup.html"); process.env.current_url = req.protocol + '://' + req.get('host');
+    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project\\View\\signup.html"); process.env.current_url = req.get('host');
     console.log(process.env.current_url);
 });
 
