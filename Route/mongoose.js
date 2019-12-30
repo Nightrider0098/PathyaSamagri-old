@@ -1,6 +1,6 @@
 const express = require("express");
 const Route = express.Router();
-const user_collection_1 = require("./../mongoose/mongoose_model");
+const user_collection_1 = require("./../model/mongoose_model");
 
 Route.post("/find/", (req, res) => {
     
@@ -13,6 +13,31 @@ Route.post("/find/", (req, res) => {
         else {res.send(error); }});
 
 });
+
+
+
+Route.post("/login/", (req, res) => {
+    
+    user_collection_1.find({ "username": req.body.username,"password": req.body.password},{"username":1,}, (error, employee) => { if(!error){
+            if(Object.values(employee).length ==1)
+            {res.send("sucess");}
+            else{res.send("failed");}
+        }
+        else {res.send(error); }});
+
+});
+
+Route.get("/login/", (req, res) => {
+    
+    user_collection_1.find({ "username": req.params.username,"password": req.params.password},{"username":1,}, (error, employee) => { if(!error){
+            if(Object.values(employee).length ==1)
+            {res.send("sucess");}
+            else{res.send("failed");}
+        }
+        else {res.send(error); }});
+
+});
+
 
 module.exports = Route;
 
