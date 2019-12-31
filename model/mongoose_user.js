@@ -1,7 +1,7 @@
 const mongoose = require("./../controller/mongoose_connector", (error) => console.log(error));
 
 const user_details_schema = mongoose.Schema({
-    username: { type: String, required: true ,unique:true},
+    username: { type: String, required: true},
     email: {
         type: String,
         require: true,
@@ -24,9 +24,11 @@ const user_details_schema = mongoose.Schema({
         }
     },
     password: String,
+    book_issued:Number,
+
 });
 
-module.exports = mongoose.model("user_collection_1", user_details_schema);
+module.exports = mongoose.model("User_details", user_details_schema);
 
 
 

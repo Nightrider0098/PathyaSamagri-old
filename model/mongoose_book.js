@@ -1,29 +1,15 @@
-const mongoose = require("./../controller/mongoose_connector", (error) => console.log(error));
+const mongoose = require("./../controller/mongoose_connector", (error) => console.log("got some error"+error));
 
 const user_details_schema = mongoose.Schema({
-    username: { type: String, required: true ,unique:true},
-    email: {
-        type: String,
-        require: true,
-        validate:
-        {
-            validator: function (v) {
-                return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
-            }, message: "not a valid email address!!!"
-        }
-    },
-    phone: {
-        type: String,
-        require: true,
-        validate:
-        {
-            validator: function (v) {
-                return /^([\w-]{10})?$/.test(v);
-            }
-            , message: "not a valid phone number!!!"
-        }
-    },
-    password: String,
+    book_id: { type: String, required: true },
+    title:{type:String,required:true},
+    edition:{type:String},
+    owner_id:{type:String,required:true},
+    publish:{type:String},
+    donation_date:{type:Date},
+    referred_someone:{type:Boolean,default:0}, // weather someone is already took the details of doner
+    available: {type:Boolean,default:1}, //is available at present
+    book_subject:{type:String ,enum:["maths","physics","chemistry","electronics","Algorithum"]}
 });
 
 module.exports = mongoose.model("Book_Details", user_details_schema);

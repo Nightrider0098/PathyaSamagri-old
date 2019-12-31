@@ -1,0 +1,61 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book Entry</title>
+</head>
+
+<body>
+    <form method="POST" action="http://localhost:5400/mongoose/book_entry/insert">
+        <div id="name_message" style="display:none"></div>
+        <input placeholder="id" name="book_id" oninput="find_name()" onfocusout="name_endcheck()">
+        <input placeholder="title" name="book_title">
+        <input placeholder="edition" name="book_edition">
+        <input placeholder="owner_id" name="book_owner_id">
+        <select name="book_sub">
+            <option value="maths">maths</option>
+            <option value="physics">maths</option>
+            <option value="chemistry">maths</option>
+            <option value="electronics">maths</option>
+        </select>
+        <button>submit</button>
+    </form>
+
+
+    
+    <!-- <script>
+        function find_name() {
+            var name_starting = document.getElementsByName("book_id")[0].value;
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                // console.log(xhttp.response);
+
+                if (xhttp.status == 200 && this.readyState == 4) {
+
+                    if (xhttp.response == "1") {
+                        document.getElementById("name_message").innerHTML = "not taken";
+                        document.getElementById("name_message").style.display = "none";
+                    }
+                    else if (xhttp.response == "0") {
+                        document.getElementById("name_message").innerHTML = "taken";
+                        document.getElementById("name_message").style.display = "block";
+                    }
+                }
+            }
+            xhttp.open("GET", "http://localhost:5400/mongoose/namesearch?username=" + name_starting, true);
+            xhttp.send();
+
+        };
+            // function name_endcheck() {
+            //     if (document.getElementById("name_message").display == "block");
+            //     if (document.getElementById("name_message").innerText == "taken"){document.getElementById("name_message").display == "block"};
+            // };
+
+    </script> -->
+</body>
+
+</html>
