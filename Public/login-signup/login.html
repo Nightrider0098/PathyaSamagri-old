@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+    <link rel="stylesheet" href="login-signup/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="login-signup/css/style.css">
+</head>
+<body>
+
+    <div class="main" style="padding-top: 50px;padding-bottom: 50px;">
+        <section class="signup" style="margin-bottom: 50px;">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <form method="POST" class="register-form" id="register-form" >
+                            <div class="form-group">
+                                <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="username" placeholder="Your Name"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Your Email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" autocomplete="off" onkeyup="check_pass()" name="password" id="password" placeholder="Password"/>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <div style="display:flex">
+                                <input type="password" onkeyup="check_pass()" autocomplete="off" id="re_pass" placeholder="Repeat your password"/>
+                                <img   id="re-pass-error" class="re-pass-error" src="\webfonts\re-pass-error.svg" ></img>
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="button" onclick="submit_btn()" name="signup" id="signup"  class="form-submit-disabled" value="Register"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="login-signup/images/signup-image.jpg" alt="sing up image"></figure>
+                        <a href="C://Users/Admin/Desktop/this year project/collage project - Mangodb/login-signup/index_2.html" class="signup-image-link">I am already member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- <script src="login-signup/vendor/jquery/jquery.min.js"></script> -->
+    <script src="login-signup/js/main.js"></script>
+    <script src="login-signup/js/index_login.js"></script>
+</body>
+</html>

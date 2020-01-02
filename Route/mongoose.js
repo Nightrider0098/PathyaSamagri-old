@@ -3,9 +3,48 @@ const Route = express.Router();
 const user_details = require("../model/mongoose_user");
 const book_details = require("../model/mongoose_book");
 const user_books_adb = require("../Public/js/all_book_by_user");
+
+Route.post("/signup", (req, res) => {
+    user_details.find({ "username": req.query.username }, { "_id": 1 }).exec((error, result) => {
+        if (!error) {
+            if (Object.values(result).length > 0) {
+                res.redirect("http://localhost:5400/index_usr_fail");
+            }
+            else {
+                var data = user_details({ "username": req.query.username, "email": req.query.email, "password": req.query.password });
+                data.save().on(res.send("error"));
+                res.send("saved");
+            }
+
+        }
+
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route.post("/find/", (req, res) => {
 
-    user_details.find({ }, { "username": 1, "_id": 0 }, (error, employee) => {
+    user_details.find({}, { "username": 1, "_id": 0 }, (error, employee) => {
         if (!error) {
             var list_ = [];
             for (i = 0; i < Object.values(employee).length; i++)
@@ -33,10 +72,10 @@ Route.post("/login/", (req, res) => {
 
 Route.get("/login/", (req, res) => {
 
-    user_details.find( { "username": req.query.username, "password": req.query.password}, { "username": 1, }, (error, employee) => {
+    user_details.find({ "username": req.query.username, "password": req.query.password }, { "username": 1, }, (error, employee) => {
         if (!error) {
-            if (Object.values(employee).length >0) { res.send("sucess"); }
-            else { res.send("failed");console.log(req.params); }
+            if (Object.values(employee).length > 0) { res.send("sucess"); }
+            else { res.send("failed"); console.log(req.params); }
         }
         else { res.send(error); }
     });
@@ -45,13 +84,14 @@ Route.get("/login/", (req, res) => {
 
 
 Route.get("/namesearch/", (req, res) => {
-    user_details.find({"username":req.query.username},{"username":1},(error,result)=>{
-                 if(!error)if (Object.values(result).length == 1) { 
-                    // res.setHeader("Content-Type: text/plain; charset=utf-8") ;
-                    res.send("0"); }
-            else { res.send("1");}
-        });
-    
+    user_details.find({ "username": req.query.username }, { "username": 1 }, (error, result) => {
+        if (!error) if (Object.values(result).length == 1) {
+            // res.setHeader("Content-Type: text/plain; charset=utf-8") ;
+            res.send("0");
+        }
+        else { res.send("1"); }
+    });
+
 });
 
 
