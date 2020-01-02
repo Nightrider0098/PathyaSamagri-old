@@ -5,25 +5,52 @@ const book_details = require("../model/mongoose_book");
 const user_books_adb = require("../Public/js/all_book_by_user");
 
 Route.post("/signup", (req, res) => {
-    user_details.find({ "username": req.query.username }, { "_id": 1 }).exec((error, result) => {
+    user_details.find({ "username": req.body.username }, { "_id": 1 }).exec((error, result) => {
         if (!error) {
             if (Object.values(result).length > 0) {
-                res.redirect("http://localhost:5400/index_usr_fail");
+                if (req.baseUrl == "localhost") {
+                    var req_url = "http://localhost:5400";
+                }
+                else {
+                    var req_url = "https://" + req.baseUrl;
+                }
+                res.redirect(req_url + "/signup_fail");
             }
             else {
-                var data = user_details({ "username": req.query.username, "email": req.query.email, "password": req.query.password });
-                data.save().on(res.send("error"));
-                res.send("saved");
+                var data = user_details({ "username": req.body.username, "email": req.body.email, "password": req.body.password });
+                data.save((error) => {
+                    if (error) res.send(error);
+                    else
+                        res.send("saved");
+
+                })
             }
-
         }
-
-    })
+    }
+    )
 });
 
 
 
+Route.post("/login/", (req, res) => {
 
+    user_details.find({ "username": req.body.username, "password": req.body.password }, { "username": 1, }, (error, employee) => {
+        if (!error) {
+            if (Object.values(employee).length == 1) { res.send("sucess"); }
+            else {
+                if (req.baseUrl == "localhost") {
+                    var req_url = "http://localhost:5400";
+                }
+                else {
+                    var req_url = "https://" + req.baseUrl;
+                }
+                res.redirect(req_url + "/login_fail");
+            }
+        }
+        else { res.send(error); }
+    });
+
+});
 
 
 
@@ -57,18 +84,6 @@ Route.post("/find/", (req, res) => {
 });
 
 
-
-Route.post("/login/", (req, res) => {
-
-    user_details.find({ "username": req.body.username, "password": req.body.password }, { "username": 1, }, (error, employee) => {
-        if (!error) {
-            if (Object.values(employee).length == 1) { res.send("sucess"); }
-            else { res.send("failed"); }
-        }
-        else { res.send(error); }
-    });
-
-});
 
 Route.get("/login/", (req, res) => {
 

@@ -10,8 +10,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "\\Public\\")));
 app.use(express.static(path.join(__dirname,"\\login-signup\\")))
 
+app.use("/signup/", (req, res, next) => {
+    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\signup.html"); 
+});
+app.use("/signup_fail/", (req, res, next) => {
+    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\signup_fail.html"); 
+});
+
 app.use("/login/", (req, res, next) => {
     res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\login.html"); 
+});
+
+
+app.use("/login_fail/", (req, res, next) => {
+    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\login_fail.html"); 
 });
 
 app.use("/mongo", (req, res, next) => {

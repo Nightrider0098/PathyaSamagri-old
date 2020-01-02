@@ -11,7 +11,22 @@ if(document.getElementById("re_pass").value.length)
     }
 }
 
-document.getElementById("register-form").setAttribute("action",`https://${document.domain}/5400/mongoose/signup`);
+
+if(document.domain=="localhost")
+{
+document.getElementById("link-to-login").setAttribute("href",`http://${document.domain}:5400/login`);
+var link_login =  `http://${document.domain}:5400/mongoose/signup`;
+}
+else
+{
+    document.getElementById("link-to-login").setAttribute("href",`http://${document.domain}/signup`);
+    var link_login =  `http://${document.domain}/mongoose/signup`;
+    
+
+}
+
+
+
 
 function submit_btn()
 {
@@ -20,7 +35,7 @@ function submit_btn()
     if(document.getElementById("agree-term").checked)
     {document.getElementById("signup").setAttribute("class","form-submit");
     document.getElementById("signup").type = "submit";
-    document.getElementById("signup").click();
+    document.getElementById("register-form").setAttribute("action",link_login);
 }
 
 
