@@ -38,13 +38,14 @@ Route.post("/login/", (req, res) => {
         if (!error) {
             if (Object.values(employee).length == 1) { res.send("sucess"); }
             else {
-                if (req.baseUrl == "localhost") {
+                if (req.hostname == "localhost") {
                     var req_url = "http://localhost:5400";
                 }
                 else {
-                    var req_url = "https://" + req.baseUrl;
+                    var req_url = "https://" + req.hostname;
                 }
                 res.redirect(req_url + "/login_fail");
+                // res.send(req.hostname);
             }
         }
         else { res.send(error); }
@@ -53,35 +54,41 @@ Route.post("/login/", (req, res) => {
 });
 
 
+Route.get("/book-search/", (req, res) => {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Route.post("/find/", (req, res) => {
-
-    user_details.find({}, { "username": 1, "_id": 0 }, (error, employee) => {
+    book_details.find({title : req.query.title}, {}, (error, employee) => {
         if (!error) {
             var list_ = [];
             for (i = 0; i < Object.values(employee).length; i++)
-                list_.push(Object.values(employee)[i]["username"]);
-            res.send(list_);
+                list_.push(Object.values(employee)[i]["title"]);
+            // res.send(list_);
+            res.send(JSON.stringify(employee));
         }
         else { res.send(error); }
     });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

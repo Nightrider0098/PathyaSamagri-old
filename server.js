@@ -26,6 +26,14 @@ app.use("/login_fail/", (req, res, next) => {
     res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\login_fail.html"); 
 });
 
+app.use("/book_search/", (req, res, next) => {
+    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\book-search.html"); 
+});
+
+app.use("/book_advance/", (req, res, next) => {
+    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\book-search-advance.html"); 
+});
+
 app.use("/mongo", (req, res, next) => {
     res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\Search_book.html");
 });
