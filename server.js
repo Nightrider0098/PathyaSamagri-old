@@ -11,47 +11,47 @@ app.use(express.static(path.join(__dirname, "\\Public\\")));
 app.use(express.static(path.join(__dirname,"\\login-signup\\")))
 
 app.use("/signup/", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\signup.html"); 
+    res.sendFile(path.resolve(__dirname,"Public","login-signup","signup.html")); 
 });
 app.use("/signup_fail/", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\signup_fail.html"); 
+    res.sendFile(path.resolve(__dirname,"Public","login-signup","signup_fail.html")); 
 });
 
 app.use("/login/", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\login.html"); 
+    res.sendFile(path.resolve(__dirname,"Public","login-signup","login.html")); 
 });
 
 
 app.use("/login_fail/", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\login_fail.html"); 
+    res.sendFile(path.resolve(__dirname,"Public","login-signup","login_fail.html")); 
 });
 
 app.use("/book_search/", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\book-search.html"); 
+    res.sendFile(path.resolve(__dirname,"Public","login-signup","book-search.html")); 
 });
 
 app.use("/book_advance/", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\Public\\login-signup\\book-search-advance.html"); 
+    res.sendFile(path.resolve(__dirname,"Public","login-signup",__dirname+"book-search-advance.html")); 
 });
 
 app.use("/mongo", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\Search_book.html");
+    res.sendFile(path.resolve(__dirname,"View","Search_book.html"));
 });
 
 app.use("/mongoose", mongoose_route);
 
 
 app.use("/bookentry/", (req,res)=>{
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\book_entry.html");
+    res.sendFile(path.resolve(__dirname,"View","book_entry.html"));
 });
 
 app.use("/signup", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\signup.html"); 
+    res.sendFile(path.resolve(__dirname,"View","signup.html")); 
 });
 
 
 app.use("/homepage/s", (req, res, next) => {
-    res.sendFile("C:\\Users\\Admin\\Desktop\\this year project\\collage project - Mangodb\\View\\userhomepage.html");
+    res.sendFile(path.resolve(__dirname,"View","userhomepage.html"));
 });
 
 
