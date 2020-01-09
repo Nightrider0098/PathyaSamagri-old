@@ -1,14 +1,36 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const mongoose_route = require("./Route/mongoose")
-// const mysql_route = require("./mysql/mysql-page");
+//const mongoose_route = require("./Route/mongoose")
+const mysql_route = require("./mysql/mysql-page");
 const port = process.env.PORT || 5400;
 const bodyParser = require("body-parser");
+const authRouter = require("./mysql/auth");
+
+const session = require('express-session');
+const passport = require('passport');
+require('/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "\\Public\\")));
 app.use(express.static(path.join(__dirname,"\\login-signup\\")))
+app.use(session({
+ secret:"thesecret",
+saveUninitialized:false,
+resave:false}));
+
+
+
+
+
+
+
+
+
 
 app.use("/signup/", (req, res, next) => {
     res.sendFile(path.resolve(__dirname,"Public","login-signup","signup.html")); 
@@ -38,12 +60,18 @@ app.use("/mongo", (req, res, next) => {
     res.sendFile(path.resolve(__dirname,"View","Search_book.html"));
 });
 
-app.use("/mongoose", mongoose_route);
+//app.use("/mongoose", mongoose_route);
 
 
 app.use("/bookentry/", (req,res)=>{
     res.sendFile(path.resolve(__dirname,"View","book_entry.html"));
 });
+
+
+app.use("/mysql", mysql_route);
+
+
+
 
 app.use("/signup", (req, res, next) => {
     res.sendFile(path.resolve(__dirname,"View","signup.html")); 

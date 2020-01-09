@@ -4,9 +4,9 @@ const table_name = "books";
 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "yourusername",
-  password: "yourpassword",
-  database: "book",
+  user: "root",
+  password: "",
+  database: "bsp",
   multipleStatements: true
 });
 
