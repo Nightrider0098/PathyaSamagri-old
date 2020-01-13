@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,12 +9,13 @@
 </head>
 
 <body>
-    <form method="POST" action="http://localhost:5400/mongoose/book_entry/insert">
+    <p>user can enter the details of the book</p>
+    <!-- <p>or</p> -->
+    <form method="POST" action="http://localhost:5400/mysql/book_entry">
         <div id="name_message" style="display:none"></div>
         <input placeholder="id" name="book_id" oninput="find_name()" onfocusout="name_endcheck()">
         <input placeholder="title" name="book_title">
         <input placeholder="edition" name="book_edition">
-        <input placeholder="owner_id" name="book_owner_id">
         <select name="book_sub">
             <option value="maths">maths</option>
             <option value="physics">maths</option>
