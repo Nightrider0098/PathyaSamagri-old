@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 //const mongoose_route = require("./Route/mongoose")   all routes are now according to mysql
 const mysql_route = require("./mysql/mysql-page");
-const con = require("./mysql/mysql-connection");
+const con = require("./mysql/mysql-connection-session");
 
 const port = process.env.PORT || 5400;
 const bodyParser = require("body-parser");
@@ -19,12 +19,25 @@ app.use(cookie_parser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var MySQLStore = require('express-mysql-session')(session);
+ 
+var options = {
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: '',
+    database: 'book_store'
+};
+ 
+var sessionStore = new MySQLStore(options);
+ 
 app.use(session({
-    secret: "thesecret",
-    saveUninitialized: false,
-    resave: false
+    key: 'session_cookie_name',
+    secret: 'session_cookie_secret',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false
 }));
-
 //middleware to be used for passport 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -65,7 +78,20 @@ app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/l
 );
 
 
-app.get("/logout", (req, res) => { req.logout(); res.send("out now") });
+app.get("/logout",checkAuthenticated, (req, res) => { 
+    con.query(`delete  FROM sessions where session_id ="${req.cookies.session_cookie_name.slice(2,32+2)}"`, (err, result, fields) => {
+
+        if (err) {
+            console.log(err);
+            res.send(err);
+        }
+
+        else {
+            console.log("user with cookes",req.cookies.session_cookie_name.slice(2,32+2)," removed");
+            res.send("out now");
+
+        }
+    });  });
 
 
 app.use("/signup/", (req, res, next) => {
@@ -75,13 +101,13 @@ app.use("/signup_fail/", (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "Public", "login-signup", "signup_fail.html"));
 });
 
-app.use("/login/", (req, res, next) => {
+app.use("/login/", checkNotAuthenticated,(req, res, next) => {
     console.log(req.user);
     res.sendFile(path.resolve(__dirname, "Public", "login-signup", "login.html"));
 });
 
 
-app.use("/login_fail/", (req, res, next) => {
+app.use("/login_fail/",checkNotAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "Public", "login-signup", "login_fail.html"));
 });
 

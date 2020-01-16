@@ -15,12 +15,12 @@ if(document.getElementById("re_pass").value.length)
 if(document.domain=="localhost")
 {
 document.getElementById("link-to-login").setAttribute("href",`http://${document.domain}:5400/login`);
-var link_login =  `http://${document.domain}:5400/mongoose/signup`;
+var link_login =  `http://${document.domain}:5400/mysql/api/login/new_user`;
 }
 else
 {
     document.getElementById("link-to-login").setAttribute("href",`http://${document.domain}/signup`);
-    var link_login =  `http://${document.domain}/mongoose/signup`;
+    var link_login =  `http://${document.domain}/mysql/api/login/new_user`;
     
 
 }
