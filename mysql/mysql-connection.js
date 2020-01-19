@@ -1,20 +1,19 @@
 var mysql = require('mysql');
-const table_name = "books";
 
 
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "bsp",
+  database: "book_store",
   multipleStatements: true
 });
 
 
 con.connect(function(err) {
-    if (err) return   console.log("mysql-connection failed to connect");
+    if (err) return   console.log("failed to connect to book_store pls download mysql");
 
-    else return console.log("connection establish!!!!");
+    else return console.log("connection establish with book_store!!!!");
 });
 
 module.exports = con;

@@ -15,7 +15,7 @@ $(document).ready(function () {
                 var suggestion_list = "";
                 for (i = 0; i < Object.values(result_JSON)[0].length; i++) {
 
-                    suggestion_list = suggestion_list.concat(`<option value=${Object.values(result_JSON)[0][i]}>`)
+                    suggestion_list = suggestion_list.concat(`<option value="${Object.values(result_JSON)[0][i]}">`)
                     // suggestion_list = suggestion_list.concat(Object.values(result_JSON)[0][i]);
 
                 }
@@ -29,26 +29,27 @@ $(document).ready(function () {
                 }
 
                 else {
+                    var styles = '<link rel="stylesheet" type="text/css" href="login-signup/css/util.css"><link rel="stylesheet" type="text/css" href="login-signup/css/main.css">';
+                    var table = '<div class="limiter"><div class="container-table100"><div class="wrap-table100"><div class="table100"><table>';
+                    table += '<thread><tr class="table100-head">';
 
-                    var table = "<table>";
-                    table += "<tr>";
-
-                    for (j = 0; j < Object.values(result_JSON[0]).length; j++) {
-                        table += "<th>";
-                        table += Object.keys(result_JSON[0])[j];
+                    for (j = 0; j < Object.keys(result_JSON['book_find'][0]).length; j++) {
+                        //to edit no of coloumns
+                        table += '<th class="column1">';
+                        table += Object.keys(result_JSON['book_find'][0])[j];
                         table += "</th>";
 
 
                     }
-                    table += "</tr>";
+                    table += "</tr></thread>";
 
-                    for (i = 0; i < result_JSON.length; i++) {
+                    for (i = 0; i < Object.keys(result_JSON['book_find']).length; i++) {
                         table = table + "<tr>";
 
 
-                        for (j = 1; j < Object.values(result_JSON[i]).length; j++) {
-                            table += "<td>";
-                            table += Object.values(result_JSON[i])[j];
+                        for (j = 1; j < Object.values(result_JSON['book_find'][i]).length; j++) {
+                            table +='<th class="column1">';
+                            table += Object.values(result_JSON['book_find'][i])[j];
                             table += "</td>";
                         }
 
@@ -56,11 +57,12 @@ $(document).ready(function () {
 
 
                     }
-                    table += "</table>";
-
+                    table += "</table></div></div></div></div>";
 
 
                     $("#data_display").html(table);
+                    $("head").html($('head').html()+styles);
+                    
                 }
             }
         }

@@ -3,7 +3,7 @@ const app = express();
 const path = require("path");
 //const mongoose_route = require("./Route/mongoose")   all routes are now according to mysql
 const mysql_route = require("./mysql/mysql-page");
-const con = require("./mysql/mysql-connection-session");
+const con = require("./mysql/mysql-connection");
 
 const port = process.env.PORT || 5400;
 const bodyParser = require("body-parser");
@@ -65,11 +65,11 @@ function checkNotAuthenticated(req, res, next) {
 };
 
 
-app.get("/", checkAuthenticated, (req, res) => { res.send("pls redirect yourself"); });
+app.get("/", (req, res) => {  res.sendFile(path.resolve(__dirname, "Public", "login-signup", "index.html"));});
 
 
 //dont used (req,res)=>{passport.authenticat()} will cause an error
-app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/login' }),
+app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/login_fail' }),
     function (req, res) {
         res.redirect('/bookentry');
         console.log(req.user);
@@ -94,10 +94,28 @@ app.get("/logout",checkAuthenticated, (req, res) => {
     });  });
 
 
-app.use("/signup/", (req, res, next) => {
+  //to be used only in development mode  
+    app.get("/clr", (req, res) => { 
+        con.query(`delete  FROM sessions`, (err, result, fields) => {
+    
+            if (err) {
+                console.log(err);
+                res.send(err);
+            }
+    
+            else {
+                 res.send("all clear");
+    
+            }
+        });  });
+
+
+//all login signup routes
+
+app.use("/signup/",checkNotAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "Public", "login-signup", "signup.html"));
 });
-app.use("/signup_fail/", (req, res, next) => {
+app.use("/signup_fail/",checkNotAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "Public", "login-signup", "signup_fail.html"));
 });
 
@@ -111,6 +129,11 @@ app.use("/login_fail/",checkNotAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "Public", "login-signup", "login_fail.html"));
 });
 
+
+//all mysql routes inlcudes the route for finding book and its hints
+app.use("/mysql", mysql_route);
+
+
 app.use("/book_search/", (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "Public", "login-signup", "book-search.html"));
 });
@@ -123,22 +146,11 @@ app.use("/mongo", (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "View", "Search_book.html"));
 });
 
-//app.use("/mongoose", mongoose_route);
 
-
-app.use("/bookentry/", (req, res) => {
+app.use("/bookentry/", checkAuthenticated, (req, res) => {
     res.sendFile(path.resolve(__dirname, "View", "book_entry.html"));
 });
 
-
-app.use("/mysql", mysql_route);
-
-
-
-
-app.use("/signup", (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "View", "signup.html"));
-});
 
 
 app.use("/homepage/s", (req, res, next) => {

@@ -25,6 +25,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "tilt.js": "^1.2.1",
+    "uuid": "^3.3.3",
     "vanilla-tilt": "^1.7.0"
   }
 }
