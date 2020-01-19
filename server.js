@@ -12,7 +12,6 @@ const cookie_parser = require("cookie-parser");
 const passport = require('passport');
 // const multer = require("multer");
 app.use(express.static(path.join(__dirname, "\\Public\\")));
-app.use(express.static(path.join(__dirname, "\\login-signup\\")))
 
 app.use(cookie_parser());
 // app.use(multer);     used for uploadin multipart/form-data in forms like videos etc
@@ -54,7 +53,7 @@ function checkAuthenticated(req, res, next) {
         return next();
     }
     else 
-        res.redirect("/signup");
+        res.redirect("/login");
 };
 
 //check if the used is trying to access something for which he has to register
@@ -65,7 +64,7 @@ function checkNotAuthenticated(req, res, next) {
 };
 
 
-app.get("/", (req, res) => {  res.sendFile(path.resolve(__dirname, "Public", "login-signup", "index.html"));});
+app.get("/", (req, res) => {  res.sendFile(path.resolve(__dirname, "View", "index.html"));});
 
 
 //dont used (req,res)=>{passport.authenticat()} will cause an error
@@ -87,8 +86,8 @@ app.get("/logout",checkAuthenticated, (req, res) => {
         }
 
         else {
-            console.log("user with cookes",req.cookies.session_cookie_name.slice(2,32+2)," removed");
-            res.send("out now");
+            console.log("user with cookes",req.cookies.session_cookie_name.slice(2,32+2)," logged out");
+            res.redirect("/");
 
         }
     });  });
@@ -112,21 +111,28 @@ app.get("/logout",checkAuthenticated, (req, res) => {
 
 //all login signup routes
 
-app.use("/signup/",checkNotAuthenticated, (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "Public", "login-signup", "signup.html"));
-});
-app.use("/signup_fail/",checkNotAuthenticated, (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "Public", "login-signup", "signup_fail.html"));
+app.use("/book_entry/",checkAuthenticated, (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, "View", "book_entry.html"));
 });
 
-app.use("/login/", checkNotAuthenticated,(req, res, next) => {
+
+
+
+app.use("/signup/",checkNotAuthenticated, (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, "View", "signup.html"));
+});
+app.use("/signup_fail/",checkNotAuthenticated, (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, "View", "signup_fail.html"));
+});
+
+app.use("/login/",checkNotAuthenticated, (req, res, next) => {
     console.log(req.user);
-    res.sendFile(path.resolve(__dirname, "Public", "login-signup", "login.html"));
+    res.sendFile(path.resolve(__dirname, "View", "login.html"));
 });
 
 
 app.use("/login_fail/",checkNotAuthenticated, (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "Public", "login-signup", "login_fail.html"));
+    res.sendFile(path.resolve(__dirname, "View", "login_fail.html"));
 });
 
 
@@ -135,17 +141,12 @@ app.use("/mysql", mysql_route);
 
 
 app.use("/book_search/", (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "Public", "login-signup", "book-search.html"));
+    res.sendFile(path.resolve(__dirname, "View", "book-search.html"));
 });
 
 app.use("/book_advance/", (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "Public", "login-signup", __dirname + "book-search-advance.html"));
+    res.sendFile(path.resolve(__dirname, "View" , "book-search-advance.html"));
 });
-
-app.use("/mongo", (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "View", "Search_book.html"));
-});
-
 
 app.use("/bookentry/", checkAuthenticated, (req, res) => {
     res.sendFile(path.resolve(__dirname, "View", "book_entry.html"));

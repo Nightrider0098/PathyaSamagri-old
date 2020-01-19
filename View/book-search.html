@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/book_search/style.css">
+    <link rel="stylesheet" href="css/book_search/imported_css.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
+    <title>Book Search</title>
+</head>
+
+<body style="background-color: #f8f8f8;">
+    <div class="main" style="padding:20px ">
+        <section class="sign-in" style="padding: 0px;">
+            <div class="container" style="padding: 0px;">
+                <div class="signin-content" style="padding-top:20px;">
+                    <div class="signin-form" style="position: relative;
+                    padding-left: 20%;">
+                        <h2 class="form-title" style="    margin-bottom: 33px;
+                        align-items: center;
+                        align-self: center;
+                        padding-left: 0%;">Book Search</h2>
+                        <div class="search">
+                            <input name="title" id="search-book-title" list="suggestion" type="text" class="searchTerm"
+                                placeholder="What are you looking for?" value="sdfas">
+                            <datalist id="suggestion">
+                                <!--- option will be loaded with using api --->
+                            </datalist>
+                            <button type="submit" class="searchButton"
+                                style="border: 1px solid black; background:black">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                        <div id="data_display"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+<script src="js/book_search/book-search.js"></script>
+
+</html>

@@ -5,58 +5,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Book Entry</title>
+    <title>Log in </title>
+    <link rel="stylesheet" href="./../Public/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="./../Public/css/book_entry/style.css">
+    <!-- <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script> -->
 </head>
 
 <body>
-    <p>user can enter the details of the book</p>
-    <!-- <p>or</p> -->
-    <form method="POST" action="http://localhost:5400/mysql/book_entry">
-        <div id="name_message" style="display:none"></div>
-        <input placeholder="id" name="book_id" oninput="find_name()" onfocusout="name_endcheck()">
-        <input placeholder="title" name="book_title">
-        <input placeholder="edition" name="book_edition">
-        <select name="book_sub">
-            <option value="maths">maths</option>
-            <option value="physics">maths</option>
-            <option value="chemistry">maths</option>
-            <option value="electronics">maths</option>
-        </select>
-        <button>submit</button>
-    </form>
 
+    <div class="main">
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="./../Public/images/book_entry/signin-image.jpg" alt="sing up image"></figure>
+                       </div>
 
-    
-    <!-- <script>
-        function find_name() {
-            var name_starting = document.getElementsByName("book_id")[0].value;
+                    <div class="signin-form">
+                        <h2 class="form-title">Book Entry</h2>
+                        <form method="POST" class="register-form" id="login-form" action="/mysql/book_entry">
+                            <div class="form-group">
+                                <label for="book_title"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" required="required" name="title" id="book_title"
+                                    placeholder="Book Title" />
+                            </div>
+                            <div class="form-group">
+                                <label for="author"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="text" name="author" required="required" id="book-author"
+                                    placeholder="Author" />
+                            </div>
 
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                // console.log(xhttp.response);
+                            <div class="form-group">
+                                <label for="Publisher"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="text" name="publisher" id="book-publisher" placeholder="Publisher" />
+                            </div>
 
-                if (xhttp.status == 200 && this.readyState == 4) {
+                            <div class="form-group">
+                                <label for="edition"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="number" name="edition" id="book-edition" placeholder="Edition" />
+                            </div>
 
-                    if (xhttp.response == "1") {
-                        document.getElementById("name_message").innerHTML = "not taken";
-                        document.getElementById("name_message").style.display = "none";
-                    }
-                    else if (xhttp.response == "0") {
-                        document.getElementById("name_message").innerHTML = "taken";
-                        document.getElementById("name_message").style.display = "block";
-                    }
-                }
-            }
-            xhttp.open("GET", "http://localhost:5400/mongoose/namesearch?username=" + name_starting, true);
-            xhttp.send();
+                            <div class="form-group">
+                                <label for="year"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="text" name="for_year" id="book-ref-year" placeholder="For year" />
+                            </div>
 
-        };
-            // function name_endcheck() {
-            //     if (document.getElementById("name_message").display == "block");
-            //     if (document.getElementById("name_message").innerText == "taken"){document.getElementById("name_message").display == "block"};
-            // };
+                            <div class="form-group">
+                                <label for="subject"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="text" name="subject" id="book-subject" placeholder="Subject" />
+                            </div>
 
-    </script> -->
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Donate" />
+                            </div>
+
+                        </form>
+
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="./../Public/js/book_entry/book_entry.js"></script>
+
 </body>
 
 </html>

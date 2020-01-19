@@ -27,22 +27,53 @@ Router.post("/api/login/new_user/", (req, res, next) => {
 });
 
 
+
 Router.post("/book_entry/", (req, res) => {
-    //validation is left 
+    //subject books list to be updated
+    const valid_sub = ['maths', 'english', 'science', 'physics', 'chemistry', 'biology', 'communication', 'mechinacal', 'electronics', 'electrical', 'civil'];
+    if (valid_sub.find(element => element.localeCompare(req.body['subject'])).localeCompare(req.body['subject']) == 0) { return res.send("invalid books subject"); }
+    var book_pre_index=0;
+    var sql_sub_index = "select book_id from book where subject='" + req.body['subject'] + "' order by book_id desc limit 1";
+    con.query(sql_sub_index, (error, result) => {
+        if (error) { console.log(error); return res.send("book submition failed"); }
+        else{
+            if (result == 0) { book_pre_index = 0; }
+            else { book_pre_index = parseInt(result[0]['book_id'].slice(2))+1; }
+        const sub_acro = ['mh', "en", 'sc', 'py', 'ch', 'bo', 'cm', 'me', 'ec', 'et', 'cl'];
+        var book_id_generated = " ('"+sub_acro[valid_sub.indexOf(req.body['subject'])]+String(book_pre_index)+"'"+',';
 
 
-    //book id generator
+        var book_parms = Object.keys(req.body);
+        book_parms.pop('signin');
+        var sql = 'insert into book ( book_id,', sql_values = book_id_generated;
+        for (i=0;i<book_parms.length;i++) {
+            if (req.body[book_parms[i]] !== ''){
+                if(book_parms[i] !=='edition'){
+                sql = sql + book_parms[i] + ',';
+                sql_values = sql_values + "'"+req.body[book_parms[i]] +"'"+ ",";
+            }
+        else{
+            sql = sql + book_parms[i] + ',';
+            sql_values = sql_values + req.body[book_parms[i]] + ",";
+        
+        }
 
-    // console.log(req.user.username);
-    // var sql = `INSERT INTO book VALUEs ("${req.body.id}","${req.body.title}", "${req.body.subject}",${req.body.year},"${req.body.author}",${req.user})`;
-    // con.query(sql, (err, result) => {
-    // if (err) console.log(err);
+        
+        }
+        }
+sql = sql + "owner_id,";
+sql_values = sql_values + "'"+req.user[0].user_id+"',";
 
-    console.log("1 record inserted");
-    console.log(req.session.passport);
-    res.send(200);
-    console.log(req.user);
-    // });
+        sql = sql.slice(0, sql.length - 1) + ') values' + sql_values.slice(0, sql_values.length - 1) + ')';
+    
+        con.query(sql, (error, result) => {
+
+            if (error) { console.log(error); }
+            else { console.log("book donated!!!");res.send("sucess"); }
+
+        });
+    }
+    });
 
 });
 
@@ -82,7 +113,7 @@ Router.get("/api/book/hint", (req, res) => {
 
 Router.get("/recent_books/", (req, res) => {
     if (req.query.index) {
-        con.query(`SELECT * FROM book order by donated_on desc limit ${req.query.index},${ req.query.index + 12}`, (err, result, fields) => {
+        con.query(`SELECT * FROM book order by donated_on desc limit ${req.query.index},${req.query.index + 12}`, (err, result, fields) => {
             if (err) console.log(err);
             res.json({ "recent_books": result });
         });
@@ -95,10 +126,6 @@ Router.get("/recent_books/", (req, res) => {
     }
 
 });
-
-
-
-
 //------------------------------------------not used ----------------------------------------//
 //to update data
 Router.put("/api/book/:id/:name/:year", (req, res) => {
@@ -126,13 +153,6 @@ Router.delete("/api/book/:id", (req, res) => {
         });
     });
 });
-
-
-
-
-
-
-
 
 module.exports = Router;
 
