@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="css/book_search/style.css">
     <link rel="stylesheet" href="css/book_search/imported_css.css">
+    <link rel="stylesheet" type="text/css" href="css/index/multirange.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
@@ -15,32 +17,50 @@
 </head>
 
 <body style="background-color: #f8f8f8;">
+    <!-- <div style=""> -->
+
     <div class="main" style="padding:20px ">
-        <section class="sign-in" style="padding: 0px;">
+        <div class="sign-in" style="padding: 0px;">
             <div class="container" style="padding: 0px;">
                 <div class="signin-content" style="padding-top:20px;">
-                    <div class="signin-form" style="position: relative;
-                    padding-left: 20%;">
-                        <h2 class="form-title" style="    margin-bottom: 33px;
-                        align-items: center;
-                        align-self: center;
-                        padding-left: 0%;">Book Search</h2>
-                        <div class="search">
-                            <input name="title" id="search-book-title" list="suggestion" type="text" class="searchTerm"
-                                placeholder="What are you looking for?" value="sdfas">
-                            <datalist id="suggestion">
-                                <!--- option will be loaded with using api --->
-                            </datalist>
-                            <button type="submit" class="searchButton"
-                                style="border: 1px solid black; background:black">
-                                <i class="fa fa-search"></i>
-                            </button>
+                    <form method="POST" action="/mysql/advance_search">
+                        
+                        
+                        <div style="width:auto;">
+                            <div style="display:inline-block ;margin: auto ; width: 10%;">
+                                <input style="display:block ;margin-top: 15px;" type='checkbox'>
+                                <input style="display: block;margin-top: 15px;" type='checkbox'>
+                                <input style="display: block;margin-top: 15px;" type='checkbox'>
+                                <input style="display: block;margin-top: 15px;" type='checkbox'>
+                                <input style="display: block;margin-top: 15px;" type='checkbox'>
+                                <input style="display: block;margin-top: 15px;" type='checkbox'>
+                            </div>
+                            <div style="display:inline-block; width: 40%;">
+                                <p>word-containing</p>
+                                <p>donation_day</p>
+                                <p>owner</p>
+                                <p>subject</p>
+                                <p>publisher</p>
+                            </div>
+                            <div style="display:inline-block; width: 40%;">
+                                <input style="display: block; line-height:10px; " name="book_title" type='text'>
+                                <input id="slider" style="display: block; line-height:10px;" name="edition" type='range' min='1' max='15'>
+                                <p id="value_slider"></p>
+                                <input style="display: block; line-height:10px;" name="donation_day" type='datetime'>
+                                <input style="display: block; line-height:10px;" name="owner" type='text'>
+                                <input style="display: block; line-height:10px;" name="subject" type='text'>
+                                <input style="display: block; line-height:10px;" name="publisher" type='text'>
+                            </div>
                         </div>
-                        <div id="data_display"></div>
-                    </div>
+                        <button type="submit">find book</button>
+                    </form>
                 </div>
             </div>
-        </section>
+
+
+
+    </div>
+    </section>
     </div>
 </body>
 <script src="js/book_search/book-search.js"></script>

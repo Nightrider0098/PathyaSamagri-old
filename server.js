@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var MySQLStore = require('express-mysql-session')(session);
- 
+
 var options = {
     host: 'localhost',
     port: 3306,
@@ -27,9 +27,9 @@ var options = {
     password: '',
     database: 'book_store'
 };
- 
+
 var sessionStore = new MySQLStore(options);
- 
+
 app.use(session({
     key: 'session_cookie_name',
     secret: 'session_cookie_secret',
@@ -49,10 +49,9 @@ require("./passport")(passport);
 //middle ware to be used for checking if used is already logged in and trying to used signin or signup form
 function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
-        console.log(req.user.usr_nm, " has logged");
+        console.log(req.user[0].username, " has requested ");
         return next();
-    }
-    else 
+    } else
         res.redirect("/login");
 };
 
@@ -60,16 +59,16 @@ function checkAuthenticated(req, res, next) {
 function checkNotAuthenticated(req, res, next) {
     if (req.isAuthenticated())
         return res.send("your are already authenticated");
-    else next();    
+    else next();
 };
 
 
-app.get("/", (req, res) => {  res.sendFile(path.resolve(__dirname, "View", "index.html"));});
+app.get("/", (req, res) => { res.sendFile(path.resolve(__dirname, "View", "index.html")); });
 
 
 //dont used (req,res)=>{passport.authenticat()} will cause an error
 app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/login_fail' }),
-    function (req, res) {
+    function(req, res) {
         res.redirect('/bookentry');
         console.log(req.user);
 
@@ -77,61 +76,58 @@ app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/l
 );
 
 
-app.get("/logout",checkAuthenticated, (req, res) => { 
+app.get("/logout", checkAuthenticated, (req, res) => {
     con.query(`delete  FROM sessions where session_id ="${req.cookies.session_cookie_name.slice(2,32+2)}"`, (err, result, fields) => {
 
         if (err) {
             console.log(err);
             res.send(err);
-        }
-
-        else {
-            console.log("user with cookes",req.cookies.session_cookie_name.slice(2,32+2)," logged out");
+        } else {
+            console.log("user with cookes", req.cookies.session_cookie_name.slice(2, 32 + 2), " logged out");
             res.redirect("/");
 
         }
-    });  });
+    });
+});
 
 
-  //to be used only in development mode  
-    app.get("/clr", (req, res) => { 
-        con.query(`delete  FROM sessions`, (err, result, fields) => {
-    
-            if (err) {
-                console.log(err);
-                res.send(err);
-            }
-    
-            else {
-                 res.send("all clear");
-    
-            }
-        });  });
+//to be used only in development mode  
+app.get("/clr", (req, res) => {
+    con.query(`delete  FROM sessions`, (err, result, fields) => {
+
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            res.send("all clear");
+
+        }
+    });
+});
 
 
 //all login signup routes
 
-app.use("/book_entry/",checkAuthenticated, (req, res, next) => {
+app.use("/book_entry/", checkAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "View", "book_entry.html"));
 });
 
 
 
 
-app.use("/signup/",checkNotAuthenticated, (req, res, next) => {
+app.use("/signup/", checkNotAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "View", "signup.html"));
 });
-app.use("/signup_fail/",checkNotAuthenticated, (req, res, next) => {
+app.use("/signup_fail/", checkNotAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "View", "signup_fail.html"));
 });
 
-app.use("/login/",checkNotAuthenticated, (req, res, next) => {
+app.use("/login/", checkNotAuthenticated, (req, res, next) => {
     console.log(req.user);
     res.sendFile(path.resolve(__dirname, "View", "login.html"));
 });
 
-
-app.use("/login_fail/",checkNotAuthenticated, (req, res, next) => {
+app.use("/login_fail/", checkNotAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "View", "login_fail.html"));
 });
 
@@ -152,13 +148,8 @@ app.use("/bookentry/", checkAuthenticated, (req, res) => {
     res.sendFile(path.resolve(__dirname, "View", "book_entry.html"));
 });
 
-
-
-app.use("/homepage/s", (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "View", "userhomepage.html"));
+app.use("/profile/", checkAuthenticated, (req, res) => {
+    res.sendFile(path.resolve(__dirname, "View", "user-profile.html"));
 });
 
-
-
 app.listen(port, () => { console.log(`listining on port ${port}`); });
-

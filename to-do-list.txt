@@ -1,8 +1,11 @@
-1. user authentication
-2. all html pages
-3. mysql queries
+usefull code for mysql
+
+
+
+
+
+
 4. online compatiblilty
-5. books database
 6. use authentication using google
 7. mobile app
 8. 

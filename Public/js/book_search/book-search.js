@@ -5,6 +5,7 @@
 //search for books with title
 
 $(document).ready(function () {
+  
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -48,7 +49,7 @@ $(document).ready(function () {
 
 
                         for (j = 1; j < Object.values(result_JSON['book_find'][i]).length; j++) {
-                            table +='<th class="column1">';
+                            table += '<th class="column1">';
                             table += Object.values(result_JSON['book_find'][i])[j];
                             table += "</td>";
                         }
@@ -61,8 +62,8 @@ $(document).ready(function () {
 
 
                     $("#data_display").html(table);
-                    $("head").html($('head').html()+styles);
-                    
+                    $("head").html($('head').html() + styles);
+
                 }
             }
         }
@@ -87,4 +88,15 @@ $(document).ready(function () {
             xhttp.send();
         }
     });
+
+//for updating range for edition
+$("#slider").on('change',function () {
+    $('#value_slider').html($('#slider').val());
+})
+$('#value_slider').html($("#slider").val())
+
+
+
+
+
 });

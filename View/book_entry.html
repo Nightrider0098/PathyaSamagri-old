@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Log in </title>
-    <link rel="stylesheet" href="./../Public/fonts/material-icon/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="./../Public/css/book_entry/style.css">
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/book_entry/style.css">
     <!-- <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script> -->
 </head>
 
@@ -18,21 +18,19 @@
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="./../Public/images/book_entry/signin-image.jpg" alt="sing up image"></figure>
-                       </div>
+                        <figure><img src="images/book_entry/signin-image.jpg" alt="sing up image"></figure>
+                    </div>
 
                     <div class="signin-form">
                         <h2 class="form-title">Book Entry</h2>
                         <form method="POST" class="register-form" id="login-form" action="/mysql/book_entry">
                             <div class="form-group">
                                 <label for="book_title"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" required="required" name="title" id="book_title"
-                                    placeholder="Book Title" />
+                                <input type="text" required="required" name="title" id="book_title" placeholder="Book Title" />
                             </div>
                             <div class="form-group">
                                 <label for="author"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="author" required="required" id="book-author"
-                                    placeholder="Author" />
+                                <input type="text" name="author" required="required" id="book-author" placeholder="Author" />
                             </div>
 
                             <div class="form-group">
@@ -61,14 +59,14 @@
 
                         </form>
 
-                       
+
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <script src="./../Public/js/book_entry/book_entry.js"></script>
+    <script src="js/book_entry/book_entry.js"></script>
 
 </body>
 
