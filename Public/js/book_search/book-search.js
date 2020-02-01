@@ -5,95 +5,50 @@
 //search for books with title
 
 $(document).ready(function () {
-  
+
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var result_JSON = JSON.parse(xhttp.response);
 
-            if (Object.keys(result_JSON)[0] == "hint_find") {
+            if (Object.keys(result_JSON)[0] == "book_find") {
 
-                var suggestion_list = "";
-                for (i = 0; i < Object.values(result_JSON)[0].length; i++) {
-
-                    suggestion_list = suggestion_list.concat(`<option value="${Object.values(result_JSON)[0][i]}">`)
-                    // suggestion_list = suggestion_list.concat(Object.values(result_JSON)[0][i]);
-
-                }
-
-                $("#suggestion").html(suggestion_list)
-
-            }
-            else if (Object.keys(result_JSON)[0] == "book_find") {
                 if (result_JSON['book_find'] == 0) {
                     alert("no such book");
                 }
-
                 else {
-                    var styles = '<link rel="stylesheet" type="text/css" href=" /css/util.css"><link rel="stylesheet" type="text/css" href=" /css/main.css">';
-                    var table = '<div class="limiter"><div class="container-table100"><div class="wrap-table100"><div class="table100"><table>';
-                    table += '<thread><tr class="table100-head">';
 
-                    for (j = 0; j < Object.keys(result_JSON['book_find'][0]).length; j++) {
-                        //to edit no of coloumns
-                        table += '<th class="column1">';
-                        table += Object.keys(result_JSON['book_find'][0])[j];
-                        table += "</th>";
-
-
+                    for (i = 0; i < result_JSON['book_find'].length; i++) {
+                        
+                        book_tags = book_tags + '<div class="book-data" style="border-color: black ;border-width: 1px;border-style: solid;">' + `<img src="./images/logo.png"><h3>${Object.values(result_JSON['book_find'][i])[1]}</h3><h4>${Object.values(result_JSON['book_find'][i])[2]}</h4><h4>${Object.values(result_JSON['book_find'][i])[8]}</h4><div class="container"><div class="interior"><a class="btn" href="#open-modal${i}">more details</a></div></div></div>`;
                     }
-                    table += "</tr></thread>";
 
-                    for (i = 0; i < Object.keys(result_JSON['book_find']).length; i++) {
-                        table = table + "<tr>";
+                    for (j = 0; j < result_JSON['book_find'].length; j++) {
+                        book_display = book_display + `<div id="open-modal${j}" class="modal-window"><div><a href="#" title="Close" class="modal-close">Close</a>`;
+                        book_display = book_display + `  <img src=". /images/logo.png">`
 
-
-                        for (j = 1; j < Object.values(result_JSON['book_find'][i]).length; j++) {
-                            table += '<th class="column1">';
-                            table += Object.values(result_JSON['book_find'][i])[j];
-                            table += "</td>";
+                        for (i = 0; i < Object.keys(result_JSON['book_find'][1]).length; i++) {
+                            book_display = book_display + `<h3>${Object.keys(result_JSON['book_find'][j])[i]} ${Object.values(result_JSON['book_find'][j])[i]}</h3>`;
                         }
-
-                        table += "</tr>";
-
-
+                        book_display = book_display + "</div></div>";
                     }
-                    table += "</table></div></div></div></div>";
 
-
-                    $("#data_display").html(table);
-                    $("head").html($('head').html() + styles);
+                    $("body").html(book_tags + book_display);
 
                 }
+
+
+
             }
+
         }
     }
-    $("button").click(function () {
-        var data = $("#search-book-title").val();
-        xhttp.open("GET", "http://localhost:5400/mysql/api/book?title=" + data, true);
-        xhttp.send();
-    });
 
-
-    $("input").keyup((e) => {
-        if (e.keyCode == 13) {
-            var data = $("#search-book-title").val();
-            xhttp.open("GET", "http://localhost:5400/mysql/api/book?title=" + data, true);
-            xhttp.send();
-        }
-        else {
-
-            var input_string = $("input").val();
-            xhttp.open("GET", "http://localhost:5400/mysql/api/book/hint?title=" + input_string, true);
-            xhttp.send();
-        }
-    });
-
-//for updating range for edition
-$("#slider").on('change',function () {
-    $('#value_slider').html($('#slider').val());
-})
-$('#value_slider').html($("#slider").val())
+    // //for updating range for edition
+    // $("#slider").on('change',function () {
+    //     $('#value_slider').html($('#slider').val());
+    // })
+    // $('#value_slider').html($("#slider").val())
 
 
 

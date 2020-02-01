@@ -1,4 +1,5 @@
 const express = require("express");
+const flash = require('req-flash');
 const app = express();
 const path = require("path");
 //const mongoose_route = require("./Route/mongoose")   all routes are now according to mysql
@@ -10,6 +11,7 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const cookie_parser = require("cookie-parser");
 const passport = require('passport');
+
 // const multer = require("multer");
 app.use(express.static(path.join(__dirname, "\\Public\\")));
 
@@ -41,7 +43,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 //function containing login query
 require("./passport")(passport);
 
@@ -63,12 +64,35 @@ function checkNotAuthenticated(req, res, next) {
 };
 
 
+function checkAllDetails(req, res, next) {
+    sql = "select address,phone_no from user where username='" + req.user[0].username + "'";
+    con.query(sql, (err, result) => {
+        if ((result[0]['address'] == null && result[0]['phone_no'] == null)) {
+            res.redirect('/profile_info');
+        }
+        else
+            next();
+    });
+}
+
+
+
+
 app.get("/", (req, res) => { res.sendFile(path.resolve(__dirname, "View", "index.html")); });
+app.get("/profile_info", (req, res) => { res.sendFile(path.resolve(__dirname, "View", "profile_info.html")); });
+
+
+const fs = require('fs');
+
+app.get("/notif_user/",checkAuthenticated, (req, res) => {
+//file automatically gets close so no problem
+    fs.readFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/${req.user[0].username}.txt`, (err, data) => { res.json({"notif":data.toString()}); })
+});
 
 
 //dont used (req,res)=>{passport.authenticat()} will cause an error
 app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/login_fail' }),
-    function(req, res) {
+    function (req, res) {
         res.redirect('/bookentry');
         console.log(req.user);
 
@@ -77,7 +101,7 @@ app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/l
 
 
 app.get("/logout", checkAuthenticated, (req, res) => {
-    con.query(`delete  FROM sessions where session_id ="${req.cookies.session_cookie_name.slice(2,32+2)}"`, (err, result, fields) => {
+    con.query(`delete  FROM sessions where session_id ="${req.cookies.session_cookie_name.slice(2, 32 + 2)}"`, (err, result, fields) => {
 
         if (err) {
             console.log(err);
@@ -141,10 +165,10 @@ app.use("/book_search/", (req, res, next) => {
 });
 
 app.use("/book_advance/", (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "View" , "book-search-advance.html"));
+    res.sendFile(path.resolve(__dirname, "View", "book-search-advance.html"));
 });
 
-app.use("/bookentry/", checkAuthenticated, (req, res) => {
+app.use("/bookentry/", checkAuthenticated, checkAllDetails, (req, res) => {
     res.sendFile(path.resolve(__dirname, "View", "book_entry.html"));
 });
 

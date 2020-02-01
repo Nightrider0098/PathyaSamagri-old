@@ -7,7 +7,7 @@ $(document).ready(function () {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var result_JSON = JSON.parse(xhttp.response);
-var book_tags='',book_display='';
+            var book_tags = '', book_display = '';
             //search hint list
             if (Object.keys(result_JSON)[0] == "hint_find") {
 
@@ -30,17 +30,21 @@ var book_tags='',book_display='';
                 else {
 
                     for (i = 0; i < result_JSON['book_find'].length; i++) {
-                        console.log("yo");
-                        book_tags = book_tags + '<div class="book-data" style="border-color: black ;border-width: 1px;border-style: solid;">' + `<img src="./images/logo.png"><h3>${Object.values(result_JSON['book_find'][i])[1]}</h3><h4>${Object.values(result_JSON['book_find'][i])[2]}</h4><h4>${Object.values(result_JSON['book_find'][i])[8]}</h4><div class="container"><div class="interior"><a class="btn" href="#open-modal${i}">more details</a></div></div></div>`;
+                        if (result_JSON['book_find'][0]['available_now'] == 0)
+                            book_tags = book_tags + '<div class="book-data" style="border-color: red ;border-width: 1px;border-style: solid;">' + `<img src="./images/logo.png"><h3>${Object.values(result_JSON['book_find'][i])[1]}</h3><h4>${Object.values(result_JSON['book_find'][i])[2]}</h4><h4>${Object.values(result_JSON['book_find'][i])[8]}</h4><div class="container"><div class="interior"><a class="btn" href="#open-modal${i}">more details</a></div></div></div>`;
+                        else
+                            book_tags = book_tags + '<div class="book-data" style="border-color: black ;border-width: 1px;border-style: solid;">' + `<img src="./images/logo.png"><h3>${Object.values(result_JSON['book_find'][i])[1]}</h3><h4>${Object.values(result_JSON['book_find'][i])[2]}</h4><h4>${Object.values(result_JSON['book_find'][i])[8]}</h4><div class="container"><div class="interior"><a class="btn" href="#open-modal${i}">more details</a></div></div></div>`;
                     }
 
-                    for (j = 0; j < result_JSON['book_find'].length; j++) {
-                        book_display = book_display + `<div id="open-modal${j}" class="modal-window"><div><a href="#" title="Close" class="modal-close">Close</a>`;
-                        book_display = book_display + `  <img src=". /images/logo.png">`
+                    for (j = 0; j < Object.keys(result_JSON['book_find']).length; j++) {
+
+                        book_display = book_display + `<div id="open-modal${j}" class="modal-window"><div><a href="#"  title="Close" class="modal-close">Close</a>`;
+                        book_display = book_display + `  <img src="./images/logo.png">`
 
                         for (i = 0; i < Object.keys(result_JSON['book_find'][1]).length; i++) {
                             book_display = book_display + `<h3>${Object.keys(result_JSON['book_find'][j])[i]} ${Object.values(result_JSON['book_find'][j])[i]}</h3>`;
                         }
+
                         book_display = book_display + "</div></div>";
                     }
 
@@ -52,10 +56,16 @@ var book_tags='',book_display='';
             }
             //for initailly loading books details into html
             else if (Object.keys(result_JSON)[0] == "recent_books") {
-                book_tags ='';
-                book_display='';
+                book_tags = '';
+                book_display = '';
+                console.log(result_JSON);
+
+
                 for (i = 0; i < result_JSON['recent_books'].length; i++) {
-                    book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;border-width: 1px;border-style: solid;">' + `<img src="./images/logo.png"><h3>${Object.values(result_JSON['recent_books'][i])[1]}</h3><h4>${Object.values(result_JSON['recent_books'][i])[2]}</h4><h4>${Object.values(result_JSON['recent_books'][i])[8]}</h4><div class="container"><div class="interior"><a class="btn" href="#open-modal${i}">more details</a></div></div></div>`;
+                    if (result_JSON['recent_books'][0]['available_now'] == 0)
+                        book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: red ;border-width: 1px;border-style: solid;">' + `<img src="./images/logo.png"><h3>${Object.values(result_JSON['recent_books'][i])[1]}</h3><h4>${Object.values(result_JSON['recent_books'][i])[2]}</h4><h4>${Object.values(result_JSON['recent_books'][i])[8]}</h4><div class="container"><div class="interior"><a class="btn" href="#open-modal${i}">more details</a></div></div></div>`;
+                    else
+                        book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;border-width: 1px;border-style: solid;">' + `<img src="./images/logo.png"><h3>${Object.values(result_JSON['recent_books'][i])[1]}</h3><h4>${Object.values(result_JSON['recent_books'][i])[2]}</h4><h4>${Object.values(result_JSON['recent_books'][i])[8]}</h4><div class="container"><div class="interior"><a class="btn" href="#open-modal${i}">more details</a></div></div></div>`;
                 }
 
                 for (j = 0; j < result_JSON['recent_books'].length; j++) {
@@ -65,14 +75,11 @@ var book_tags='',book_display='';
                     for (i = 0; i < Object.keys(result_JSON['recent_books'][1]).length; i++) {
                         book_display = book_display + `<h3>${Object.keys(result_JSON['recent_books'][j])[i]} ${Object.values(result_JSON['recent_books'][j])[i]}</h3>`;
                     }
-                    book_display = book_display + "<button type='submit' class='fetch_details'>get the book</button></div></div>";
+                    book_display = book_display + `<form action='/mysql/book_booked' method='get' ><input hidden name='book_id' value="${Object.values(result_JSON['recent_books'][j])[0]}"><button type='submit' id='book${j}' class='fetch_details'>get the book</button></form></div></div>`;
                 }
+
                 $("#book-data-holders").html(book_tags + book_display);
-                $(".fetch_details").click(function(){
-                    console.log($(this));
-                    xhttp.open("GET","http://localhost:5400/mysql/user_details?owner_id=" +$(this).parentElement.children[7].textContent.slice(9) +"'",true);
-                    xhttp.send();
-                });
+                
 
             }
 
@@ -102,14 +109,14 @@ var book_tags='',book_display='';
             xhttp.send();
         }
     });
-    
-    var book_index =0;
-    $("#next").on('click',()=>{
-        book_index = book_index+12;
+
+    var book_index = 0;
+    $("#next").on('click', () => {
+        book_index = book_index + 12;
         xhttp.open("GET", "http://localhost:5400/mysql/recent_books?index=" + book_index, true);
         xhttp.send();
     });
-    
+
 
 
 

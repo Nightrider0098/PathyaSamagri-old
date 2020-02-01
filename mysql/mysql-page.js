@@ -1,10 +1,17 @@
-//in REST architechure we use post method  to insert data
+const fs = require('fs');
 const express = require("express");
 const con = require("./mysql-connection");
 const Router = express.Router();
 const joi = require("joi");
 const uuidv1 = require("uuid/v1");
 //assuming that uuid is unique for each user
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        console.log(req.user[0].username, " has requested ");
+        return next();
+    } else
+        res.redirect("/login");
+};
 
 
 Router.post("/api/login/new_user/", (req, res, next) => {
@@ -25,6 +32,7 @@ Router.post("/api/login/new_user/", (req, res, next) => {
         }
     });
 });
+
 
 
 //new book registration
@@ -112,8 +120,8 @@ Router.get("/api/book/hint", (req, res) => {
     });
 });
 
-Router.post("/advance_book_Search",(req,res)=>{
-console.log(req.body,req.query);
+Router.post("/advance_book_Search", (req, res) => {
+    console.log(req.body, req.query);
 
 
 
@@ -124,7 +132,7 @@ Router.get("/recent_books/", (req, res) => {
         con.query(`SELECT * FROM book order by donated_on desc limit ${req.query.index},12`, (err, result, fields) => {
             if (err) console.log(err);
             res.json({ "recent_books": result });
-            console.log('sent 12 books',`SELECT * FROM book order by donated_on desc limit ${req.query.index},${parseInt(req.query.index) + 12}`);
+            console.log('sent 12 books', `SELECT * FROM book order by donated_on desc limit ${req.query.index},${parseInt(req.query.index) + 12}`);
         });
     } else {
         con.query(`SELECT * FROM book order by donated_on desc limit 12`, (err, result, fields) => {
@@ -161,35 +169,95 @@ Router.get("/user_books/", (req, res) => {
 
 });
 
+Router.post("/advance_search", (req, res) => {
+    var sql = 'select * from book where ';
+    var all_options = Object.keys(req.body);
+    sql += `donated_on >= '${req.body['donation_from']}' `
+    if (req.body['donation_to'])
+        sql += `and donated_on < '${req.body['donation_to']}' `;
 
-// //to show books with advance feature
-// Router.get("/book/advance/", (req, res) => {
-//     con.query(`SELECT * FROM book where title ="${req.query.title}"`, (err, result, fields) => {
-//         if (err) console.log(err);
-// sql ='SELECT * FROM book where ';
-//         if(req.query['word_containing'] !=='')
-// sql = sql+ "title like '*"+req.query['word_containing']+"*' ";
-// if(req.query['edition_range']!=='')
-// sql = sql + "edition >=" + req.query['edition_range'];
-// if(req.query['owner'] !== '')
-// sql = sql + "subject in ("+ req.query[] 
-        
+    if (req.body['book_title'] != '')
+        sql += ` and title like "%${req.body['book_title']}%"`;
+    sql += `and edition >= ${req.body['lower_edition']} and edition < ${req.body['upper_edition']} `;
+    if (req.body['owner'])
+        sql += `and owner_id = '${req.body['owner']}' `;
+    if (req.body['publisher'])
+        sql += `and publisher = "${req.body['publisher']}"`;
+    if (req.body['subject'])
+        sql += `and subject = "${req.body['subject']}" `
+    con.query(sql, (err, result, fields) => {
+        res.send(result);
 
-//         // res.json({ "book_find": result });
-//     });
-// });
-
-
-Router.post("/advance_search",(req,res)=>{
-console.log(req.body);
-
-
+    });
 
 });
 
+Router.get("/book_booked", checkAuthenticated,(req, res) => {
+
+    sql = "select book_issued from user where username='" + req.user[0].username + "'";
+    con.query(sql, (err, result) => {
+        var book_issued_by_user = result[0]['book_issued'] ; 
+        if (book_issued_by_user < 4) {
+            sql = "select available_now from book where book_id ='" + req.query['book_id'] + "'";
+            con.query(sql, (err, result_) => {
+                if (err) res.send(err);
+                if (result_[0]['available_now'] == '0')
+                    res.send("already reffered sorry");
+                else {
+
+                    sql = "update book set available_now =0 where book_id='" + req.query['book_id'] + "'";
+                    con.query(sql, (err, result) => {
+                        if (err) res.send(err);
+                        else
+                            sql = "select owner_id,Book_id,title from book where book_id ='" + req.query['book_id'] + "'";
+                        con.query(sql, (err, result_) => {
+                            if (err) res.send(err);
+                        
+                        //writing into notify file
+                            fs.appendFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/${result_[0]['owner_id']}.txt`, "/r/n your book with name "+result_[0]['title']+" and id "+result_[0]['Book_id'],(err)=>{ console.log("saved");});
+                        
 
 
 
+                            sql = "select address,phone_no,username from user where user_id='" + result_[0]['owner_id'] + "'";
+                            con.query(sql, (err, result__) => {
+                                if (err) res.send(err);
+                                res.send(result__);
+                            })
+
+                        })
+//updating user issued books
+                        con.query("update user set book_issued="+(book_issued_by_user+1)+" where username='"+req.user[0].username+"'",(err,result)=>{
+                            if(err)console.log(err);
+                        
+                        
+                        });
+
+
+
+                    })
+                }
+            })
+        
+
+        }
+        else
+            res.send("already issued 4 books!!!");
+
+
+
+    })
+    console.log(req.query['book_id']);
+});
+
+Router.post("/update_user", (req, res) => {
+    sql = "update user set address='" + req.body['address'] + "' ,phone_no = '" + req.body['phone'] + "' where username='" + req.user[0].username + "'";
+    con.query(sql, (err, result) => {
+        res.redirect("/profile");
+
+    });
+
+});
 
 //to remove data
 //authentication is to be checked
@@ -209,21 +277,6 @@ Router.delete("/delete/:title", (req, res) => {
 
     });
 });
-
-//------------------------------------------not used ----------------------------------------//
-//to update data
-Router.put("/api/book/:id/:name/:year", (req, res) => {
-    con.connect(function (err) {
-        if (err) return err;
-        var sql = `UPDATE book SET name = ${req.body.name} WHERE id = ${req.body.id}`;
-        con.query(sql, function (err, result) {
-            if (err) return err;
-            console.log(result.affectedRows + " record(s) updated");
-        });
-    });
-
-});
-
 
 
 module.exports = Router;
