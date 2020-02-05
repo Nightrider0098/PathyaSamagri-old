@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up </title>
-    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="css/signup/style.css">
-    <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+    <link rel="stylesheet" href="../fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="../css/signup/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/common/nav.css">
 
 </head>
 
@@ -38,12 +38,18 @@
         <section class="signup" style="margin-bottom: 50px;">
             <div class="container">
                 <div class="signup-content">
-                    <p>your books is regist</p>
+                    <div style="text-align: left; margin :auto;">
+                    <h1>Booking Confirm</h1>
+                    <p >address of owner of book:-  <%= address %></p>
+                    <p>phone no of owner :- <%= phone_no%></p>
+                    <p>owner name is <%= username%></p>
+                    <p></p>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
-    <script src="js/signup/signup.js"></script>
+    <script src="../js/signup/signup.js"></script>
 </body>
 
 </html>

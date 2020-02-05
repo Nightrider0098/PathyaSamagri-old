@@ -8,9 +8,31 @@
     <title>Log in </title>
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="css/login/style.css">
+    <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+
 </head>
 
 <body>
+    <div class="navbar">
+        <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
+        <a href="/" style="height: 58px;">
+          <h2 class="form-title"  style="color: white;" >Book Search</h2>
+        </a>
+        <div class="dropdown" style="height: 58px;">
+          <button class="dropbtn">Profile
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="/logout">logout</a>
+            <a href="/profile">Profile</a>
+            <a href="/book_entry">book entry</a>
+            <!-- <a href="/"></a> -->
+            <a href="/">index</a>
+          </div>
+        </div>
+      </div>
+
+
 
     <div class="main">
         <section class="sign-in">

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Log in </title>
+    <title>Book Edit</title>
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="css/book_entry/style.css">
     <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
@@ -13,7 +13,8 @@
 
 </head>
 
-<body style="margin: 0;padding:0;">
+<body>
+
     <div class="navbar">
         <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
         <a href="/" style="height: 58px;">
@@ -43,35 +44,41 @@
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title">Book Entry</h2>
-                        <form method="POST" class="register-form" id="login-form" action="/mysql/book_entry">
+                        <h2 class="form-title">Book UPDATE</h2>
+                        <form method="post" class="register-form" id="login-form" action="/mysql/book_update">
+                            
+                            <div class="form-group">
+                                <label for="book_id"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" readonly required="required"  name="book_id" id="book_id" placeholder="Book Title" value=<%= Book_id %> />
+                            </div>
+                            
                             <div class="form-group">
                                 <label for="book_title"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" required="required" name="title" id="book_title" placeholder="Book Title" />
+                                <input type="text" required="required" name="title" id="book_title" placeholder="Book Title" value="<%= title%>" />
                             </div>
                             <div class="form-group">
                                 <label for="author"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="author" required="required" id="book-author" placeholder="Author" />
+                                <input type="text" name="author" required="required" id="book-author" placeholder="Author" value="<%=author%>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="Publisher"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="publisher" id="book-publisher" placeholder="Publisher" />
+                                <input type="text" name="publisher" id="book-publisher" placeholder="Publisher" value="<%=publisher%>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="edition"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="number" name="edition" id="book-edition" placeholder="Edition" />
+                                <input type="number" name="edition" id="book-edition" placeholder="Edition" value="<%= edition %>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="year"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="for_year" id="book-ref-year" placeholder="For year" />
+                                <input type="text" name="for_year" id="book-ref-year" placeholder="For year" value="<%=for_year%>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="subject"><i class="zmdi zmdi-lock"></i></label>
-                                <input name="subject" list="subjects id="book-subject" placeholder="Subject" />
+                                <input name="subject" list="subjects" id="book-subject" placeholder="Subject" value="<%= subject %>" />
                             
 
                                 <datalist id="subjects">
@@ -87,7 +94,7 @@
                             </div>
 
                             <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Donate" />
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="UPDATE" />
                             </div>
 
                         </form>
@@ -98,9 +105,7 @@
             </div>
         </section>
     </div>
-
-    <!-- <script src="js/book_entry/book_entry.js"></script> -->
-
 </body>
 
+<script src="js/jquery-3.4.1.js"></script>
 </html>

@@ -1,0 +1,114 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed|Dosis&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow&display=swap" rel="stylesheet" alt>
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
+    <!-- <link href="css/common/ind_book.css" rel="alternate stylesheet" type="text/css" title="alt-font1"> -->
+<link rel="stylesheet" href="./indiv-book.css">
+
+
+</head>
+
+<body style="background-color: rosybrown;">
+    <div id="wrapper">
+        <div class="close-holder">
+            <a href="#wrapper" title="Close" class="modal-close"><i class="fas fa-times" title="close"></i>
+            </a>
+        </div>
+
+        <div id="data-flexbox">
+            <div id="img-wrapper">
+                <img style="max-width:100%" src="./logo.jpg" alt="never mine">
+            </div>
+            <div class="text-data-container">
+                <div class="book-chr-holder">
+                    <h3 class="keys">Booksasgsdgfsid </h3>
+                    <h3 class="values">py2adf</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">title </h3>
+                    <h3 class="values">dinsesfsdafas</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">author </h3>
+                    <h3 class="values">jk</h3 class="keys" class="values">
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">publisher </h3>
+                    <h3 class="values">jisad</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">edition</h3>
+                    <h3 class="values">lold1</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">owner_id </h3>
+                    <h3 class="values">hitesh</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">donated_on </h3>
+                    <h3 class="values">2020-02-01</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">available_now</h3>
+                    <h3 class="values"> 1</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">for_year </h3>
+                    <h3 class="values">first</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">subject </h3>
+                    <h3 class="values">physics</h3>
+                </div>
+                <div class="book-chr-holder">
+                    <h3 class="keys">donated_to </h3>
+                    <h3 class="values">not_specified</h3>
+                </div>
+                <div class='book-chr-holder'>
+                    <div id="button-holder">
+                        <form class="btn-frm" action="/book_edit" method="GET">
+                            <input type="text" name="book_id" value="py262" hidden="">
+                            <button type="submit" class="learn-more">
+                                <span class="circle" aria-hidden="true">
+                                    <span class="icon arrow"></span>
+                                </span>
+                                <span class="button-text">Update</span>
+                            </button>
+
+                        </form>
+                        <form class="btn-frm" action="/mysql/delete/dinses" method="DELETE">
+                            <button type="submit" class="learn-more">
+                                <span class="circle" aria-hidden="true">
+                                    <span class="icon arrow"></span>
+                                </span>
+                                <span class="button-text">Delete</span>
+                            </button>
+    
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+
+<script>
+    console.log(document.fullscreen.valueOf());
+    var height = window.screen.height;
+    var width = window.screen.width;
+    if (width > 900)
+        document.getElementById("wrapper").setAttribute("style", "top : calc(50% - " +
+            document.getElementById("wrapper").clientHeight / 2 + "px );");
+</script>
+
+</html>

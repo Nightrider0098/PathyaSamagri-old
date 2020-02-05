@@ -1,11 +1,11 @@
+
+const fs = require('fs')
 const express = require("express");
 const flash = require('req-flash');
 const app = express();
 const path = require("path");
-//const mongoose_route = require("./Route/mongoose")   all routes are now according to mysql
 const mysql_route = require("./mysql/mysql-page");
 const con = require("./mysql/mysql-connection");
-
 const port = process.env.PORT || 5400;
 const bodyParser = require("body-parser");
 const session = require('express-session');
@@ -14,6 +14,7 @@ const passport = require('passport');
 
 // const multer = require("multer");
 app.use(express.static(path.join(__dirname, "\\Public\\")));
+app.set('view engine', 'ejs');
 
 app.use(cookie_parser());
 // app.use(multer);     used for uploadin multipart/form-data in forms like videos etc
@@ -45,6 +46,9 @@ app.use(passport.session());
 
 //function containing login query
 require("./passport")(passport);
+
+
+
 
 
 //middle ware to be used for checking if used is already logged in and trying to used signin or signup form
@@ -81,19 +85,33 @@ function checkAllDetails(req, res, next) {
 app.get("/", (req, res) => { res.sendFile(path.resolve(__dirname, "View", "index.html")); });
 app.get("/profile_info", (req, res) => { res.sendFile(path.resolve(__dirname, "View", "profile_info.html")); });
 
+app.get("/book_edit/", (req, res) => {
+    var sql = "select * from book where book_id ='" + req.query['book_id'] + "'";
+    // res.send("re");
+    con.query(sql, (err, result) => {
 
-const fs = require('fs');
+        //   console.log(err,result[0],sql,path.resolve(__dirname, "View", "book_edit.ejs"));
+        res.render(path.resolve("View", "book_edit.ejs"), result[0]);
+        console.log(result[0]);
+    })
+});
 
-app.get("/notif_user/",checkAuthenticated, (req, res) => {
-//file automatically gets close so no problem
-    fs.readFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/${req.user[0].username}.txt`, (err, data) => { res.json({"notif":data.toString()}); })
+
+
+
+
+
+
+app.get("/notif_user/", checkAuthenticated, (req, res) => {
+    //file automatically gets close so no problem
+    fs.readFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/${req.user[0].username}.txt`, (err, data) => { res.json({ "notif": data.toString() }); })
 });
 
 
 //dont used (req,res)=>{passport.authenticat()} will cause an error
 app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/login_fail' }),
     function (req, res) {
-        res.redirect('/bookentry');
+        res.redirect('/');
         console.log(req.user);
 
     }
@@ -132,13 +150,6 @@ app.get("/clr", (req, res) => {
 
 //all login signup routes
 
-app.use("/book_entry/", checkAuthenticated, (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "View", "book_entry.html"));
-});
-
-
-
-
 app.use("/signup/", checkNotAuthenticated, (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "View", "signup.html"));
 });
@@ -164,11 +175,8 @@ app.use("/book_search/", (req, res, next) => {
     res.sendFile(path.resolve(__dirname, "View", "book-search.html"));
 });
 
-app.use("/book_advance/", (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, "View", "book-search-advance.html"));
-});
 
-app.use("/bookentry/", checkAuthenticated, checkAllDetails, (req, res) => {
+app.use("/book_entry/", checkAuthenticated, checkAllDetails, (req, res) => {
     res.sendFile(path.resolve(__dirname, "View", "book_entry.html"));
 });
 
@@ -176,4 +184,28 @@ app.use("/profile/", checkAuthenticated, (req, res) => {
     res.sendFile(path.resolve(__dirname, "View", "user-profile.html"));
 });
 
+app.use("/user_noti/", (req, res) => {
+
+    fs.readFile("C:/Users/SAMSUNG/Desktop/mongodb_project/noti/" + req.user[0]['user_id'] + ".txt", (err, data) => {
+        if(data == undefined)
+        res.send({ "user_noti": '{}' });
+        else
+        res.send({'user_noti': data});
+
+    })
+});
+
+app.get("/user_details/", (req, res) => {
+
+    res.json({ "username": req.user[0]['user_id'],'address' : req.user[0]['address'], 'email': req.user[0]['email'], "phone_no": req.user[0]['phone_no'], 'book_issued': req.user[0]['book_issued'], 'book_donated': req.user[0]['book_donated'], "book_issued": req.user[0]['book_issued'] });
+
+})
+
+app.get('*', function (req, res) {
+    res.sendFile(path.resolve(__dirname, "View", "err_404.html"));
+});
+
+
 app.listen(port, () => { console.log(`listining on port ${port}`); });
+
+

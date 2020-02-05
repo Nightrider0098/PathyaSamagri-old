@@ -2,134 +2,99 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="css/index/index.css">
-    <link rel="stylesheet" type="text/css" href="css/index/multirange.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="css/common/indiv-book.css">
+
+  <link rel="stylesheet" type="text/css" href="css/index/index.css">
+  <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+
+  <link rel="stylesheet" type="text/css" href="css/index/multirange.css">
+  <title>Document</title>
 
 </head>
 
-<style>
-    
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-}
-
-
-.navbar a {
-  float: left;
-  font-size: 16px;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-.dropdown {
-  float: right;
-  overflow: hidden;
-  padding-top: inherit;
-  padding-bottom: ;
-  padding-right: 12px;
-}
-
-.dropdown .dropbtn {
-  font-size: 16px;  
-  border: none;
-  outline: none;
-  color: white;
-  padding: 14px 16px;
-  background-color: inherit;
-  font-family: inherit;
-  margin: 0;
-}
-
-.navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-</style>
 
 <body style="background-color: #ffffff;">
-    <div class="navbar">
-        <a href="#home">  <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
-        <a href="#news" style="height: 58px;"><h2 class="form-title">Book Search</h2></a>
-        <div class="dropdown" style="height: 58px;">
-          <button class="dropbtn">Profile 
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="/logout">logout</a>
-            <a href="/profile">Profile</a>
-            <a href="/book_entry">book entry</a>
-          </div>
-        </div> 
+  <div class="navbar">
+    <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
+    <a href="/" style="height: 58px;">
+      <h2 class="form-title">Book Search</h2>
+
+    </a>
+    <div class="dropdown" style="height: 58px;">
+      <button class="dropbtn">Profile
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/logout">logout</a>
+      <a href="/">index</a>
+        <a href="/profile">Profile</a>
+        <a href="/book_entry">book entry</a>
+        <!-- <a href="/"></a> -->
+
       </div>
-      
-
-    </section>
-
-    <section class="search_bar">
-        <div class="search">
-            <input name="title" id="search-book-title" list="suggestion" type="text" class="searchTerm"
-                placeholder="What are you looking for?" value="sdfas">
-            <datalist id="suggestion">
-                <!--- option will be loaded with using api --->
-            </datalist>
-            <button type="submit" class="searchButton" id="book_search-button"
-                style="border: 1px solid black; background:black">
-                <i class="fa fa-search">search</i>
-            </button>
-            <button type="submit" id="advance-button"><a href="/book_search">advance
-                    search</a></button>
-
-        </div>
-    </section>
+    </div>
+  </div>
 
 
-    <section class="data " style="justify-content: center; margin-top: 10px;">
-       
-        <!-- to be built using js-->
-        <div id="book-data-holders" style="display: flex; flex-wrap:wrap;justify-content: center;">
+  <section class="search_bar">
+    <div class="search">
+      <input name="title" id="search-book-title" list="suggestion" type="text" class="searchTerm"
+        placeholder="What are you looking for?" value="sdfas">
+      <datalist id="suggestion">
+        <!--- option will be loaded with using api --->
+      </datalist>
+      <button type="submit" class="searchButton" id="book_search-button"
+        style="border: 1px solid black; background:black">
+        <i class="fa fa-search">search</i>
+      </button>
+      <button type="submit" id="advance-button"><a href="/book_search">advance
+          search</a></button>
+
+    </div>
+  </section>
+
+
+  <section class="data " style="justify-content: center; margin-top: 10px;">
+
+    <!-- to be built using js-->
+    <div id="book-data-holders" style="display: flex; flex-wrap:wrap;justify-content: center;">
 
 
 
-        </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- <section type=footer> -->
-    <button type="submit" id="next"> next</button>
-    <!-- </section> -->
+  <!-- <section type=footer> -->
+    <div style="margin: auto; align-items: center;" >
+  <button type="submit" id="previous"> Previous</button>
+  <button type="submit" id="next"> Next</button>
+  </div>
+  <!-- </section> -->
 </body>
 <script src="js/jquery-3.4.1.js"></script>
 <script src="js/index/index.js"></script>
 
+<script>
+
+setTimeout(lam,200);
+function lam(){
+var height = window.screen.height;
+var width = window.screen.width;
+
+for(l=0; l < document.getElementsByClassName("wrapper").length;l = l + 1)
+{
+    console.log('work');
+if (width > 900)
+{
+    document.getElementsByClassName("wrapper")[l].setAttribute("style", "top : calc(50% - " +
+        document.getElementsByClassName("wrapper")[l].clientHeight / 2 + "px );");
+}}
+
+}
+
+
+  </script>
 </html>

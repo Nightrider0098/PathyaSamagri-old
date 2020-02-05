@@ -5,8 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>notification panel</title>
+    <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+
 </head>
 <body>
+    <div class="navbar">
+        <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
+        <a href="/" style="height: 58px;">
+          <h2 class="form-title">Book Search</h2>
+        </a>
+        <div class="dropdown" style="height: 58px;">
+          <button class="dropbtn">Profile
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="/logout">logout</a>
+            <a href="/profile">Profile</a>
+            <a href="/book_entry">book entry</a>
+            <!-- <a href="/"></a> -->
+            <a href="/">index</a>
+          </div>
+        </div>
+      </div>
     
 </body>
 </html>

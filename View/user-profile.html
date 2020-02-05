@@ -7,15 +7,43 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/index/index.css">
+    <link rel="stylesheet" type="text/css" href="css/common/nav.css">
 
 </head>
 
 <body>
+    <div class="navbar">
+        <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
+        <a href="/" style="height: 58px;">
+            <h2 class="form-title">Book Search</h2>
+        </a>
+        <div class="dropdown" style="height: 58px;">
+            <button class="dropbtn">Profile
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/logout">logout</a>
+                <a href="/profile">Profile</a>
+                <a href="/book_entry">book entry</a>
+                <a href="/">index</a>
+                <!-- <a href="/"></a> -->
+
+            </div>
+        </div>
+    </div>
+
     <img src="images/user_profile/user_1.jpg">
-    <label>Books donated: </label><label id="lb-donated-book-num"></label>
-    <label>Books borrowed this year:</label><label id="lb-issue-book-num"></label>
-    <label> Name </label>
-    <label id="lb-user-name"> Hitesh </label>
+    <div  style="display: block;"><label style="display: inline-block;">Books donated: </label><label style="display: inline-block;" id="lb-donated-book-num"></label></div>
+    <div  style="display: block;"><label style="display: inline-block;">Books borrowed this year:</label><label style="display: inline-block;" id="lb-book-issue"></label></div>
+    <div  style="display: block;"><label style="display: inline-block;">username: </label><label style="display: inline-block;" id ="lb-user-name">  </label></div>
+    <div  style="display: block;"><label style="display: inline-block;">Email: </label><label style="display: inline-block;" id ="lb-user-email">  </label></div>
+    <div  style="display: block;"><label style="display: inline-block;">Address: </label><label style="display: inline-block;" id ="lb-user-address">  </label></div>
+    <div  style="display: block;"><label style="display: inline-block;">Phone no: </label><label style="display: inline-block;" id ="lb-user-phone">  </label></div>
+    
+    
+    
+    <p id="noti_tab"></p>
+   
     <div id="book-data-holders" style="display: flex; flex-wrap: wrap;">
 
 
@@ -24,57 +52,14 @@
 
     </div>
 
+    <div style="margin: auto; align-items: center;" >
+        <button type="submit" id="previous"> Previous</button>
+        <button type="submit" id="next"> Next</button>
+        </div>
+      
 </body>
 <script src="js/jquery-3.4.1.js"></script>
 
-<script>
-    $(document).ready(function () {
-
-        var xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = function () {
-            var result_JSON = JSON.parse(xhttp.response);
-            var book_tags = '',
-                book_display = '';
-            if (this.readyState == 4 && this.status == 200) {
-                var username = result_JSON['username'];
-
-                //label fill ups
-                $("#lb-donated-book-num").text(result_JSON['book_donated']);
-                $("#lb-user-name").text(username);
-
-
-                if (Object.keys(result_JSON)[0] == "user_books") {
-                    //for each book
-                    for (i = 0; i < result_JSON['user_books'].length; i++) {
-                        book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;border-width: 1px;border-style: solid;">' + `<img src="./images/logo.png"><h3>${Object.values(result_JSON['user_books'][i])[1]}</h3><h4>${Object.values(result_JSON['user_books'][i])[2]}</h4><h4>${Object.values(result_JSON['user_books'][i])[8]}</h4><div class="container"><div class="interior"><a class="btn" href="#open-modal${i}">more details</a></div></div></div>`;
-                    }
-//for popup of each book
-                    for (j = 0; j < result_JSON['user_books'].length; j++) {
-                        book_display = book_display + `<div id="open-modal${j}" class="modal-window"><div><a href="#" title="Close" class="modal-close">Close</a>`;
-                        book_display = book_display + `  <img src=". /images/logo.png">`
-
-                        for (i = 0; i < Object.keys(result_JSON['user_books'][1]).length; i++) {
-                            book_display = book_display + `<h3>${Object.keys(result_JSON['user_books'][j])[i]} ${Object.values(result_JSON['user_books'][j])[i]}</h3>`;
-//to buttons for upadate and remove query
-
-                        }
-                        book_display = book_display +`<form action='/update' method='GET'><button type='submit'>update</button></form><form action='/mysql/delete/${result_JSON['user_books'][j]['title']}' method='DELETE'><button type='submit' >delete</button></form>`
-
-                        book_display = book_display + "</div></div>";
-                    }
-                    $("#book-data-holders").html($("#book-data-holders").html() + book_tags + book_display);
-
-                }
-
-
-
-            }
-        }
-        xhttp.open("GET", "http://localhost:5400/mysql/user_books", true);
-        xhttp.send();
-
-    })
-</script>
+<script src="js/profile/profile.js"></script>
 
 </html>

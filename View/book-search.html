@@ -15,89 +15,36 @@
     <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
     <title>Book Search</title>
 </head>
-<style>
-    body {
-        padding: 4em;
-        background-color: #333;
-    }
-
-    input[type="range"] {
-        box-sizing: border-box;
-        appearance: none;
-        width: 400px;
-        margin: 0;
-        padding: 0 2px;
-        /* Add some L/R padding to ensure box shadow of handle is shown */
-        overflow: hidden;
-        border: 0;
-        border-radius: 1px;
-        outline: none;
-        background: linear-gradient(grey, grey) no-repeat center;
-        /* Use a linear gradient to generate only the 2px height background */
-        background-size: 100% 2px;
-        pointer-events: none;
-    }
-
-    input[type="range"]:active,
-    input[type="range"]:focus {
-        outline: none;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-        height: 28px;
-        width: 28px;
-        border-radius: 28px;
-        background-color: #fff;
-        position: relative;
-        margin: 5px 0;
-        /* Add some margin to ensure box shadow is shown */
-        cursor: pointer;
-        appearance: none;
-        pointer-events: all;
-        box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
-    }
-
-    input[type="range"]::-webkit-slider-thumb::before {
-        content: " ";
-        display: block;
-        position: absolute;
-        top: 13px;
-        left: 100%;
-        width: 2000px;
-        height: 2px;
-    }
-
-    .multi-range {
-        position: relative;
-        height: 50px;
-    }
-
-    .multi-range input[type="range"] {
-        position: absolute;
-    }
-
-    .multi-range input[type="range"]:nth-child(1)::-webkit-slider-thumb::before {
-        background-color: purple;
-    }
-
-    .multi-range input[type="range"]:nth-child(2) {
-        background: none;
-    }
-
-    .multi-range input[type="range"]:nth-child(2)::-webkit-slider-thumb::before {
-        background-color: grey;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="css/common/nav.css">
 
 <body style="background-color: #f8f8f8;">
     <!-- <div style=""> -->
+    <div class="navbar">
+        <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
+        <a href="/" style="height: 58px;">
+            <h2 class="form-title" style="color: white;">Book Search</h2>
+        </a>
+        <div class="dropdown" style="height: 58px;">
+            <button class="dropbtn">Profile
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/logout">logout</a>
+                <a href="/profile">Profile</a>
+                <a href="/book_entry">book entry</a>
+                <!-- <a href="/"></a> -->
+                <a href="/">index</a>
+            </div>
+        </div>
+    </div>
+
 
     <div class="main" style="padding:20px ">
         <div class="sign-in" style="padding: 0px;">
             <div class="container" style="padding: 0px;">
                 <div class="signin-content" style="padding-top:20px;">
                     <form method="POST" action="/mysql/advance_search">
-<!-- to make the name input like this file:///C:/Users/SAMSUNG/Desktop/temp/colorlib-search-4/index.html -->
+                        <!-- to make the name input like this file:///C:/Users/SAMSUNG/Desktop/temp/colorlib-search-4/index.html -->
 
                         <div style="width:auto;">
                             <div style="display:inline-block ;margin: auto ; width: 10%;">
@@ -108,11 +55,12 @@
                                 <input style="display: block;margin-top: 15px;" type='checkbox'>
                                 <input style="display: block;margin-top: 15px;" type='checkbox'>
                                 <input style="display: block;margin-top: 15px;" type='checkbox'>
+                                <input style="display: block;margin-top: 15px;" type='checkbox'>
                             </div>
                             <div style="display:inline-block; width: 40%;">
                                 <p>word-containing</p>
                                 <p>donation_from</p>
-
+                                <p>Availibility</p>
                                 <p>donation_to</p>
                                 <p>owner</p>
                                 <p>subject</p>
@@ -127,7 +75,14 @@
                                     <input type="range" min="0" max="15" value="15" id="upper" name='upper_edition'>
                                 </span>
 
+                                <input style="display: inline-block; line-height:10px;" name="available_now"
+                                    list="Availibility_option">
+                                <datalist id="Availibility_option">
+                                    <option value="availible">
+                                    <option value="not availible">
+                                    <option value="Both">
 
+                                </datalist>
                                 <!-- <input id="slider" style="display: block; line-height:10px;" name="edition" type='range' min='1' max='15'> -->
                                 <!-- <p id="value_slider"></p> -->
                                 <input style="display: inline-block; line-height:10px;" name="donation_from" type='date'
@@ -137,7 +92,7 @@
                                 <input style="display: inline-block; line-height:10px;" name="owner" type='text'>
                                 <input style="display: inline-block; line-height:10px;" name="subject" list="subjects">
                                 <input style="display: inline-block; line-height:10px;" name="publisher" type='text'>
-                                
+
                                 <datalist id="subjects">
                                     <option value="maths">
                                     <option value="physics">
