@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .noti-indiv {
+            border: 2px solid black;
+            box-sizing: border-box;
+            width: 95%;
+            height: 50px;
+            padding: 2px 2% 2px 5%;
+            display: block;
+            background-color: lightgreen;
+            color: #000000;
+            margin: 2px 0;
+            border-radius: 12px;
+        }
+
+        .text-noti-indiv {
+            text-align: left;
+            float: left;
+            clear: both;
+        }
+
+        .close-link {
+            float: right
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="noti-indiv" id="noti_1">
+        <div class="text-noti-indiv">close this</div>
+        <a href="#" onclick="Close(noti_1)" class="close-link">close</a>
+    </div>
+
+
+</body>
+<script>
+
+    function Close(id_to_close){
+id_to_close.style.display = "none";
+
+    }
+</script>
+</html>

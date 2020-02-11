@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <!-- for buttons  -->
+  <link href="css/index/bootstrap.min.css" rel="stylesheet">
+  <link href="css/index/buttons.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+
+  <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+  <script src="js/jquery-3.4.1.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
+
+  <style>
+    .register-form {
+
+      display: flex;
+    }
+
+    @media screen and (max-width: 650px) {
+      .register-form {
+
+        display: block;
+      }
+
+    }
+  </style>
+
+
+</head>
+
+<body style="margin:0; padding:0;">
+  <div class="navbar">
+    <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+    <a href="/" class="nav-title-a">
+      <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
+    </a>
+
+    <div class="dropdown">
+      <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+        </i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
+        <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+        <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+        <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
+        <!-- <a href="/"></a> -->
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="main">
+    <section class="sign-in" style="margin-top: 120px">
+      <div class="container">
+
+        <div class="signin-content" style="display: inline-block;width: 100%; ">
+          <h2 class="form-title" style="text-align: center;">Book Entry</h2>
+
+          <form class="register-form" style="" id="login-form" action="/mysql/update_user" enctype="multipart/form-data"
+            method="post">
+
+            <div class="signin-image" style="margin : auto;max-width: 250px;">
+
+              <figure>
+
+
+                <input type='file' name="book_image" onchange="readURL(this);"
+                  style="margin: auto;margin-bottom: 5px;" />
+                <img id="book_image" name="book" src="images/user/<%= data.prof_img_id %>" alt="your image"
+                  style="width:180px;height:270px;" />
+
+
+              </figure>
+            </div>
+
+
+
+            <div class="signin-form">
+
+
+              <div class="form-group">
+                <label for="book_title"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                <p>address</p><input name="address" type="text" value="<%= data.address %>">
+
+              </div>
+              <div class="form-group">
+                <label for="author"><i class="zmdi zmdi-lock"></i></label>
+                <p>phone</p><input name="phone" type="text" value="<%= data.phone_no %>">
+              </div>
+              <!-- <input type="text" style="display: none;" name="img_id" id="data_img_id"> -->
+
+              <div class="form-group">
+                <label for="Publisher"><i class="zmdi zmdi-lock"></i></label>
+                <p>username</p><input name="username" readonly type="text" value="<%= data.username %>">
+              </div>
+
+              <div class="form-group">
+                <label for="edition"><i class="zmdi zmdi-lock"></i></label>
+                <p>user id</p><input name="user_id" readonly type="text" value="<%= data.user_id %>">
+              </div>
+
+
+
+
+            <div class="form-group form-button">
+              <button type="submit" class="form-submit">
+                submit</button>
+
+            </div>
+
+
+
+        </div>
+        </form>
+
+      </div>
+  </div>
+  </section>
+  </div>
+
+
+
+
+  <div style="margin:20px">
+    <form method='POST' action="/mysql/update_user " enctype="multipart/form-data">
+
+      <figure>
+
+        <!-- <input type="text" style="display: none;" name="profimg_id" id="img_id" value="<%= data.prof_img_id %>" /> -->
+        <!-- <img id="book_image" src="images/user/<%= data.prof_img_id%>" alt="your image"
+          style="width:180px;height:270px;" /> -->
+
+
+      </figure>
+
+
+
+    </form>
+  </div>
+</body>
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#book_image')
+          .attr('src', e.target.result)
+          .width(180)
+          .height(270);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+</html>

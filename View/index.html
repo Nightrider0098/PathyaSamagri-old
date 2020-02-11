@@ -5,54 +5,151 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="css/common/indiv-book.css">
+  <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
+
+  <!-- for buttons  -->
+  <link href="css/index/bootstrap.min.css" rel="stylesheet">
+  <link href="css/index/buttons.css" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="css/index/index.css">
   <link rel="stylesheet" type="text/css" href="css/common/nav.css">
 
-  <link rel="stylesheet" type="text/css" href="css/index/multirange.css">
+
+  <!-- for each book -->
+  <link rel="stylesheet" type="text/css" href="css/common/indiv-book.css">
+
+
+
   <title>Document</title>
+  <style>
+    h3 {
+      font-size: 16px;
+    }
+
+
+
+
+
+    .btn {
+      margin-left: 13%;
+    }
+
+
+    .searchTerm:focus {
+
+      outline: 0px;
+    }
+
+    .searchTerm {
+
+      height: inherit;
+      border: 0px;
+      width: 87%;
+      height: 34px;
+    }
+
+    .input-search-div {
+      line-height: 1.15;
+      margin-bottom: 15px;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+      vertical-align: top;
+      overflow: hidden;
+      cursor: text;
+      min-height: 60px;
+      border: 3px double #e75918;
+      background: white;
+      ;
+      width: 50%;
+      padding: 10px 12px 10px 32px;
+      font-size: 18px;
+      color: #000000;
+      border-radius: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .advbtn {
+      margin-left: 17px;
+    }
+
+    @media screen and (max-width: 800px) {
+
+
+      .searchTerm {
+        width: 80%;
+
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+
+
+      .input-search-div {
+        width: 90%;
+
+      }
+
+      .advbtn {
+        margin-left: 50px;
+      }
+
+      .searchTerm {
+
+        width: 80%;
+      }
+
+
+    }
+  </style>
 
 </head>
 
 
-<body style="background-color: #ffffff;">
-  <div class="navbar">
-    <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
-    <a href="/" style="height: 58px;">
-      <h2 class="form-title">Book Search</h2>
+<body>
 
+  <div class="navbar">
+    <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+    <a href="/" class="nav-title-a">
+      <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
     </a>
-    <div class="dropdown" style="height: 58px;">
-      <button class="dropbtn">Profile
-        <i class="fa fa-caret-down"></i>
+
+    <div class="dropdown">
+      <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+        </i>
       </button>
       <div class="dropdown-content">
-        <a href="/logout">logout</a>
-      <a href="/">index</a>
-        <a href="/profile">Profile</a>
-        <a href="/book_entry">book entry</a>
+        <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
+        <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+        <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+        <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
         <!-- <a href="/"></a> -->
 
       </div>
     </div>
   </div>
 
+  <section class="search_bar" style="padding: 5px 0 12px 0">
+    <div style="">
+      <div class="choices__inner">
+        <div class="input-search-div" style="">
+          <input style="margin: auto;" type="text" name="title" id="search-book-title" list="suggestion" type="text"
+            class="searchTerm" autocomplete="off" placeholder="Type your Book name here?" style="">
 
-  <section class="search_bar">
-    <div class="search">
-      <input name="title" id="search-book-title" list="suggestion" type="text" class="searchTerm"
-        placeholder="What are you looking for?" value="sdfas">
-      <datalist id="suggestion">
-        <!--- option will be loaded with using api --->
-      </datalist>
-      <button type="submit" class="searchButton" id="book_search-button"
-        style="border: 1px solid black; background:black">
-        <i class="fa fa-search">search</i>
-      </button>
-      <button type="submit" id="advance-button"><a href="/book_search">advance
-          search</a></button>
+          <a style="margin-left: 10px;">
+            <i id="book_search-button" class="fab fa-searchengin fa-2x"></i></a>
 
+          <datalist id="suggestion">
+          </datalist>
+        </div>
+        <a href="/book_search" style="margin: auto;">
+          <button type="button" class="btn btn-outline-dark btn-lg btn-radius advbtn" id="advance-button"
+            style="margin: auto;" ;">advance
+            search</button></a>
+
+      </div>
     </div>
   </section>
 
@@ -60,41 +157,70 @@
   <section class="data " style="justify-content: center; margin-top: 10px;">
 
     <!-- to be built using js-->
-    <div id="book-data-holders" style="display: flex; flex-wrap:wrap;justify-content: center;">
+    <div id="book-data-holders" style="display: flex;margin:0 10% 0 10%; flex-wrap:wrap;justify-content: center;">
 
 
 
     </div>
   </section>
 
-  <!-- <section type=footer> -->
-    <div style="margin: auto; align-items: center;" >
-  <button type="submit" id="previous"> Previous</button>
-  <button type="submit" id="next"> Next</button>
-  </div>
-  <!-- </section> -->
+  <section>
+
+    <div style="margin: 18px auto 5px auto; align-items: center; height: fit-content">
+      <div style="display: inline;">
+        <div style="margin:5px 2px 5px 30%;float:left">
+          <a id="previous" style="margin: 5px ;display:block;line-height: 1.5;display: block; text-align: center;">
+            <i class="fas fa-arrow-circle-left fa-2x"></i>
+            <p style="margin:auto;">Previous</p>
+          </a>
+        </div>
+        <div> <a id="next"
+            style="margin: 5px 30% 5px 2px ;float:right;display: block;line-height: 1.5;text-align: center;">
+            <i class="fas fa-arrow-circle-right fa-2x"></i>
+            <p style="margin:auto;">Next</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer style="margin: 102px 0 0 0; display: flex ; padding: 25px 10%; background-color: black;">
+    <div style="display: block;margin:auto; width:30%">
+      <h3 style="color: white;">About Us</h3>
+      <h5 style="color: white;"> Address:</h5>
+      <pre style="color: white;">
+  Near Isschanath chakra,
+  SVNIT,
+  Dumas Road
+  Surat
+  </pre>
+    </div>
+
+
+    <div style="display: block;margin-top: 42px; width:30%">
+
+      <h5 style="color: white;">Have You any Question?</h5>
+      <pre style="color: white;">
+  hitesh08011999@gmail.com  
+  </pre>
+    </div>
+
+    <div style="display: block;margin-top: 42px; width:32%">
+      <h3 style="color: white; margin-bottom: 11px;">Follow Us </h3>
+      <div>
+        <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+        <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+        <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+
+      </div>
+
+
+
+  </footer>
 </body>
 <script src="js/jquery-3.4.1.js"></script>
 <script src="js/index/index.js"></script>
 
-<script>
 
-setTimeout(lam,200);
-function lam(){
-var height = window.screen.height;
-var width = window.screen.width;
-
-for(l=0; l < document.getElementsByClassName("wrapper").length;l = l + 1)
-{
-    console.log('work');
-if (width > 900)
-{
-    document.getElementsByClassName("wrapper")[l].setAttribute("style", "top : calc(50% - " +
-        document.getElementsByClassName("wrapper")[l].clientHeight / 2 + "px );");
-}}
-
-}
-
-
-  </script>
 </html>

@@ -1,6 +1,21 @@
 
         @import url("https://fonts.googleapis.com/css?family=Mukta:700");
         
+
+        
+        .bg-wrapper {
+            visibility: hidden;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgb(255, 255, 255, 0.75);
+            z-index: 12;
+      
+      
+          }
+        
         .btn-1 {
             position: relative;
             display: inline-block;
@@ -19,7 +34,6 @@
             width: 12rem;
             height: auto;
         }
-
         .btn-1.learn-more .circle {
             transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
             position: relative;
@@ -100,6 +114,8 @@
 
         h3 {
             margin: 2px;
+        word-wrap: break-word;
+        width: 140px;
         }
 
         .btn-frm {
@@ -153,7 +169,7 @@
             /* margin-top: 5px */
         }
 
-        .wrapper:target {
+        .bg-wrapper:target {
             visibility: visible;
         }
 
@@ -200,7 +216,7 @@
 
 
         .wrapper {
-            visibility: hidden;
+            
             pointer-events: auto;
 
             left: calc(50% - 400px);
@@ -217,8 +233,8 @@
             background: #ffffff;
         }
 
-        .close-wrapper:target .wrapper{
-display:none;
+        .close-wrapper:target .bg-wrapper{
+visibility: hidden;
 
         }
         @media screen and (max-width : 850px) {

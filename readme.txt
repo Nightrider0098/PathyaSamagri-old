@@ -17,3 +17,7 @@ works on sessions so user is logged for all redirects using passport on server s
 notification tab for updates
 
 using template engine ejs to render common pages of individual user
+
+caching is disabled so that old data dont interfear the updated data and prevent clash 
+
+images using formidable for books and user

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+    <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
+
+    <link href="css/index/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index/buttons.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="css/index/index.css">
+    <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+    <link rel="stylesheet" type="text/css" href="css/common/indiv-book.css">
+
+    <style>
+        .user-detail-container {
+            margin: 10%;
+            display: block;
+            border: 2px solid black;
+            border-radius: 20px;
+            text-align: center;
+
+            padding: 25px 35px;
+            border-radius: 10px;
+            transition: all 300ms linear 0s;
+            background: #fff;
+            margin-bottom: 30px;
+            margin-top: 167px;
+
+        }
+
+        .user-text-details {
+
+            width: 56%;
+            margin: auto;
+            margin-left: 10px;
+            padding: 10px;
+        }
+
+        .user-detail-flex {
+            display: flex;
+            width: 100%;
+        }
+
+        .profile-keys {
+            font-size: 20px;
+            float: left;
+            /* display: block; */
+            word-wrap: break-word;
+            margin: 2px;
+            width: 50%;
+            text-align: left;
+        }
+
+        .profile-values {
+            /* display:block; */
+            float: right;
+            font-size: 15px;
+            text-align: left;
+            word-wrap: break-word;
+            margin: 2px;
+            width: 50%;
+        }
+
+        #noti-tab {
+
+            padding: 12px 58px;
+        }
+
+        .indv-detail {
+            display: flex;
+            width: 100%;
+
+        }
+    </style>
+
+
+    <style>
+        /* for individual message */
+
+        .noti-indiv {
+            border: 2px solid black;
+            box-sizing: border-box;
+            width: 95%;
+            height: 75px;
+            padding: 2px 1% 2px 3%;
+            display: block;
+            background-color: white;
+            color: #000000;
+            margin: 2px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px 0 rgba(0, 0, 0, .05);
+        }
+
+        .text-noti-indiv {
+            text-align: left;
+            float: left;
+            clear: both;
+            width: 90%;
+        }
+
+        .close-link {
+            float: right;
+            margin: auto 0;
+        }
+
+        .noti-container {
+            margin: 0 auto;
+            margin-bottom: 15px;
+            height: 300px;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+        <a href="/" class="nav-title-a">
+            <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
+        </a>
+
+        <div class="dropdown">
+            <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+                </i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+                <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
+                <!-- <a href="/"></a> -->
+            </div>
+        </div>
+    </div>
+
+    <div class='user-detail-container'>
+        <div class="user-detail-flex">
+            <div style="padding: 10px; margin:auto 10px; width:90%; width:250px; display: flex;">
+                <img src="images/user/<%= details.prof_img_id %>" style="width: 100%;">
+            </div>
+            <div class="user-text-details">
+                <div class="indv-detail">
+                    <h4 class="profile-keys">Books donated:<h4>
+                            <h5 class="profile-values"> <%= details.book_donated %><h5>
+
+                </div>
+                <div class="indv-detail">
+                    <h4 class="profile-keys">Books borrowed this year:</h4>
+                    <h5 class="profile-values"><%= details.book_issued%></h5>
+                </div>
+
+                <div class="indv-detail">
+                    <h4 class="profile-keys">username:</h4>
+                    <h5 class="profile-values"><%= details.username%></h5>
+                </div>
+                <div class="indv-detail">
+                    <h4 class="profile-keys">Email:</h4>
+                    <h5 class="profile-values"><%= details.email%></h5>
+                </div>
+                <div class="indv-detail">
+                    <h4 class="profile-keys">Address:</h4>
+                    <h5 class="profile-values"><%= details.address%></h5>
+                </div>
+                <div class="indv-detail">
+                    <h4 class="profile-keys">Phone no:</h4>
+                    <h5 class="profile-values"><%= details.phone_no%></h5>
+                </div>
+                <div class="indv-detail">
+                    <a href="/profile_info">
+                        <button class="btn btn-outline-dark btn-lg btn-radius advbtn" type="button"
+                            style="margin:15px auto">Edit Your Profile</button>
+
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="noti_tab" class="noti-container">
+        <!-- data to be loaded using javascript -->
+    </div>
+    <h2 style="text-align: center;">Books you donated</h2>
+    <div id="book-data-holders" style="display: flex; flex-wrap: wrap; margin: 0 5%; margin-bottom: 15px;">
+    </div>
+
+    <section style="margin-bottom: 130px;">
+
+        <div style="margin: 18px auto 5px auto; align-items: center; height: fit-content">
+            <div style="display: inline;">
+                <div style="margin:5px 2px 5px 30%;float:left">
+                    <a id="previous"
+                        style="margin: 5px ;display:block;line-height: 1.5;display: block; text-align: center;">
+                        <i class="fas fa-arrow-circle-left fa-2x"></i>
+                        <p style="margin:auto;">Previous</p>
+                    </a>
+                </div>
+                <div> <a id="next"
+                        style="margin: 5px 30% 5px 2px ;float:right;display: block;line-height: 1.5;text-align: center;">
+                        <i class="fas fa-arrow-circle-right fa-2x"></i>
+                        <p style="margin:auto;">Next</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <h2 style="text-align: center;">Books you Issued</h2>
+    <div id="doner-books" style="display: flex; flex-wrap: wrap;  margin: 0 5%;"></div>
+    </div>
+
+    <section style="margin-bottom: 130px;">
+
+        <div style="margin: 18px auto 5px auto; align-items: center; height: fit-content">
+            <div style="display: inline;">
+                <div style="margin:5px 2px 5px 30%;float:left">
+                    <a id="previous_doner"
+                        style="margin: 5px ;display:block;line-height: 1.5;display: block; text-align: center;">
+                        <i class="fas fa-arrow-circle-left fa-2x"></i>
+                        <p style="margin:auto;">Previous</p>
+                    </a>
+                </div>
+                <div> <a id="next_doner"
+                        style="margin: 5px 30% 5px 2px ;float:right;display: block;line-height: 1.5;text-align: center;">
+                        <i class="fas fa-arrow-circle-right fa-2x"></i>
+                        <p style="margin:auto;">Next</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <footer style="margin: 102px 0 0 0; display: flex ; padding: 25px 10%; background-color: black;">
+        <div style="display: block;margin:auto; width:30%">
+            <h3 style="color: white;">About Us</h3>
+            <h5 style="color: white;"> Address:</h5>
+            <pre style="color: white;">
+      Near Isschanath chakra,
+      SVNIT,
+      Dumas Road
+      Surat
+      </pre>
+        </div>
+
+
+        <div style="display: block;margin-top: 42px; width:30%">
+
+            <h5 style="color: white;">Have You any Question?</h5>
+            <pre style="color: white;">
+      hitesh08011999@gmail.com  
+      </pre>
+        </div>
+
+        <div style="display: block;margin-top: 42px; width:32%">
+            <h3 style="color: white; margin-bottom: 11px;">Follow Us </h3>
+            <div>
+                <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+                <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+                <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+
+            </div>
+
+
+
+    </footer>
+
+
+</body>
+<script src="js/jquery-3.4.1.js"></script>
+
+<script src="js/profile/profile.js"></script>
+<script>
+
+    function Close(id_to_close) {
+        id_to_close.style.display = "none";
+
+
+    }
+</script>
+
+</html>

@@ -13,99 +13,115 @@
 
 </head>
 
-<body>
+<body style="margin: 0px;padding : 0px">
 
     <div class="navbar">
         <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
         <a href="/" style="height: 58px;">
-          <h2 class="form-title"  style="color: white;" >Book Search</h2>
+            <h2 class="form-title" style="color: white;">Book Search</h2>
         </a>
         <div class="dropdown" style="height: 58px;">
-          <button class="dropbtn">Profile
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="/logout">logout</a>
-            <a href="/profile">Profile</a>
-            <a href="/book_entry">book entry</a>
-            <a href="/">index</a>
-            <!-- <a href="/"></a> -->
-    
-          </div>
+            <button class="dropbtn">Profile
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/logout">logout</a>
+                <a href="/profile">Profile</a>
+                <a href="/book_entry">book entry</a>
+                <a href="/">index</a>
+                <!-- <a href="/"></a> -->
+
+            </div>
         </div>
-      </div>
+    </div>
 
     <div class="main">
         <section class="sign-in">
             <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <figure><img src="images/book_entry/signin-image.jpg" alt="sing up image"></figure>
-                    </div>
+                <form method="post" class="register-form" id="login-form" action="/mysql/book_update">
 
-                    <div class="signin-form">
-                        <h2 class="form-title">Book UPDATE</h2>
-                        <form method="post" class="register-form" id="login-form" action="/mysql/book_update">
-                            
+                    <div class="signin-content">
+                        <div class="signin-image">
+
+
+                            <figure>
+
+                                <input type="text" style="display: none;" name="img_id" id="img_id"
+                                    value="<%= img_id %>"/>
+                                <img id="book_image" src="images/books/<%= img_id%>" alt="your image"
+                                    style="width:180px;height:270px;" />
+                                <!-- <br> -->
+                                
+                            </figure>
+                        </div>
+
+
+                        <div class="signin-form">
+                            <h2 class="form-title">Book UPDATE</h2>
+
                             <div class="form-group">
                                 <label for="book_id"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" readonly required="required"  name="book_id" id="book_id" placeholder="Book Title" value=<%= Book_id %> />
+                                <input type="text" readonly required="required" name="book_id" id="book_id"
+                                    placeholder="Book Title" value=<%= Book_id %> />
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="book_title"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" required="required" name="title" id="book_title" placeholder="Book Title" value="<%= title%>" />
+                                <input type="text" required="required" name="title" id="book_title"
+                                    placeholder="Book Title" value="<%= title%>" />
                             </div>
                             <div class="form-group">
                                 <label for="author"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="author" required="required" id="book-author" placeholder="Author" value="<%=author%>" />
+                                <input type="text" name="author" required="required" id="book-author"
+                                    placeholder="Author" value="<%=author%>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="Publisher"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="publisher" id="book-publisher" placeholder="Publisher" value="<%=publisher%>" />
+                                <input type="text" name="publisher" id="book-publisher" placeholder="Publisher"
+                                    value="<%=publisher%>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="edition"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="number" name="edition" id="book-edition" placeholder="Edition" value="<%= edition %>" />
+                                <input type="number" name="edition" id="book-edition" placeholder="Edition"
+                                    value="<%= edition %>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="year"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="for_year" id="book-ref-year" placeholder="For year" value="<%=for_year%>" />
+                                <input type="text" name="for_year" id="book-ref-year" placeholder="For year"
+                                    value="<%=for_year%>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="subject"><i class="zmdi zmdi-lock"></i></label>
-                                <input name="subject" list="subjects" id="book-subject" placeholder="Subject" value="<%= subject %>" />
-                            
+                                <input name="subject" list="subjects" id="book-subject" placeholder="Subject"
+                                    value="<%= subject %>" />
+
 
                                 <datalist id="subjects">
-                                    <option value="maths">
-                                    <option value="physics">
-                                    <option value="chemistry">
-                                    <option value="english">
-                                    <option value="none">
-
+                  
                                 </datalist>
 
-                            
+
                             </div>
 
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="UPDATE" />
                             </div>
 
-                        </form>
+                </form>
 
 
-                    </div>
-                </div>
             </div>
-        </section>
+    </div>
+    </div>
+    </section>
     </div>
 </body>
 
 <script src="js/jquery-3.4.1.js"></script>
+<script src="js/book_edit/book_edit.js"></script>
+
 </html>

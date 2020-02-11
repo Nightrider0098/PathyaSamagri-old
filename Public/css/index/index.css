@@ -1,5 +1,6 @@
 /* for element containing book details */
 
+
 .shadow-box {
     padding: 50px 35px;
     border-radius: 10px;
@@ -12,17 +13,25 @@
     margin-bottom: 35px;
     display: block;
 }
+.values{
+    font-size: small;
+}
+
+
+.keys{
+    font-size: small;
+}
 
 .shadow-box i:before {
     margin-left: 0px;
     font-size: 60px;
     color: #e1e1e1;
-    line-height: 60px;
-}
+    line-height: 60px;}
+
 
 .shadow-box h4 {
     color: #222222;
-    font-size: 21px;
+    font-size: 11px;
     font-family: "Heebo", sans-serif;
     font-weight: bold;
     margin-bottom: 20px;
@@ -79,6 +88,7 @@
 .book-data {
     margin: 3px;
     padding-bottom: 15px;
+    position: relative;
 }
 
 .modal-window>div {
@@ -134,3 +144,12 @@ small {
 .btn>i {
     padding-right: 0.3em;
 }
+/* 
+.a-links{
+
+    position: absolute;
+    bottom:3%;
+    top: 85%;
+    left:17%;
+    right: 17%;
+} */

@@ -5,7 +5,7 @@ usefull code for mysql
 
 
 
-4. online compatiblilty
-6. use authentication using google
+4. online compatiblilty  
+6. use authentication using google  //not possible as no domain name
 7. mobile app
 8. 

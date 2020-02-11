@@ -1,4 +1,3 @@
-
 const fs = require('fs')
 const express = require("express");
 const flash = require('req-flash');
@@ -11,16 +10,18 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const cookie_parser = require("cookie-parser");
 const passport = require('passport');
-
-// const multer = require("multer");
 app.use(express.static(path.join(__dirname, "\\Public\\")));
 app.set('view engine', 'ejs');
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private')
+    next()
+})
+
+
 
 app.use(cookie_parser());
-// app.use(multer);     used for uploadin multipart/form-data in forms like videos etc
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 var MySQLStore = require('express-mysql-session')(session);
 
 var options = {
@@ -40,6 +41,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
 //middleware to be used for passport 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -83,7 +85,8 @@ function checkAllDetails(req, res, next) {
 
 
 app.get("/", (req, res) => { res.sendFile(path.resolve(__dirname, "View", "index.html")); });
-app.get("/profile_info", (req, res) => { res.sendFile(path.resolve(__dirname, "View", "profile_info.html")); });
+
+app.get("/profile_info", (req, res) => { res.render(path.resolve(__dirname, "View", "profile_info.ejs"), { "data": req.user[0] }); });
 
 app.get("/book_edit/", (req, res) => {
     var sql = "select * from book where book_id ='" + req.query['book_id'] + "'";
@@ -91,20 +94,11 @@ app.get("/book_edit/", (req, res) => {
     con.query(sql, (err, result) => {
 
         //   console.log(err,result[0],sql,path.resolve(__dirname, "View", "book_edit.ejs"));
-        res.render(path.resolve("View", "book_edit.ejs"), result[0]);
+        if (result[0] == undefined) { return res.send("Book is changed or no such book Exits"); }
+        else
+            res.render(path.resolve("View", "book_edit.ejs"), result[0]);
         console.log(result[0]);
     })
-});
-
-
-
-
-
-
-
-app.get("/notif_user/", checkAuthenticated, (req, res) => {
-    //file automatically gets close so no problem
-    fs.readFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/${req.user[0].username}.txt`, (err, data) => { res.json({ "notif": data.toString() }); })
 });
 
 
@@ -112,10 +106,22 @@ app.get("/notif_user/", checkAuthenticated, (req, res) => {
 app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/login_fail' }),
     function (req, res) {
         res.redirect('/');
-        console.log(req.user);
-
-    }
+            }
 );
+
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: 
+      [ 'https://www.googleapis.com/auth/plus.login',
+      , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
+));
+
+app.get( '/auth/google/callback', 
+    passport.authenticate( 'google', { 
+        successRedirect: '/auth/google/success',
+        failureRedirect: '/auth/google/failure'
+}));
+
 
 
 app.get("/logout", checkAuthenticated, (req, res) => {
@@ -131,6 +137,13 @@ app.get("/logout", checkAuthenticated, (req, res) => {
         }
     });
 });
+
+
+app.get("/notif_user/", checkAuthenticated, (req, res) => {
+    //file automatically gets close so no problem
+    fs.readFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/${req.user[0].username}.txt`, (err, data) => { res.json({ "notif": data.toString() }); })
+});
+
 
 
 //to be used only in development mode  
@@ -181,23 +194,26 @@ app.use("/book_entry/", checkAuthenticated, checkAllDetails, (req, res) => {
 });
 
 app.use("/profile/", checkAuthenticated, (req, res) => {
-    res.sendFile(path.resolve(__dirname, "View", "user-profile.html"));
+    res.render(path.resolve(__dirname, "View", "user-profile.ejs"),{"details": req.user[0]});
 });
 
 app.use("/user_noti/", (req, res) => {
 
-    fs.readFile("C:/Users/SAMSUNG/Desktop/mongodb_project/noti/" + req.user[0]['user_id'] + ".txt", (err, data) => {
-        if(data == undefined)
-        res.send({ "user_noti": '{}' });
-        else
-        res.send({'user_noti': data});
+    fs.readFile("C:/Users/SAMSUNG/Desktop/mongodb_project/noti/doner/" + req.user[0]['user_id'] + ".txt", (err, data) => {
 
-    })
-});
+        fs.readFile("C:/Users/SAMSUNG/Desktop/mongodb_project/noti/reciever/" + req.user[0]['user_id'] + ".txt", (err, data2) => {
 
+            if (data2 == undefined && data == undefined)
+                res.send({ "user_noti": '{}' });
+
+            else
+                res.send({ 'user_noti': data + " /n" + data2 });
+        })
+    });
+})
 app.get("/user_details/", (req, res) => {
 
-    res.json({ "username": req.user[0]['user_id'],'address' : req.user[0]['address'], 'email': req.user[0]['email'], "phone_no": req.user[0]['phone_no'], 'book_issued': req.user[0]['book_issued'], 'book_donated': req.user[0]['book_donated'], "book_issued": req.user[0]['book_issued'] });
+    res.json({ "username": req.user[0]['username'], 'address': req.user[0]['address'], 'email': req.user[0]['email'], "phone_no": req.user[0]['phone_no'], 'book_issued': req.user[0]['book_issued'], 'book_donated': req.user[0]['book_donated'], "book_issued": req.user[0]['book_issued'],"prof_img_id":req.user[0]['prof_img_id']});
 
 })
 
