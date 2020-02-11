@@ -6,125 +6,337 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="css/book_search/style.css">
     <link rel="stylesheet" href="css/book_search/imported_css.css">
+    <link href="css/index/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index/buttons.css" rel="stylesheet">
+
+
     <link rel="stylesheet" type="text/css" href="css/index/multirange.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/common/indiv-book.css">
 
     <link rel="stylesheet" type="text/css" href="css/index/index.css">
-    
+
     <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
     <title>Book Search</title>
 </head>
 <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+<style>
+    .keys-text {
+        display: block;
+        margin: auto;
+
+        width: 35%;
+        float: left;
+        ;
+    }
+
+    .text-input {
+        border: none;
+        border-bottom: 2px double black;
+        margin: auto;
+
+        float: right;
+        width: 50%;
+    }
+
+    /* The container */
+    .container-label {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Hide the browser's default checkbox */
+    .container-label input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container-label:hover input~.checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container-label input:checked~.checkmark {
+        background-color: #2196F3;
+
+    }
+
+    .container-label input:checked
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container-label input:checked~.checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container-label .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .indiv-data-holder {
+
+        display: flex;
+        margin: auto;
+        width: 100%;
+        margin-left: 50px;
+        margin-top: 16px;
+    }
+
+    .container {
+        background: #fff;
+        margin: 0 auto;
+        box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+        -webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+        -o-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+        -ms-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+        border-radius: 20px;
+        -moz-border-radius: 20px;
+        -webkit-border-radius: 2
+    }
+
+    @media screen and (max-width: 1200px) {
+        .container {
+            width: calc(100% - 30px);
+            max-width: 100%;
+
+        }
+    }
+</style>
 
 <body style="background-color: #f8f8f8;">
     <!-- <div style=""> -->
+
     <div class="navbar">
-        <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
-        <a href="/" style="height: 58px;">
-            <h2 class="form-title" style="color: white;">Book Search</h2>
+        <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+        <a href="/" class="nav-title-a">
+            <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
         </a>
-        <div class="dropdown" style="height: 58px;">
-            <button class="dropbtn">Profile
-                <i class="fa fa-caret-down"></i>
+
+        <div class="dropdown">
+            <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+                </i>
             </button>
             <div class="dropdown-content">
-                <a href="/logout">logout</a>
-                <a href="/profile">Profile</a>
-                <a href="/book_entry">book entry</a>
+                <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+                <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
                 <!-- <a href="/"></a> -->
-                <a href="/">index</a>
+
             </div>
         </div>
     </div>
 
-
-    <div class="main" style="padding:20px ">
+    <div class="main" style="padding:20px; margin-top: 50px">
         <div class="sign-in" style="padding: 0px;">
             <div class="container" style="padding: 0px;">
                 <div class="signin-content" style="padding-top:20px;">
-                    <form id='frm-book-data'>
-                        <!-- to make the name input like this file:///C:/Users/SAMSUNG/Desktop/temp/colorlib-search-4/index.html -->
-                        <script>
-
-                        </script>
-                        <div style="width:auto;">
-                            <div style="display:inline-block ;margin: auto ; width: 10%;">
-                                <input style="display:block ;margin-top: 15px;" type='checkbox'>
-                                <input style="display: block;margin-top: 15px;" type='checkbox'>
-                                <input style="display: block;margin-top: 15px;" type='checkbox'>
-                                <input style="display: block;margin-top: 15px;" type='checkbox'>
-                                <input style="display: block;margin-top: 15px;" type='checkbox'>
-                                <input style="display: block;margin-top: 15px;" type='checkbox'>
-                                <input style="display: block;margin-top: 15px;" type='checkbox'>
-                                <input style="display: block;margin-top: 15px;" type='checkbox'>
-                            </div>
-                            <div style="display:inline-block; width: 40%;">
-                                <p>word-containing</p>
-                                <p>donation_from</p>
-                                <p>Availibility</p>
-                                <p>donation_to</p>
-                                <p>owner</p>
-                                <p>subject</p>
-                                <p>publisher</p>
-                            </div>
-                            <div id="form-input-tags" style="display:inline-block; width: 40%;">
-                                <input style="display: block; line-height:10px; " name="book_title" type='text'>
+                    <form id='frm-book-data' style="width:90%">
 
 
-                                <span class="multi-range" style="display: inline-block;">
-                                    <input type="range" min="0" max="15" value="0" id="lower" name='lower_edition'>
-                                    <input type="range" min="0" max="15" value="15" id="upper" name='upper_edition'>
-                                </span>
-
-                                <input style="display: inline-block; line-height:10px;" name="available_now"
-                                    list="Availibility_option">
-                                <datalist id="Availibility_option">
-                                    <option value="availible">
-                                    <option value="not availible">
-                                    <option value="Both">
-
-                                </datalist>
-                                <!-- <input id="slider" style="display: block; line-height:10px;" name="edition" type='range' min='1' max='15'> -->
-                                <!-- <p id="value_slider"></p> -->
-                                <input style="display: inline-block; line-height:10px;" name="donation_from" type='date'
-                                    data-date-inline-picker="true">
-                                <input style="display: inline-block; line-height:10px;" name="donation_to" type='date'
-                                    data-date-inline-picker="true">
-                                <input style="display: inline-block; line-height:10px;" name="owner" type='text'>
-                                <input style="display: inline-block; line-height:10px;" name="subject" list="subjects">
-                                <input style="display: inline-block; line-height:10px;" name="publisher" type='text'>
-
-                                <datalist id="subjects">
-
-                                </datalist>
-
-                            </div>
+                        <div class="indiv-data-holder ">
+                            <label class="container-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="keys-text">Book Title like</p>
+                            <input class="text-input" name="book_title" type='text'>
                         </div>
-                        <button type="button" id="search-book">find book</button>
-                    </form>
+
+                        <div class="indiv-data-holder ">
+                            <label class="container-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="keys-text">donation_from</p>
+                            <input class="text-input" name="donation_from" type='date' data-date-inline-picker="true">
+                        </div>
+
+
+                        <div class="indiv-data-holder ">
+                            <label class="container-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="keys-text">Availibility</p>
+                            <input class="text-input" name="available_now" list="Availibility_option">
+                            <datalist id="Availibility_option">
+                                <option value="availible">
+                                <option value="not availible">
+                                <option value="Both">
+                            </datalist>
+                        </div>
+
+                        <div class="indiv-data-holder ">
+                            <label class="container-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="keys-text">donation_to</p>
+                            <input class="text-input" name="donation_to" type='date' data-date-inline-picker="true">
+                        </div>
+
+                        <div class="indiv-data-holder ">
+                            <label class="container-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="keys-text">owner</p>
+                            <input class="text-input" name="owner" type='text'>
+                        </div>
+
+                        <div class="indiv-data-holder ">
+                            <label class="container-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="keys-text">subject</p>
+                            <input name="subject" class="text-input" list="subjects">
+                            <datalist id="subjects">
+                            </datalist>
+                        </div>
+
+                        <div class="indiv-data-holder ">
+                            <label class="container-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="keys-text">Edition</p>
+                            <span class="multi-range" style="width: 50%; margin: auto">
+                                <input type="range" min="0" max="15" value="0" id="lower" name='lower_edition'>
+                                <input type="range" min="0" max="15" value="15" id="upper" name='upper_edition'>
+                            </span>
+                        </div>
+
+                        <div class="indiv-data-holder ">
+                            <label class="container-label">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="keys-text">Publisher</p>
+                            <input class="text-input" name="publisher" type='text'>
+                        </div>
+
                 </div>
+                <div style="width: 100%;">
+                    <button class="btn btn-outline-dark btn-lg btn-radius advbtn" type="button"
+                        style=" margin : 45px calc(50% - 69px)" id="search-book">Find Book</button>
+                </div>
+                </form>
             </div>
+        </div>
+
+
+
+    </div>
+    </section>
+    </div>
+
+    <section class="data " style="justify-content: center; margin-top: 10px;">
+
+        <!-- to be built using js-->
+        <div id="book-data" style="display: flex;margin:0 10% 0 10%; flex-wrap:wrap;justify-content: center;">
 
 
 
         </div>
-        </section>
-    </div>
+    </section>
 
-    <div  class="main" style="padding:20px ">
-        <div class="sign-in" style="padding: 0px;">
-            <div class="container" style="padding: 0px;">
-                <div id= "book-data" class="signin-content" style="padding-top:20px; display: flex; flex-wrap: wrap;">
-          
-                </div>
+
+    <section id="next_previous_buttons" style="display: none;">
+
+        <div style="margin: 18px auto 5px auto; align-items: center; height: fit-content">
+          <div style="display: inline;">
+            <div style="margin:5px 2px 5px 30%;float:left">
+              <a id="previous" style="margin: 5px ;display:block;line-height: 1.5;display: block; text-align: center;">
+                <i class="fas fa-arrow-circle-left fa-2x"></i>
+                <p style="margin:auto;">Previous</p>
+              </a>
             </div>
+            <div> <a id="next"
+                style="margin: 5px 30% 5px 2px ;float:right;display: block;line-height: 1.5;text-align: center;">
+                <i class="fas fa-arrow-circle-right fa-2x"></i>
+                <p style="margin:auto;">Next</p>
+              </a>
+            </div>
+          </div>
         </div>
-    </div>
+      </section>
+    
 
+    <footer id="footer_books" style="margin: 102px 0 0 0; display: flex ; padding: 25px 10%; background-color: black;">
+        <div style="display: block;margin:auto; width:30%">
+            <h3 style="color: white;">About Us</h3>
+            <h5 style="color: white;"> Address:</h5>
+            <pre style="color: white;">
+      Near Isschanath chakra,
+      SVNIT,
+      Dumas Road
+      Surat
+      </pre>
+        </div>
+
+
+        <div style="display: block;margin-top: 42px; width:30%">
+
+            <h5 style="color: white;">Have You any Question?</h5>
+            <pre style="color: white;">
+      hitesh08011999@gmail.com  
+      </pre>
+        </div>
+
+        <div style="display: block;margin-top: 42px; width:32%">
+            <h3 style="color: white; margin-bottom: 11px;">Follow Us </h3>
+            <div>
+                <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+                <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+                <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+
+            </div>
+
+
+
+    </footer>
 </body>
 <script src="js/book_search/book-search.js"></script>
 

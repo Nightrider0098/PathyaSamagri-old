@@ -221,12 +221,11 @@ $(document).ready(function () {
             Srch_Box = 1;
 
             book_index = 0;
-            xhttp.open("GET", "http://" + window.location.host + "/mysql/api/book?title=" + encodeURI(data) + "&limit=12 ", true);
+            xhttp.open("GET", "http://" + window.location.host + "/mysql/api/book?title=" + encodeURI(data) + "&limit=0 ", true);
             xhttp.send();
 
             book_index = book_index + 12;
-            console.log("http://" + window.location.host + "/mysql/api/book?title=" + encodeURI(data) + "&limit= 12");
-        }
+           }
         else {
 
             var input_string = $("input").val();

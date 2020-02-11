@@ -14,23 +14,22 @@
 </head>
 
 <body style="margin: 0px;padding : 0px">
-
     <div class="navbar">
-        <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
-        <a href="/" style="height: 58px;">
-            <h2 class="form-title" style="color: white;">Book Search</h2>
+        <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+        <a href="/" class="nav-title-a">
+            <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
         </a>
-        <div class="dropdown" style="height: 58px;">
-            <button class="dropbtn">Profile
-                <i class="fa fa-caret-down"></i>
+
+        <div class="dropdown">
+            <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+                </i>
             </button>
             <div class="dropdown-content">
-                <a href="/logout">logout</a>
-                <a href="/profile">Profile</a>
-                <a href="/book_entry">book entry</a>
-                <a href="/">index</a>
+                <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+                <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
                 <!-- <a href="/"></a> -->
-
             </div>
         </div>
     </div>

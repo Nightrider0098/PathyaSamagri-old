@@ -109,21 +109,6 @@ app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/l
             }
 );
 
-
-app.get('/auth/google',
-  passport.authenticate('google', { scope: 
-      [ 'https://www.googleapis.com/auth/plus.login',
-      , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
-));
-
-app.get( '/auth/google/callback', 
-    passport.authenticate( 'google', { 
-        successRedirect: '/auth/google/success',
-        failureRedirect: '/auth/google/failure'
-}));
-
-
-
 app.get("/logout", checkAuthenticated, (req, res) => {
     con.query(`delete  FROM sessions where session_id ="${req.cookies.session_cookie_name.slice(2, 32 + 2)}"`, (err, result, fields) => {
 
@@ -140,7 +125,6 @@ app.get("/logout", checkAuthenticated, (req, res) => {
 
 
 app.get("/notif_user/", checkAuthenticated, (req, res) => {
-    //file automatically gets close so no problem
     fs.readFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/${req.user[0].username}.txt`, (err, data) => { res.json({ "notif": data.toString() }); })
 });
 

@@ -188,15 +188,11 @@ Router.get("/recent_books/", (req, res) => {
 
 
 Router.get("/user_book_issued/", (req, res) => {
-    var sql_smt = "select * from book where donated_to ='" + req.user[0]['user_id'] + "' limit 12";
+    var sql_smt = "select * from book where donated_to ='" + req.user[0]['user_id'] + "' limit "+req.query["index"]+",12";
     con.query(sql_smt, (err, data) => {
         res.json({ "issued_books": data })
-        // console.log(sql_smt,data);
     })
 })
-
-
-
 
 //to get user books that he has donated
 Router.get("/user_books/", (req, res) => {
@@ -328,7 +324,7 @@ Router.get("/book_booked", checkAuthenticated, (req, res) => {
     console.log(req.query['book_id']);
 });
 
-//address and phone no
+//address and phone no and other data
 Router.post("/update_user", (req, res) => {
 
     var form2 = new formidable.IncomingForm();
