@@ -56,9 +56,9 @@ $(document).ready(function () {
 
                         for (i = 0; i < Object.keys(result_JSON['user_books'][0]).length; i++) {
                             book_display = book_display + `<div class="book-chr-holder">
-                <h3 class="keys">${Object.keys(result_JSON['user_books'][j])[i]}</h3>
-                <h3 class="values">${Object.values(result_JSON['user_books'][j])[i]}</h3>
-            </div>`;
+                            <h3 class="keys">${Object.keys(result_JSON['user_books'][j])[i]}</h3>
+                            <h3 class="values">${Object.values(result_JSON['user_books'][j])[i]}</h3>
+                            </div>`;
                         }
 
                         book_display = book_display + `
@@ -133,7 +133,9 @@ $(document).ready(function () {
             <div class="text-data-container" >`;
 
                         for (i = 0; i < Object.keys(result_JSON['issued_books'][0]).length; i++) {
-                            book_display = book_display + `<div class="book-chr-holder">
+                            if (i == 5 || i==10 || i == 11)
+                            continue;
+                         book_display = book_display + `<div class="book-chr-holder">
                 <h3 class="keys">${Object.keys(result_JSON['issued_books'][j])[i]}</h3>
                 <h3 class="values">${Object.values(result_JSON['issued_books'][j])[i]}</h3>
             </div>`;
@@ -175,7 +177,7 @@ $(document).ready(function () {
                     $("#noti_tab").html("\n no new notification");
                 }
                 else
-                    for (i = 0; i < result_JSON['user_noti'].split("\n").length; i++) {
+                    for (i = result_JSON['user_noti'].split("\n").length - 1; i >= 0; i--) {
                         text = text + `<div class="noti-indiv" id="noti_${i}">
                 <div class="text-noti-indiv">${result_JSON['user_noti'].split("\n")[i]}</div>
                 <a  onclick="Close(noti_${i});" class="close-link"><i class="far fa-times-circle"></i></a>
@@ -186,67 +188,66 @@ $(document).ready(function () {
                 $("#noti_tab").html(text);
             }
         }
+    }
+    setTimeout(user_data, 100);
+    setTimeout(user_data_3, 900);
+    setTimeout(user_data_2, 500);
 
-        setTimeout(user_data, 100);
-        setTimeout(user_data_3, 900);
-        setTimeout(user_data_2, 500);
+    function user_data_3() {
+        xhttp.open("GET", "http://localhost:5400/mysql/user_books?index=0", true);
+        xhttp.send();
+    }
 
-
-        function user_data_3() {
-            xhttp.open("GET", "http://localhost:5400/mysql/user_books?index=0", true);
-            xhttp.send();
-        }
-
-        function user_data() {
-            xhttp.open("GET", "http://localhost:5400/user_noti", true)
-            xhttp.send();
-        }
-
-
-        function user_data_2() {
-            xhttp.open("GET", "http://localhost:5400/mysql/user_book_issued?index=0", true)
-            xhttp.send();
-            console.log("send");
-        }
-
-
-        var donated_book_index = 0;
-        var issued_book_index = 0;
-        //loading next book content
-        $("#next").on('click', () => {
-            donated_book_index = donated_book_index + 12;
-            xhttp.open("GET", "http://localhost:5400/mysql/user_books?index=" + donated_book_index, true);
-            xhttp.send();
-        });
-
-        $("#previous").on('click', () => {
-            if (donated_book_index >= 12) {
-                donated_book_index = donated_book_index - 12;
-                xhttp.open("GET", "http://localhost:5400/mysql/user_books?index=" + donated_book_index, true);
-                xhttp.send();
-            }
-            else { alert("reached starting index"); }
-
-        });
-
-        $("#next_doner").on('click', () => {
-            issued_book_index = issued_book_index + 12;
-            xhttp.open("GET", "http://localhost:5400/mysql/user_book_issued?index=" + issued_book_index, true);
-            xhttp.send();
-        });
-
-        $("#previous_doner").on('click', () => {
-            if (issued_book_index >= 12) {
-                issued_book_index = issued_book_index - 12;
-                xhttp.open("GET", "http://localhost:5400/mysql/user_book_issued?index=" + issued_book_index, true);
-                xhttp.send();
-            }
-            else { alert("reached starting index"); }
-
-        });
-
+    function user_data() {
+        xhttp.open("GET", "http://localhost:5400/user_noti", true)
+        xhttp.send();
     }
 
 
+    function user_data_2() {
+        xhttp.open("GET", "http://localhost:5400/mysql/user_book_issued?index=0", true)
+        xhttp.send();
+        console.log("send");
+    }
 
-    })
+
+    var donated_book_index = 0;
+    var issued_book_index = 0;
+    //loading next book content
+    $("#next").on('click', () => {
+        donated_book_index = donated_book_index + 12;
+        xhttp.open("GET", "http://localhost:5400/mysql/user_books?index=" + donated_book_index, true);
+        xhttp.send();
+    });
+
+    $("#previous").on('click', () => {
+        if (donated_book_index >= 12) {
+            donated_book_index = donated_book_index - 12;
+            xhttp.open("GET", "http://localhost:5400/mysql/user_books?index=" + donated_book_index, true);
+            xhttp.send();
+        }
+        else { alert("reached starting index"); }
+
+    });
+
+    $("#next_doner").on('click', () => {
+        issued_book_index = issued_book_index + 12;
+        xhttp.open("GET", "http://localhost:5400/mysql/user_book_issued?index=" + issued_book_index, true);
+        xhttp.send();
+    });
+
+    $("#previous_doner").on('click', () => {
+        if (issued_book_index >= 12) {
+            issued_book_index = issued_book_index - 12;
+            xhttp.open("GET", "http://localhost:5400/mysql/user_book_issued?index=" + issued_book_index, true);
+            xhttp.send();
+        }
+        else { alert("reached starting index"); }
+
+    });
+
+
+
+
+
+})

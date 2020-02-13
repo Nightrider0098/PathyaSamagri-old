@@ -1,6 +1,4 @@
 more construction pages
-
-no more then 4 books issueable
-book submittion sucess message
-notification signup or login 
-confirmation page for getting details of issued books
+https certificate issue
+to remove 
+to change	

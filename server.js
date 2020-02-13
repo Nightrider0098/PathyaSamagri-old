@@ -1,6 +1,5 @@
 const fs = require('fs')
 const express = require("express");
-const flash = require('req-flash');
 const app = express();
 const path = require("path");
 const mysql_route = require("./mysql/mysql-page");
@@ -14,10 +13,8 @@ app.use(express.static(path.join(__dirname, "\\Public\\")));
 app.set('view engine', 'ejs');
 app.use((req, res, next) => {
     res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private')
-    next()
+    next();
 })
-
-
 
 app.use(cookie_parser());
 app.use(bodyParser.json());
@@ -83,10 +80,11 @@ function checkAllDetails(req, res, next) {
 
 
 
+app.get("/", (req, res) => { 
+    var user_verfiled = req.isAuthenticated().toString();
+    res.render(path.resolve(__dirname, "View", "index.ejs"),{ "Log_message": user_verfiled }) });
 
-app.get("/", (req, res) => { res.sendFile(path.resolve(__dirname, "View", "index.html")); });
-
-app.get("/profile_info", (req, res) => { res.render(path.resolve(__dirname, "View", "profile_info.ejs"), { "data": req.user[0] }); });
+app.get("/profile_info", (req, res) => { res.render(path.resolve(__dirname, "View", "profile_info.ejs"), { "data": req.user[0] }); }); 
 
 app.get("/book_edit/", (req, res) => {
     var sql = "select * from book where book_id ='" + req.query['book_id'] + "'";
@@ -106,7 +104,7 @@ app.get("/book_edit/", (req, res) => {
 app.post("/authenticate/", passport.authenticate('local', { failureRedirect: '/login_fail' }),
     function (req, res) {
         res.redirect('/');
-            }
+    }
 );
 
 app.get("/logout", checkAuthenticated, (req, res) => {
@@ -178,7 +176,7 @@ app.use("/book_entry/", checkAuthenticated, checkAllDetails, (req, res) => {
 });
 
 app.use("/profile/", checkAuthenticated, (req, res) => {
-    res.render(path.resolve(__dirname, "View", "user-profile.ejs"),{"details": req.user[0]});
+    res.render(path.resolve(__dirname, "View", "user-profile.ejs"), { "details": req.user[0] });
 });
 
 app.use("/user_noti/", (req, res) => {
@@ -197,7 +195,7 @@ app.use("/user_noti/", (req, res) => {
 })
 app.get("/user_details/", (req, res) => {
 
-    res.json({ "username": req.user[0]['username'], 'address': req.user[0]['address'], 'email': req.user[0]['email'], "phone_no": req.user[0]['phone_no'], 'book_issued': req.user[0]['book_issued'], 'book_donated': req.user[0]['book_donated'], "book_issued": req.user[0]['book_issued'],"prof_img_id":req.user[0]['prof_img_id']});
+    res.json({ "username": req.user[0]['username'], 'address': req.user[0]['address'], 'email': req.user[0]['email'], "phone_no": req.user[0]['phone_no'], 'book_issued': req.user[0]['book_issued'], 'book_donated': req.user[0]['book_donated'], "book_issued": req.user[0]['book_issued'], "prof_img_id": req.user[0]['prof_img_id'] });
 
 })
 
@@ -205,7 +203,5 @@ app.get('*', function (req, res) {
     res.sendFile(path.resolve(__dirname, "View", "err_404.html"));
 });
 
-
 app.listen(port, () => { console.log(`listining on port ${port}`); });
-
 

@@ -72,12 +72,14 @@ $(document).ready(function () {
             
                     <div class="data-flexbox">
                     <div class="img-wrapper">
-                    <img style="max-width:100%" src="./logo.jpg" alt="never mine">
+                    <img style="max-width:100%" src="images/books/${result_JSON['book_find'][j]['img_id']}" alt="never mine">
                     </div>
 
                     <div class="text-data-container" >`;
 
                             for (i = 0; i < Object.keys(result_JSON['book_find'][0]).length; i++) {
+                                if(i==5 || i==10 || i==11)
+                        continue;
                                 book_display = book_display + `<div class="book-chr-holder">
                         <h3 class="keys">${Object.keys(result_JSON['book_find'][j])[i]}</h3>
                         <h3 class="values">${Object.values(result_JSON['book_find'][j])[i]}</h3>
@@ -155,12 +157,14 @@ $(document).ready(function () {
             
                     <div class="data-flexbox">
                     <div class="img-wrapper">
-                    // <img src="images/books/${result_JSON['recent_books'][j]['img_id']}">
+                    <img src="images/books/${result_JSON['recent_books'][j]['img_id']}">
                     </div>
 
                     <div class="text-data-container">`;
 
                     for (i = 0; i < Object.keys(result_JSON['recent_books'][1]).length; i++) {
+                        if(i==5 || i==10 || i==11)
+                        continue;
                         book_display = book_display + `<div class="book-chr-holder">
                         <h3 class="keys">${Object.keys(result_JSON['recent_books'][j])[i]}</h3>
                         <h3 class="values">${Object.values(result_JSON['recent_books'][j])[i]}</h3>

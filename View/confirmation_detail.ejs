@@ -6,44 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up </title>
+  
     <link rel="stylesheet" href="../fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="../css/signup/style.css">
     <link rel="stylesheet" type="text/css" href="../css/common/nav.css">
+    <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
+  
     <div class="navbar">
-        <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+        <a href="/"> <img class="nav-logo-img" src="../images/index/logo.png"></a>
         <a href="/" class="nav-title-a">
-            <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
+          <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
         </a>
-
+    
         <div class="dropdown">
-            <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
-                </i>
-            </button>
-            <div class="dropdown-content">
-            <a href="/<% if (logout == "verfied") {%>logout<% } else %>login<% } %>"><i class="fas fa-sign-out-alt dropdown-list-item"></i><% if (logout == "verfied") {%> logout <% } else %> login/Signup <% } %></a>
-                <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
-                <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
-                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
-                <!-- <a href="/"></a> -->
-
-            </div>
+          <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+            </i>
+          </button>
+          <div class="dropdown-content">
+          <a href="/logout"> <i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
+            <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+            <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+            <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
+            <!-- <a href="/"></a> -->
+    
+          </div>
         </div>
-    </div>
-
+      </div>
+     
 
     <div class="main" style="padding-top: 50px;padding-bottom: 50px;">
         <section class="signup" style="margin-bottom: 50px;">
             <div class="container">
                 <div class="signup-content">
                     <div style="text-align: left; margin :auto;">
-                    <h1>Booking Confirm</h1>
+                    <h1>Infomtion About the donar</h1>
                     <p >address of owner of book:-  <%= address %></p>
-                    <p>phone no of owner :- <%= phone_no%></p>
-                    <p>owner name is <%= username%></p>
+                    <p>phone no of owner :- <%= phone_no %></p>
+                    <p>owner name is <%= username %></p>
                     <p></p>
                     </div>
                 </div>

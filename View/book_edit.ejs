@@ -40,20 +40,19 @@
                 <form method="post" class="register-form" id="login-form" action="/mysql/book_update">
 
                     <div class="signin-content">
+
+
                         <div class="signin-image">
-
-
                             <figure>
-
-                                <input type="text" style="display: none;" name="img_id" id="img_id"
-                                    value="<%= img_id %>"/>
+                                <input type="file"  name="img_id" id="img_id"
+                                    value="<%= img_id %>" onchange="readURL(this);"
+                                    style="margin: auto;margin-bottom: 5px;" />
                                 <img id="book_image" src="images/books/<%= img_id%>" alt="your image"
                                     style="width:180px;height:270px;" />
-                                <!-- <br> -->
-                                
                             </figure>
                         </div>
 
+              
 
                         <div class="signin-form">
                             <h2 class="form-title">Book UPDATE</h2>
@@ -100,7 +99,7 @@
 
 
                                 <datalist id="subjects">
-                  
+
                                 </datalist>
 
 
@@ -119,6 +118,23 @@
     </section>
     </div>
 </body>
+<script>
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+  
+        reader.onload = function (e) {
+          $('#book_image')
+            .attr('src', e.target.result)
+            .width(180)
+            .height(270);
+        };
+  
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
+  
 
 <script src="js/jquery-3.4.1.js"></script>
 <script src="js/book_edit/book_edit.js"></script>

@@ -8,22 +8,6 @@ const joi = require("joi");
 const formidable = require('formidable');
 const uuidv1 = require("uuid/v1");
 const multer = require("multer");
-// Router.use(mixed_parser)
-//assuming that uuid is unique for each user
-
-// var Storage = multer.diskStorage({
-//     destination: function (req, file, callback) {
-//         callback(null, "/Users/SAMSUNG/Desktop/mongodb_project/Public/images");
-//     },
-//     filename: function (req, file, callback) {
-//         callback(null, req.body['book_image']+"1.png");
-//     }
-// });
-
-// var upload = multer({
-//     storage: Storage
-// }).fields([{name: "book_image",maxCount: 1},{name: "img_id",maxCount: 1}]);
-
 
 
 function checkAuthenticated(req, res, next) {
@@ -33,7 +17,6 @@ function checkAuthenticated(req, res, next) {
     } else
         res.redirect("/login");
 };
-
 
 Router.post("/api/login/new_user/", (req, res, next) => {
 
@@ -59,8 +42,6 @@ Router.post("/api/login/new_user/", (req, res, next) => {
         }
     });
 });
-
-
 
 //new book registration
 Router.post("/book_entry/", (req, res) => {
@@ -188,7 +169,7 @@ Router.get("/recent_books/", (req, res) => {
 
 
 Router.get("/user_book_issued/", (req, res) => {
-    var sql_smt = "select * from book where donated_to ='" + req.user[0]['user_id'] + "' limit "+req.query["index"]+",12";
+    var sql_smt = "select * from book where donated_to ='" + req.user[0]['user_id'] + "' limit " + req.query["index"] + ",12";
     con.query(sql_smt, (err, data) => {
         res.json({ "issued_books": data })
     })
@@ -242,86 +223,80 @@ Router.post("/advance_search", (req, res) => {
 Router.get("/book_booked", checkAuthenticated, (req, res) => {
     sql12 = "select donated_to"
 
-    sql = "select book_issued from user where username='" + req.user[0].username + "'";
-    con.query(sql, (err, result) => {
-        var book_issued_by_user = result[0]['book_issued'];
-        if (book_issued_by_user < 4) {
-            //books less then 4
-            sql = "select available_now,donated_to  from book where book_id ='" + req.query['book_id'] + "'";
-            con.query(sql, (err, result_) => {
-                if (err) res.send(err);
-                if (result_[0]['available_now'] == '0')
-                    if (result_[0]['donated_to'] == req.user[0].user_id) {
-                        sql = "select address,phone_no,username from user where user_id='" + result_[0]['donated_to'] + "'";
+    var book_issued_by_user = req.user[0]['book_issued']
+    if (book_issued_by_user < 4) {
+        //books less then 4
+        sql = "select available_now,donated_to,owner_id  from book where book_id ='" + req.query['book_id'] + "'";
+        con.query(sql, (err, result_) => {
+            if (err) res.send(err);
+            if (result_[0]['available_now'] == '0')
+                //if the user is again looking for the same book when issuing
+                if (result_[0]['donated_to'] == req.user[0].user_id) {
+                    sql = "select address,phone_no,username from user where user_id='" + result_[0]['donated_to'] + "'";
+                    con.query(sql, (err, result__) => {
+                        if (err) res.send(err);
+                        else {
+
+                            res.render(path.resolve(__dirname, "..", "View", "confirmation_detail.ejs"), result__[0]);
+                        }
+                    })
+                }
+                else
+                    res.send("already reffered sorry");
+            else if ((result_[0]['owner_id'] == req.user[0].user_id)) {
+                res.send("not allowed to issue own books");
+            }
+            else {
+                //updating book availability
+                sql = "update book set available_now = 0 , donated_to ='" + req.user[0]['user_id'] + "' where book_id='" + req.query['book_id'] + "'";
+                con.query(sql, (err, result) => {
+                    if (err) return res.send(err);
+
+                    sql = "select owner_id,Book_id,title from book where book_id ='" + req.query['book_id'] + "'";
+                    con.query(sql, (err, result_) => {
+                        if (err) res.send(err);
+
+                        //writing into notify file
+                        fs.appendFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/doner/${result_[0]['owner_id']}.txt`, "\r\n  " + Date() + " your book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " is requested by user " + req.user[0].username + " phone no " + req.user[0].phone_no, (err) => {
+                            if (err) {
+                                fs.writeFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/doner/${result_[0]['owner_id']}.txt`, "\r\n  " + Date() + " your book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " is requested by user " + req.user[0].username + " phone no " + req.user[0].phone_no, (err) => { console.log(err); });
+                            }
+                        });
+
+                        fs.appendFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/reciever/${req.user[0].user_id}.txt`, "\r\n  " + Date() + " you have book a book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " from  by user " + req.user[0].username + " his phone no " + req.user[0].phone_no, (err) => {
+                            if (err) {
+                                fs.writeFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/reciever/${req.user[0].user_id}.txt`, "\r\n  " + Date() + " you have book a book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " from  by user " + req.user[0].username + " his phone no " + req.user[0].phone_no, (err) => { console.log(err); });
+
+                            }
+                        });
+                        //acknolegment to the user that book has been issued
+                        sql = "select address,phone_no,username from user where user_id='" + result_[0]['owner_id'] + "'";
                         con.query(sql, (err, result__) => {
                             if (err) res.send(err);
                             else {
-                                ;
-                                res.render(path.resolve(__dirname.slice(0, __dirname.length - 5), "View", "confirmation_page.ejs"), result__[0]);
+                                res.render(path.resolve(__dirname, "..", "View", "confirmation_page.ejs"), result__[0]);
                             }
                         })
-                    }
-                    else
-                        res.send("already reffered sorry");
-                else {
-                    //updating book availability
-                    sql = "update book set available_now = 0 , donated_to ='" + req.user[0]['user_id'] + "' where book_id='" + req.query['book_id'] + "'";
-                    con.query(sql, (err, result) => {
-                        if (err) return res.send(err);
-
-                        sql = "select owner_id,Book_id,title from book where book_id ='" + req.query['book_id'] + "'";
-                        con.query(sql, (err, result_) => {
-                            if (err) res.send(err);
-
-                            //writing into notify file
-                            fs.appendFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/doner/${result_[0]['owner_id']}.txt`, "\r\n  " + Date() + " your book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " is requested by user " + req.user[0].username + " phone no " + req.user[0].phone_no, (err) => {
-                                if (err) {
-                                    fs.writeFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/doner/${result_[0]['owner_id']}.txt`, "\r\n  " + Date() + " your book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " is requested by user " + req.user[0].username + " phone no " + req.user[0].phone_no, (err) => { console.log(err); });
-                                }
-                            });
-
-                            fs.appendFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/reciever/${req.user[0].user_id}.txt`, "\r\n  " + Date() + " you have book a book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " from  by user " + req.user[0].username + " his phone no " + req.user[0].phone_no, (err) => {
-                                if (err) {
-                                    fs.writeFile(`C:/Users/SAMSUNG/Desktop/mongodb_project/noti/reciever/${req.user[0].user_id}.txt`, "\r\n  " + Date() + " you have book a book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " from  by user " + req.user[0].username + " his phone no " + req.user[0].phone_no, (err) => { console.log(err); });
-
-                                }
-                            });
-
-
-
-
-                            sql = "select address,phone_no,username from user where user_id='" + result_[0]['owner_id'] + "'";
-                            con.query(sql, (err, result__) => {
-                                if (err) res.send(err);
-                                else {
-                                    // console.log(sql);
-                                    res.render(path.resolve(__dirname.slice(0, __dirname.length - 5), "View", "confirmation_page.ejs"), result__[0]);
-                                }
-                            })
-
-                        })
-                        //updating user issued books
-                        con.query("update user set book_issued=" + (book_issued_by_user + 1) + " where username='" + req.user[0].username + "'", (err, result) => {
-                            if (err) console.log(err);
-
-
-                        });
-
-
-
                     })
-                }
-            })
-
-
-        }
-        else
-            res.send("already issued 4 books!!!");
+                    //updating user issued books
+                    con.query("update user set book_issued=" + (book_issued_by_user + 1) + " where username='" + req.user[0].username + "'", (err, result) => {
+                        if (err) console.log(err);
+                    });
 
 
 
-    })
-    console.log(req.query['book_id']);
+                })
+            }
+        })
+
+
+    }
+    else
+        res.render(path.join(__dirname, "..", "View", "Book_limit.ejs")), {};
+
+
+
+console.log(req.query['book_id']);
 });
 
 //address and phone no and other data
@@ -333,8 +308,8 @@ Router.post("/update_user", (req, res) => {
 
     form2.parse(req, function (err, fields, files) {
         var file_name = files['book_image'].path.split("\\")[files['book_image'].path.split("\\").length - 1] + ".png";
-        fs.rename(files['book_image']['path'], path.join(__dirname, "..", "public", "images", "user", file_name), (err) => { if(err)console.log( "file not saved"); });
-        
+        fs.rename(files['book_image']['path'], path.join(__dirname, "..", "public", "images", "user", file_name), (err) => { if (err) console.log("file not saved"); });
+
         if (files['book_image'].name !== "") {
             sql = "update user set address='" + fields['address'] + "' ,phone_no = '" + fields['phone'] + "',prof_img_id = '" + file_name + "' where username='" + req.user[0].username + "'";
             con.query(sql, (err, result) => {
@@ -361,7 +336,7 @@ Router.post("/update_user", (req, res) => {
 //authentication is to be checked
 Router.get("/delete", (req, res) => {
     //validation is left
- 
+
 
     var sql = 'DELETE FROM book WHERE book_id ="' + req.query.title + '"';
     console.log("got it");
@@ -381,7 +356,7 @@ Router.post("/book_update/", (req, res) => {
         if (result[0]['subject'] == req.body['subject']) {
             new_sql = "update book set title='" + req.body['title'] + "',publisher='" + req.body['publisher'] + "', author='" + req.body['author'] + "', edition=" + req.body['edition'] + ",for_year='" + req.body['for_year'] + "' where book_id='" + req.body['book_id'] + "'";
             con.query(new_sql, (err, result_up) => { if (err) { console.log(err); } });
-            res.send("updated");
+            res.redirect("/profile");
         }
 
 
@@ -449,7 +424,7 @@ Router.post("/book_update/", (req, res) => {
 
                         if (error) { console.log(error); } else {
                             console.log("book donated!!!");
-                            res.send("sucess");
+                            res.redirect("/profile");
                         }
 
                     });

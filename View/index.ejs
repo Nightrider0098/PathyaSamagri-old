@@ -66,7 +66,7 @@
       color: #000000;
       border-radius: 34px;
       display: flex;
-      flex-wrap: wrap;
+      /* flex-wrap: wrap; */
       align-items: center;
       margin-top: 15px;
     }
@@ -121,7 +121,7 @@
         </i>
       </button>
       <div class="dropdown-content">
-        <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
+      <a href="<% if(Log_message=="true") { %> /logout <% } else { %> /login <% } %> "> <i class="fas fa-sign-out-alt dropdown-list-item"></i><% if(Log_message=="true") { %> logout <% } else { %> login/Signup <% } %> </a>
         <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
         <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
         <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
@@ -185,8 +185,8 @@
   </section>
 
 
-  <footer style="margin: 102px 0 0 0; display: flex ; padding: 25px 10%; background-color: black;">
-    <div style="display: block;margin:auto; width:30%">
+  <footer style="margin: 102px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+    <div style="display: block;margin:auto;width:30%;min-width: 245px;">
       <h3 style="color: white;">About Us</h3>
       <h5 style="color: white;"> Address:</h5>
       <pre style="color: white;">
@@ -198,7 +198,7 @@
     </div>
 
 
-    <div style="display: block;margin-top: 42px; width:30%">
+    <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
 
       <h5 style="color: white;">Have You any Question?</h5>
       <pre style="color: white;">
@@ -206,8 +206,8 @@
   </pre>
     </div>
 
-    <div style="display: block;margin-top: 42px; width:32%">
-      <h3 style="color: white; margin-bottom: 11px;">Follow Us </h3>
+    <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+      <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
       <div>
         <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
         <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>

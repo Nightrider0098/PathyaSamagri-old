@@ -11,10 +11,20 @@
     <link rel="stylesheet" type="text/css" href="../css/common/nav.css">
 
 </head>
+<style>
+    .message-content {
+
+        display: block;
+        margin: auto;
+        text-align: center;
+        /* margin-left: 20%; */
+        padding: 50px;
+    }
+</style>
 
 <body>
     <div class="navbar">
-        <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+        <a href="/"> <img class="nav-logo-img" src="../images/index/logo.png"></a>
         <a href="/" class="nav-title-a">
             <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
         </a>
@@ -24,7 +34,7 @@
                 </i>
             </button>
             <div class="dropdown-content">
-            <a href="/<% if (logout == "verfied") {%>logout<% } else %>login<% } %>"><i class="fas fa-sign-out-alt dropdown-list-item"></i><% if (logout == "verfied") {%> logout <% } else %> login/Signup <% } %></a>
+                <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
                 <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
                 <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
                 <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
@@ -38,19 +48,14 @@
     <div class="main" style="padding-top: 50px;padding-bottom: 50px;">
         <section class="signup" style="margin-bottom: 50px;">
             <div class="container">
-                <div class="signup-content">
-                    <div style="text-align: left; margin :auto;">
-                    <h1>Booking Confirm</h1>
-                    <p >address of owner of book:-  <%= address %></p>
-                    <p>phone no of owner :- <%= phone_no%></p>
-                    <p>owner name is <%= username%></p>
-                    <p></p>
-                    </div>
+                <div class="message-content">
+                    <h2>Sorry but you have reached the maximum book limit</h2>
+                    <h5>can't issue more then 4 books</h5>
                 </div>
+
             </div>
         </section>
     </div>
-    <script src="../js/signup/signup.js"></script>
 </body>
 
 </html>

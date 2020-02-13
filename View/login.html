@@ -9,29 +9,32 @@
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="css/login/style.css">
     <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+    <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <div class="navbar">
-        <a href="/"> <img src="images/index/logo.png" style="width: auto; height: inherit;"></a>
-        <a href="/" style="height: 58px;">
-          <h2 class="form-title"  style="color: white;" >Book Search</h2>
-        </a>
-        <div class="dropdown" style="height: 58px;">
-          <button class="dropbtn">Profile
-            <i class="fa fa-caret-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="/logout">logout</a>
-            <a href="/profile">Profile</a>
-            <a href="/book_entry">book entry</a>
-            <a href="/">index</a>
-            <!-- <a href="/"></a> -->
-    
-          </div>
-        </div>
+   
+  <div class="navbar">
+    <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+    <a href="/" class="nav-title-a">
+      <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
+    </a>
+
+    <div class="dropdown">
+      <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+        </i>
+      </button>
+      <div class="dropdown-content">
+      <a href="/login"> <i class="fas fa-sign-out-alt dropdown-list-item"></i>login/Signup</a>
+        <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+        <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+        <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
+        <!-- <a href="/"></a> -->
+
       </div>
+    </div>
+  </div>
 
     <div class="main">
         <section class="sign-in">
@@ -39,7 +42,7 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="images/login/signin-image.jpg" alt="sing up image"></figure>
-                        <a id="link-to-signup" class="signup-image-link">Create an account</a>
+                        <a id="link-to-signup" href="/signup" class="signup-image-link">Create an account</a>
                     </div>
 
                     <div class="signin-form">
