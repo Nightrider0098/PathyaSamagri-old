@@ -62,7 +62,7 @@ $(document).ready(function () {
     
                         <div class="text-data-container">`;
 
-                        for (i = 0; i < Object.keys(result_JSON['book_find'][1]).length; i++) {
+                        for (i = 0; i < Object.keys(result_JSON['book_find'][0]).length; i++) {
                             book_display = book_display + `<div class="book-chr-holder">
                             <h3 class="keys">${Object.keys(result_JSON['book_find'][j])[i]}</h3>
                             <h3 class="values">${Object.values(result_JSON['book_find'][j])[i]}</h3>
@@ -109,7 +109,16 @@ $(document).ready(function () {
     }
 
 
+    var suggestion_list = "";
+    const valid_sub = ['maths', 'english', 'science', 'physics', 'chemistry', 'biology', 'communication', 'mechinacal', 'electronics', 'electrical', 'civil'];
+  
+    for (i = 0; i < valid_sub.length; i++) {
 
+        suggestion_list = suggestion_list.concat(`<option value="${valid_sub[i]}">`)
+        // suggestion_list = suggestion_list.concat(Object.values(result_JSON)[0][i]);
+    }
+
+    $("#subjects").html(suggestion_list)
 
     $('#search-book').on('click', () => {
         var json_request = '';
@@ -144,5 +153,28 @@ $(document).ready(function () {
         // console.log('sen');
 
     })
+
+
+    $('#previous').on('click', () => {
+        var json_request = '';
+        mam = "&";
+        if(index_ > 12){
+        index_ = index_ -12;
+        for (p = 0; p < Object.keys($('#frm-book-data').serializeArray()).length; p = p + 1) {
+            json_request = json_request + encodeURI($('#frm-book-data').serializeArray()[p]['name']) + "=" + encodeURI($('#frm-book-data').serializeArray()[p]['value']) + mam;
+        }
+        json_request = json_request + "index=" + index_
+        xhttp.open("POST", "/mysql/advance_search", true);
+
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(json_request)
+        // console.log('sen');
+    }
+    else{
+        alert("reached Starting of the index");
+    }
+    })
+
+
 
 })

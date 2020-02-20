@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Profile</title>
   
   <!-- for buttons  -->
   <link href="css/index/bootstrap.min.css" rel="stylesheet">
@@ -32,6 +32,26 @@
     }
   </style>
 
+<style>
+  
+#login-form > div.signin-form > div > input[type=text]{
+width: 70%;
+
+  }
+  .form-group{
+
+    margin-bottom: 2px;
+  }
+  p{
+
+    margin-top : 0;
+    margin-bottom: 2px;
+  text-transform: capitalize;
+
+  }
+
+  </style>
+
 
 </head>
 
@@ -48,10 +68,9 @@
       </button>
       <div class="dropdown-content">
         <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
-        <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+        <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
         <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
-        <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
-        <!-- <a href="/"></a> -->
+        <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>        <!-- <a href="/"></a> -->
 
       </div>
     </div>
@@ -62,29 +81,22 @@
     <section class="sign-in" style="margin-top: 120px">
       <div class="container">
 
-        <div class="signin-content" style="display: inline-block;width: 100%; ">
+        <div class="signin-content" style="width: 60%; margin:auto ">
           <h2 class="form-title" style="text-align: center;">Book Entry</h2>
 
           <form class="register-form" style="" id="login-form" action="/mysql/update_user" enctype="multipart/form-data"
             method="post">
 
-            <div class="signin-image" style="margin : auto;max-width: 250px;">
-
+            <div class="signin-image" style="margin : auto;max-width: 350px;">
               <figure>
-
-
                 <input type='file' name="book_image" onchange="readURL(this);"
                   style="margin: auto;margin-bottom: 5px;" />
                 <img id="book_image" name="book" src="images/user/<%= data.prof_img_id %>" alt="your image"
-                  style="width:180px;height:270px;" />
-
-
+                  style="width:250px;height:auto;" />
               </figure>
             </div>
 
-
-
-            <div class="signin-form">
+            <div class="signin-form" style="width: 60%;">
 
 
               <div class="form-group">
@@ -108,8 +120,9 @@
                 <p>user id</p><input name="user_id" readonly type="text" value="<%= data.user_id %>">
               </div>
               <div class="form-group form-button">
-                <button type="submit" class="form-submit">
-                  submit</button>
+               
+          <button type="submit" class="btn btn-outline-dark btn-lg btn-radius advbtn" style="margin: auto;display: block;;margin-top: 30px;margin-left: 38px;" >Save</button>
+
               </div>
             </div>
           </form>
@@ -138,6 +151,41 @@
 
     </form>
   </div>
+
+  <footer style="margin: 0px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+    <div style="display: block;margin:auto;width:30%;min-width: 245px;">
+      <h3 style="color: white;">About Us</h3>
+      <h5 style="color: white;"> Address:</h5>
+      <pre style="color: white;">
+  Near Isschanath chakra,
+  SVNIT,
+  Dumas Road
+  Surat
+  </pre>
+    </div>
+
+
+    <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
+
+      <h5 style="color: white;">Have You any Question?</h5>
+      <pre style="color: white;">
+  hitesh08011999@gmail.com  
+  </pre>
+    </div>
+
+    <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+      <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
+      <div>
+        <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+        <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+        <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+
+      </div>
+
+
+
+  </footer>
+
 </body>
 <script>
   function readURL(input) {

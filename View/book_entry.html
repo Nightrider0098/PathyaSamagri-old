@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Book Entry </title>
+    <title>Book Entry</title>
     <!-- for buttons  -->
     <link href="css/index/bootstrap.min.css" rel="stylesheet">
     <link href="css/index/buttons.css" rel="stylesheet">
@@ -53,10 +53,10 @@
             </button>
             <div class="dropdown-content">
                 <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
-                <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
                 <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
-                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
-                <!-- <a href="/"></a> -->
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>
+                  <!-- <a href="/"></a> -->
 
             </div>
         </div>
@@ -109,14 +109,25 @@
 
                             <div class="form-group">
                                 <label for="edition"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="number" name="edition" id="book-edition" placeholder="Edition" />
+                                <input type="number" name="edition" id="book-edition" max="15" min="1" placeholder="Edition" />
                             </div>
 
                             <div class="form-group">
                                 <label for="year"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="for_year" id="book-ref-year" placeholder="For year" />
+                                <input type="text" name="for_year" list="year_list" id="book-ref-year" placeholder="For year" />
                             </div>
+<datalist id="year_list">
+    <option value="First"></option>
+        
+    <option value="Second"></option>
+    <option value="Third"></option>
+    <option value="Forth"></option>
+    <option value="Firth"></option>
+    <option value="Masters"></option>
+    <option value="PHD"></option>
+    <option value="All"></option>
 
+    </datalist>
                             <div class="form-group">
                                 <label for="subject"><i class="zmdi zmdi-lock"></i></label>
                                 <input name="subject" required="required" list="subjects" id="book-subject"
@@ -124,13 +135,7 @@
 
 
                                 <datalist id="subjects">
-                                    <option value="maths">
-                                    <option value="physics">
-                                    <option value="chemistry">
-                                    <option value="english">
-                                    <option value="none">
-
-                                </datalist>
+\                                </datalist>
 
 
                             </div>
@@ -150,8 +155,44 @@
         </section>
     </div>
 
-    <script src="js/book_entry/book_entry.js"></script>
+
+
+    <footer style="margin: 0px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+        <div style="display: block;margin:auto;width:30%;min-width: 245px;">
+          <h3 style="color: white;">About Us</h3>
+          <h5 style="color: white;"> Address:</h5>
+          <pre style="color: white;">
+      Near Isschanath chakra,
+      SVNIT,
+      Dumas Road
+      Surat
+      </pre>
+        </div>
+    
+    
+        <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
+    
+          <h5 style="color: white;">Have You any Question?</h5>
+          <pre style="color: white;">
+      hitesh08011999@gmail.com  
+      </pre>
+        </div>
+    
+        <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+          <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
+          <div>
+            <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+            <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+            <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+    
+          </div>
+    
+    
+    
+      </footer>
+    
 
 </body>
+<script src="js/book_entry/book_entry.js"></script>
 
 </html>

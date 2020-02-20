@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up </title>
+    <link href="css/index/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="css/signup/style.css">
     <link rel="stylesheet" type="text/css" href="css/common/nav.css">
@@ -14,7 +16,7 @@
 </head>
 
 <body>
-    <div class="navbar">
+    <div class="navbar" style="height: 97px;">
         <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
         <a href="/" class="nav-title-a">
             <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
@@ -26,10 +28,10 @@
             </button>
             <div class="dropdown-content">
                 <a href="/login"> <i class="fas fa-sign-out-alt dropdown-list-item"></i>login/Signup</a>
-                <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
                 <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
-                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
-                <!-- <a href="/"></a> -->
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>
+                      <!-- <a href="/"></a> -->
 
             </div>
         </div>
@@ -47,7 +49,8 @@
                         <form method="POST" class="register-form" id="register-form">
                             <div class="form-group">
                                 <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" required="required" name="username" id="username"
+                                <!-- only for svnitians or any similar pattern -->
+                                <input type="text" required="required" name="username" id="username" pattern="[uUIipP][0-9]{2}(ec|me|co|ch|ce|py)[0-9]{3}"
                                     placeholder="Your Name" />
                             </div>
                             <div class="form-group">
@@ -94,7 +97,44 @@
                 </div>
         </section>
     </div>
-    <script src="js/signup/signup.js"></script>
+
+
+    <footer style="margin: 0px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+        <div style="display: block;margin:auto;width:30%;min-width: 245px;">
+          <h3 style="color: white;">About Us</h3>
+          <h5 style="color: white;"> Address:</h5>
+          <pre style="color: white;">
+      Near Isschanath chakra,
+      SVNIT,
+      Dumas Road
+      Surat
+      </pre>
+        </div>
+    
+    
+        <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
+    
+          <h5 style="color: white;">Have You any Question?</h5>
+          <pre style="color: white;">
+      hitesh08011999@gmail.com  
+      </pre>
+        </div>
+    
+        <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+          <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
+          <div>
+            <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+            <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+            <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+    
+          </div>
+    
+    
+    
+      </footer>
+    
+
 </body>
+<script src="js/signup/signup.js"></script>
 
 </html>

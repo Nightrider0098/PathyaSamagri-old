@@ -1,5 +1,7 @@
-
+var loaded_first = true;
+var loaded_first2 = true;
 $(document).ready(function () {
+
 
     var xhttp = new XMLHttpRequest();
 
@@ -15,8 +17,13 @@ $(document).ready(function () {
 
             if (Object.keys(result_JSON)[0] == "user_books") {
                 if (result_JSON['user_books'].length == 0) {
-                    alert("No more books found");
+
+                    if (!loaded_first2) {
+                        return alert("No more books found");
+                    }
+                    else { loaded_first2 = false; }
                 }
+
                 else {
 
                     for (i = 0; i < result_JSON['user_books'].length; i++) {
@@ -49,7 +56,8 @@ $(document).ready(function () {
     
             <div class="data-flexbox">
             <div class="img-wrapper">
-            <img style="max-width:100%" src="./logo.jpg" alt="never mine">
+            <img style="max-width:100%" src="images/books/${result_JSON['user_books'][j]["img_id"]}" alt="never mine">
+           
             </div>
 
             <div class="text-data-container" >`;
@@ -93,7 +101,12 @@ $(document).ready(function () {
                 book_display = "";
 
                 if (result_JSON['issued_books'].length == 0) {
-                    return alert("No more books found");
+
+                    if (!loaded_first) {
+                        return alert("No more books found");
+                    }
+                    else { loaded_first = false; }
+
                 }
                 else {
                     for (i = 0; i < result_JSON['issued_books'].length; i++) {
@@ -127,15 +140,15 @@ $(document).ready(function () {
     
             <div class="data-flexbox">
             <div class="img-wrapper">
-            <img style="max-width:100%" src="./logo.jpg" alt="never mine">
+            <img style="max-width:100%" src="images/books/${result_JSON['issued_books'][j]["img_id"]}" alt="never mine">
             </div>
 
             <div class="text-data-container" >`;
 
                         for (i = 0; i < Object.keys(result_JSON['issued_books'][0]).length; i++) {
-                            if (i == 5 || i==10 || i == 11)
-                            continue;
-                         book_display = book_display + `<div class="book-chr-holder">
+                            if (i == 5 || i == 10 || i == 11)
+                                continue;
+                            book_display = book_display + `<div class="book-chr-holder">
                 <h3 class="keys">${Object.keys(result_JSON['issued_books'][j])[i]}</h3>
                 <h3 class="values">${Object.values(result_JSON['issued_books'][j])[i]}</h3>
             </div>`;

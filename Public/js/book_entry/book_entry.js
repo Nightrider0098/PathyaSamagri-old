@@ -30,5 +30,23 @@ function readURL(input) {
     }
 
 
+    
+function readURL2(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#user_image')
+                .attr('src', e.target.result)
+                .width(180)
+                .height(270);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+
+
 
 

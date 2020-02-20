@@ -199,6 +199,11 @@ app.get("/user_details/", (req, res) => {
 
 })
 
+
+app.use("/anom_donate/", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "View", "anom_Donate.html"), );
+});
+
 app.get('*', function (req, res) {
     res.sendFile(path.resolve(__dirname, "View", "err_404.html"));
 });

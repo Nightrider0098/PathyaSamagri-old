@@ -11,7 +11,6 @@
     <link href="css/index/buttons.css" rel="stylesheet">
 
 
-    <link rel="stylesheet" type="text/css" href="css/index/multirange.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/common/indiv-book.css">
@@ -19,9 +18,11 @@
     <link rel="stylesheet" type="text/css" href="css/index/index.css">
 
     <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
-    <title>Book Search</title>
+    <title>Advance Search</title>
+    <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+    <link rel="stylesheet" type="text/css" href="css/book_search/doublesidebar.css">
 </head>
-<link rel="stylesheet" type="text/css" href="css/common/nav.css">
+
 <style>
     .keys-text {
         display: block;
@@ -143,7 +144,7 @@
     }
 </style>
 
-<body style="background-color: #f8f8f8;">
+<body style="background-color: #f8f8f8;padding:0px">
     <!-- <div style=""> -->
 
     <div class="navbar">
@@ -158,9 +159,9 @@
             </button>
             <div class="dropdown-content">
                 <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
-                <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
                 <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
-                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>
                 <!-- <a href="/"></a> -->
 
             </div>
@@ -201,27 +202,21 @@
                             <p class="keys-text">Availibility</p>
                             <input class="text-input" name="available_now" list="Availibility_option">
                             <datalist id="Availibility_option">
-                                <option value="availible">
+                                <option value="availible" selected>
                                 <option value="not availible">
                                 <option value="Both">
                             </datalist>
                         </div>
 
-                        <div class="indiv-data-holder ">
-                            <label class="container-label">
-                                <input type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-                            <p class="keys-text">donation_to</p>
-                            <input class="text-input" name="donation_to" type='date' data-date-inline-picker="true">
-                        </div>
+
 
                         <div class="indiv-data-holder ">
                             <label class="container-label">
                                 <input type="checkbox">
                                 <span class="checkmark"></span>
                             </label>
-                            <p class="keys-text">owner</p>
+                            <p class="keys-text">owner_id
+                            </p>
                             <input class="text-input" name="owner" type='text'>
                         </div>
 
@@ -231,8 +226,9 @@
                                 <span class="checkmark"></span>
                             </label>
                             <p class="keys-text">subject</p>
-                            <input name="subject" class="text-input" list="subjects">
+                            <input name="subject" class="text-input" list="subjects" size="5">
                             <datalist id="subjects">
+
                             </datalist>
                         </div>
 
@@ -242,10 +238,22 @@
                                 <span class="checkmark"></span>
                             </label>
                             <p class="keys-text">Edition</p>
-                            <span class="multi-range" style="width: 50%; margin: auto">
-                                <input type="range" min="0" max="15" value="0" id="lower" name='lower_edition'>
-                                <input type="range" min="0" max="15" value="15" id="upper" name='upper_edition'>
+
+                            <span class="multi-range" style="width:54%;padding-left:65px;height:21px">
+                                <label id="lower_value1" for="lower_edition">1</label>
+                                <input name="lower_edition" class="custom-range" type="range" min="1" max="14" value="1"
+                                    id="lower">
+
+                                <input name="upper_edition" class="custom-range" type="range" min="2" max="15"
+                                    value="15" id="upper">
+
                             </span>
+                            <label id="upper_value1" for="upper_edition">15</label>
+
+
+
+
+
                         </div>
 
                         <div class="indiv-data-holder ">
@@ -286,26 +294,29 @@
     <section id="next_previous_buttons" style="display: none;">
 
         <div style="margin: 18px auto 5px auto; align-items: center; height: fit-content">
-          <div style="display: inline;">
-            <div style="margin:5px 2px 5px 30%;float:left">
-              <a id="previous" style="margin: 5px ;display:block;line-height: 1.5;display: block; text-align: center;">
-                <i class="fas fa-arrow-circle-left fa-2x"></i>
-                <p style="margin:auto;">Previous</p>
-              </a>
+            <div style="display: inline;">
+                <div style="margin:5px 2px 5px 30%;float:left">
+                    <a id="previous"
+                        style="margin: 5px ;display:block;line-height: 1.5;display: block; text-align: center;">
+                        <i class="fas fa-arrow-circle-left fa-2x"></i>
+                        <p style="margin:auto;">Previous</p>
+                    </a>
+                </div>
+                <div> <a id="next"
+                        style="margin: 5px 30% 5px 2px ;float:right;display: block;line-height: 1.5;text-align: center;">
+                        <i class="fas fa-arrow-circle-right fa-2x"></i>
+                        <p style="margin:auto;">Next</p>
+                    </a>
+                </div>
             </div>
-            <div> <a id="next"
-                style="margin: 5px 30% 5px 2px ;float:right;display: block;line-height: 1.5;text-align: center;">
-                <i class="fas fa-arrow-circle-right fa-2x"></i>
-                <p style="margin:auto;">Next</p>
-              </a>
-            </div>
-          </div>
         </div>
-      </section>
-    
+    </section>
 
-    <footer id="footer_books" style="margin: 102px 0 0 0; display: flex ; padding: 25px 10%; background-color: black;">
-        <div style="display: block;margin:auto; width:30%">
+
+
+    <footer
+        style="margin: 120px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+        <div style="display: block;margin:auto;width:30%;min-width: 245px;">
             <h3 style="color: white;">About Us</h3>
             <h5 style="color: white;"> Address:</h5>
             <pre style="color: white;">
@@ -317,7 +328,7 @@
         </div>
 
 
-        <div style="display: block;margin-top: 42px; width:30%">
+        <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
 
             <h5 style="color: white;">Have You any Question?</h5>
             <pre style="color: white;">
@@ -325,8 +336,8 @@
       </pre>
         </div>
 
-        <div style="display: block;margin-top: 42px; width:32%">
-            <h3 style="color: white; margin-bottom: 11px;">Follow Us </h3>
+        <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+            <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
             <div>
                 <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
                 <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
@@ -340,8 +351,10 @@
 </body>
 <script src="js/book_search/book-search.js"></script>
 
-<script>var lowerSlider = document.querySelector('#lower'),
-        upperSlider = document.querySelector('#upper'),
+<script>
+$(document).ready(()=>{
+    var lowerSlider = document.querySelector('#lower_edition'),
+        upperSlider = document.querySelector('#upper_edition'),
         lowerVal = parseInt(lowerSlider.value);
     upperVal = parseInt(upperSlider.value);
 
@@ -349,29 +362,37 @@
         lowerVal = parseInt(lowerSlider.value);
         upperVal = parseInt(upperSlider.value);
 
-        if (upperVal < lowerVal + 4) {
-            lowerSlider.value = upperVal - 4;
+        if (upperVal < lowerVal + 1) {
+            lowerSlider.value = upperVal - 1;
+            $("#lower_value1").innerHTML =  upperVal - 1
 
             if (lowerVal == lowerSlider.min) {
-                upperSlider.value = 4;
+                upperSlider.value = 2;
+                $("#upper_value1").innerHTML = '2'
             }
         }
     };
 
 
     lowerSlider.oninput = function () {
+
         lowerVal = parseInt(lowerSlider.value);
         upperVal = parseInt(upperSlider.value);
 
-        if (lowerVal > upperVal - 4) {
-            upperSlider.value = lowerVal + 4;
-
-            if (upperVal == upperSlider.max) {
-                lowerSlider.value = parseInt(upperSlider.max) - 4;
+        if (lowerVal > upperVal - 1) {
+            {
+            upperSlider.value = lowerVal + 1;
+                $("#upper_value1").innerHTML = lowerVal + 1;
+            } if (upperVal == upperSlider.max) {
+                lowerSlider.value = parseInt(upperSlider.max) - 1;
+                $("#lower_value1").innerHTML = parseInt(upperSlider.max) - 1;
             }
 
         }
     };
+})
 </script>
+
+
 
 </html>

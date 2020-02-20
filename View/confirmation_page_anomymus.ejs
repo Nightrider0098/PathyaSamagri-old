@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        Booking Confirm </title>
+        <link href="css/index/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="../fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="../css/signup/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/common/nav.css">
+
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="/"> <img class="nav-logo-img" src="../images/index/logo.png"></a>
+        <a href="/" class="nav-title-a">
+            <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
+        </a>
+
+        <div class="dropdown">
+            <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+                </i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
+                <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>
+                         <!-- <a href="/"></a> -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="main" style="padding-top: 50px;padding-bottom: 50px;">
+        <section class="signup" style="margin-bottom: 50px;">
+            <div class="container">
+                <div class="signup-content">
+                    <div style="text-align: left; margin :auto;">
+                    <h1>Booking Confirm</h1>
+                     <p>phone no of owner :- <%= phone_no%></p>
+                    <p>owner name is <%= username%></p>
+                    <p></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <footer style="margin: 0px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+        <div style="display: block;margin:auto;width:30%;min-width: 245px;">
+          <h3 style="color: white;">About Us</h3>
+          <h5 style="color: white;"> Address:</h5>
+          <pre style="color: white;">
+      Near Isschanath chakra,
+      SVNIT,
+      Dumas Road
+      Surat
+      </pre>
+        </div>
+    
+    
+        <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
+    
+          <h5 style="color: white;">Have You any Question?</h5>
+          <pre style="color: white;">
+      hitesh08011999@gmail.com  
+      </pre>
+        </div>
+    
+        <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+          <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
+          <div>
+            <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+            <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+            <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+    
+          </div>
+    
+    
+    
+      </footer>
+    
+</body>
+<script src="../js/signup/signup.js"></script>
+
+</html>

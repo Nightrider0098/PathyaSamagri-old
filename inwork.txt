@@ -1,4 +1,19 @@
-more construction pages
+
+
+
 https certificate issue
-to remove 
-to change	
+
+
+forum to talk to each other
+other stationary for the user like drafter or stencils
+reduce the reusable code
+
+
+
+						postpone:-
+range edition for css part
+notification when user login in into his profile what books are been requested
+notification pattern change
+some common terms and condition for signup details
+when no book issued or no book donated bar dont go away
+

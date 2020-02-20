@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Anonymous Donation</title>
+    <!-- for buttons  -->
+    <link href="css/index/bootstrap.min.css" rel="stylesheet">
+    <link href="css/index/buttons.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/book_entry/style.css">
+    <script src="js/jquery-3.4.1.js"></script>
+
+    <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+
+
+    <style>
+        .register-form {
+
+            display: flex;
+        }
+
+        @media screen and (max-width: 650px) {
+            .register-form {
+
+                display: block;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body style="margin-top: 0px;padding:0;">
+
+
+    <div class="navbar">
+        <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
+        <a href="/" class="nav-title-a">
+            <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
+        </a>
+
+        <div class="dropdown">
+            <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+                </i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/login"><i class="fas fa-sign-out-alt dropdown-list-item"></i>/login/Singup</a>
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
+                <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>
+                <!-- <a href="/"></a> -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="main">
+        <section class="sign-in">
+            <div class="container">
+
+                <div class="signin-content" style="display: inline-block;width: 100%;  ">
+                    <h2 class="form-title" style="text-align: center; margin-bottom: 29px;">Book Entry</h2>
+
+                    <form class="register-form" id="login-form" action="/mysql/anom_book_entry"
+                        enctype="multipart/form-data" method="post" style="display: inline;">
+                        <div style="display:flex">
+                            <div class="signin-image" style="margin : auto;max-width: 250px;">
+                                <figure>
+                                    <input type='file' name="user_image"  onchange="readURL2(this);"
+                                        style="margin: auto;margin-bottom: 5px;" />
+                                    <img id="user_image" name="book" src="images/no-image.png"
+                                        alt="your image" style="width:180px;height:270px;" />
+                                </figure>
+                            </div>
+
+                            <div
+                                style="display: flex; flex-wrap: wrap; margin: 0 auto 30px auto; padding: 8px;; border: 2px solid black ;">
+
+
+                                <div class="form-group" style="width: 40%; margin: auto;">
+                                    <label for="username"><i class="zmdi zmdi-lock"></i></label>
+                                    <input type="text" name="username" id="username" placeholder="Your Name" />
+                                </div>
+
+                                <div class="form-group" style="width: 40%; margin: auto;">
+                                    <label for="number"><i class="zmdi zmdi-lock"></i></label>
+                                    <input type="text" name="phone_no" id="phone-number" placeholder="Your number" />
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex;">
+                            <div class="signin-image" style="margin : auto;max-width: 250px;">
+
+                                <figure>
+                                    <input type='file' name="book_image" onchange="readURL(this);"
+                                        style="margin: auto;margin-bottom: 5px;" />
+                                    <!-- <input type="text" style="display: none;" name="img_id" id="img_id"> -->
+                                    <img id="book_image" name="book" src="images/no-image.png" alt="your image"
+                                        style="width:180px;height:270px;" />
+                                    <!-- <br> -->
+                                    <!-- <button type="submit" id="img_upload">send</button> -->
+                                </figure>
+                            </div>
+
+                            <div class="signin-form">
+
+
+                                <div class="form-group">
+                                    <label for="book_title"><i
+                                            class="zmdi zmdi-account material-icons-name"></i></label>
+                                    <input type="text" required="required" name="title" id="book_title"
+                                        placeholder="Book Title" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="author"><i class="zmdi zmdi-lock"></i></label>
+                                    <input type="text" name="author" required="required" id="book-author"
+                                        placeholder="Author" />
+                                </div>
+                                <!-- <input type="text" style="display: none;" name="img_id" id="data_img_id"> -->
+
+                                <div class="form-group">
+                                    <label for="Publisher"><i class="zmdi zmdi-lock"></i></label>
+                                    <input type="text" name="publisher" id="book-publisher" placeholder="Publisher" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edition"><i class="zmdi zmdi-lock"></i></label>
+                                    <input type="number" name="edition" id="book-edition" placeholder="Edition" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="year"><i class="zmdi zmdi-lock"></i></label>
+                                    <input type="text" name="for_year" id="book-ref-year" placeholder="For year" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="subject"><i class="zmdi zmdi-lock"></i></label>
+                                    <input name="subject" required="required" list="subjects" id="book-subject"
+                                        placeholder="Subject" />
+
+
+                                    <datalist id="subjects">
+                                        <option value="maths">
+                                        <option value="physics">
+                                        <option value="chemistry">
+                                        <option value="english">
+                                        <option value="none">
+
+                                    </datalist>
+
+
+                                </div>
+
+                                <div class="form-group form-button">
+                                    <button type="submit" name="signin" id="upload" class="form-submit"
+                                        value="Donate">Donate</button>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <footer style="margin: 0px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+        <div style="display: block;margin:auto;width:30%;min-width: 245px;">
+          <h3 style="color: white;">About Us</h3>
+          <h5 style="color: white;"> Address:</h5>
+          <pre style="color: white;">
+      Near Isschanath chakra,
+      SVNIT,
+      Dumas Road
+      Surat
+      </pre>
+        </div>
+    
+    
+        <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
+    
+          <h5 style="color: white;">Have You any Question?</h5>
+          <pre style="color: white;">
+      hitesh08011999@gmail.com  
+      </pre>
+        </div>
+    
+        <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+          <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
+          <div>
+            <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+            <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+            <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+    
+          </div>
+    
+    
+    
+      </footer>
+</body>
+
+<script src="js/book_entry/book_entry.js"></script>
+
+</html>

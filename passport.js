@@ -67,7 +67,7 @@ module.exports = (passport) => {
     passport.serializeUser((user, done) => { done(null, user[0].user_id); });
     passport.deserializeUser((id, done) => {
         con.query(`SELECT * FROM user where user_id ="${id}"`, (err, result, fields) => {
-            console.log("logged out")
+            
             done(null, result);
         });
     })

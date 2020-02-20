@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Book Edit</title>
+    <title>Book Update</title>
+        <link href="css/index/bootstrap.min.css" rel="stylesheet">
+   
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="css/book_entry/style.css">
     <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="css/common/nav.css">
-
+   
 </head>
 
 <body style="margin: 0px;padding : 0px">
@@ -26,9 +28,9 @@
             </button>
             <div class="dropdown-content">
                 <a href="/logout"><i class="fas fa-sign-out-alt dropdown-list-item"></i>logout</a>
-                <a href="/"><i class="fas fa-home dropdown-list-item"></i>index</a>
+                <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
                 <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
-                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>book entry</a>
+                <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>
                 <!-- <a href="/"></a> -->
             </div>
         </div>
@@ -37,14 +39,14 @@
     <div class="main">
         <section class="sign-in">
             <div class="container">
-                <form method="post" class="register-form" id="login-form" action="/mysql/book_update">
+                <form method="post" class="register-form" id="login-form" action="/mysql/book_update" enctype="multipart/form-data">
 
                     <div class="signin-content">
 
 
                         <div class="signin-image">
                             <figure>
-                                <input type="file"  name="img_id" id="img_id"
+                                <input type="file"  name="book_image" id="img_id"
                                     value="<%= img_id %>" onchange="readURL(this);"
                                     style="margin: auto;margin-bottom: 5px;" />
                                 <img id="book_image" src="images/books/<%= img_id%>" alt="your image"
@@ -82,15 +84,26 @@
 
                             <div class="form-group">
                                 <label for="edition"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="number" name="edition" id="book-edition" placeholder="Edition"
+                                <input type="number" name="edition" min="1" max="15" id="book-edition" placeholder="Edition"
                                     value="<%= edition %>" />
                             </div>
 
                             <div class="form-group">
                                 <label for="year"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="text" name="for_year" id="book-ref-year" placeholder="For year"
+                                <input type="text" list="year_list" name="for_year" id="book-ref-year" placeholder="For year"
                                     value="<%=for_year%>" />
-                            </div>
+                                    <datalist id="year_list">
+                                        <option value="First"></option>
+                                            
+                                        <option value="Second"></option>
+                                        <option value="Third"></option>
+                                        <option value="Forth"></option>
+                                        <option value="Firth"></option>
+                                        <option value="Masters"></option>
+                                        <option value="PHD"></option>
+                                        <option value="All"></option>
+                                    
+                                        </datalist>                         </div>
 
                             <div class="form-group">
                                 <label for="subject"><i class="zmdi zmdi-lock"></i></label>
@@ -117,6 +130,10 @@
     </div>
     </section>
     </div>
+
+
+
+
 </body>
 <script>
     function readURL(input) {
@@ -140,3 +157,39 @@
 <script src="js/book_edit/book_edit.js"></script>
 
 </html>
+
+
+
+<footer style="margin: 0px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+    <div style="display: block;margin:auto;width:30%;min-width: 245px;">
+      <h3 style="color: white;">About Us</h3>
+      <h5 style="color: white;"> Address:</h5>
+      <pre style="color: white;">
+  Near Isschanath chakra,
+  SVNIT,
+  Dumas Road
+  Surat
+  </pre>
+    </div>
+
+
+    <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
+
+      <h5 style="color: white;">Have You any Question?</h5>
+      <pre style="color: white;">
+  hitesh08011999@gmail.com  
+  </pre>
+    </div>
+
+    <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+      <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
+      <div>
+        <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+        <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+        <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+
+      </div>
+
+
+
+  </footer>
