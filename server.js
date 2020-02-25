@@ -82,25 +82,25 @@ function checkAllDetails(req, res, next) {
 
 function last_login(req, res, next) {
     if (req.isAuthenticated()) { //remember that this will not facilate on the spot notification to user means if the user logged and some othe user request then notification will not be displayed
-        pre_login = req.user[0].last_login;
-        last_noti = req.user[0].last_noti;
-        con.query("update user set last_login=current_timestamp where user_id='"+req.user[0].user_id+"'")
-        if (last_noti !== null) {
-            console.log("last login was on ", pre_login, "and last noti", last_noti);
-            if(new Date(pre_login)>new Date(last_noti))
-          {  console.log("needs notification pls")
+        con.query("select * from user where user_id='" + req.user[0].user_id + "'", (err, result_user_details) => {
+            last_noti = result_user_details[0]['last_noti']
+            pre_login = result_user_details[0]['last_login']
+            con.query("update user set last_login=current_timestamp where user_id='" + req.user[0].user_id + "'")
 
-        
-        }
-        else
-        console.log("notification are not needed")
-        }
-        else
-        console.log("notification are not needed as last no notification")
+            if (last_noti !== null) {
+                console.log("last login was on ", pre_login, "and last noti", last_noti);
+                if (new Date(pre_login) > new Date(last_noti)) {
+                    console.log("needs notification pls")
 
+
+                } else
+                    console.log("notification are not needed")
+            } else
+                console.log("notification are not needed as last no notification")
+        })
 
     }
-    
+
     next();
 
 }
@@ -421,6 +421,7 @@ app.post("/authenticate/", passport.authenticate('local', {
         failureRedirect: '/login_fail'
     }),
     function (req, res) {
+        
 
         res.redirect('/');
     }

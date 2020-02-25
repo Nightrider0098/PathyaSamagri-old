@@ -231,11 +231,22 @@ $(document).ready(function () {
 console.log("completed");
 
                 }
+            else if( Object.keys(result_JSON)[0] == "notification")
+            { 
+                if(result_JSON["notification"]=="you have new notification"){alert("new notificatoin")}
+               
+                
+            }
 
             }
         }
         xhttp.open("GET", "http://" + window.location.host + "/mysql/recent_books", true);
         xhttp.send();
+setTimeout( abc,200)
+function abc(){
+        xhttp.open("GET", "http://" + window.location.host + "/mysql/notification", true);
+        xhttp.send();
+}
 
 
         var book_index = 0;

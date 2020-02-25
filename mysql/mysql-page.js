@@ -326,17 +326,17 @@ Router.get("/book_booked", checkAuthenticated, (req, res) => {
 
 
 
-    sql = "select available_now,donated_to,owner_id  from book where book_id ='" + req.query['book_id'] + "'";
-    con.query(sql, (err, result_) => {
+    sql = "select *  from book where book_id ='" + req.query['book_id'] + "'";
+    con.query(sql, (err, result_book_details) => {
         if (err) res.send(err);
-        if (result_[0]['available_now'] == '0')
+        if (result_book_details[0]['available_now'] == '0')
             //if the user is again looking for the same book when issuing
-            if (result_[0]['donated_to'] == req.user[0].user_id) {
+            if (result_book_details[0]['donated_to'] == req.user[0].user_id) {
 
-                if (result_[0]['book_anom'] == "1")
+                if (result_book_details[0]['book_anom'] == "1")
                     sql = "select address,phone_no,username from anom_user where user_id='" + result_[0]['owner_id'] + "'";
                 else
-                    sql = "select address,phone_no,username,prof_img_id from user where user_id='" + result_[0]['owner_id'] + "'";
+                    sql = "select address,phone_no,username,prof_img_id from user where user_id='" + result_book_details[0]['owner_id'] + "'";
                 con.query(sql, (err, result__) => {
                     if (err) res.send(err);
                     else {
@@ -351,68 +351,67 @@ Router.get("/book_booked", checkAuthenticated, (req, res) => {
             var book_issued_by_user = req.user[0]['book_issued']
             if (book_issued_by_user < 4) {
                 //books less then 4
-                if ((result_[0]['owner_id'] == req.user[0].user_id)) {
+                if ((result_book_details[0]['owner_id'] == req.user[0].user_id)) {
                     res.send("not allowed to issue own books");
                 } else {
                     //updating book availability 
                     sql = "update book set available_now = 0 , donated_to ='" + req.user[0]['user_id'] + "' where book_id='" + req.query['book_id'] + "'";
-                    con.query(sql, (err, result) => {
+                    con.query(sql, (err, result_temp) => {
                         if (err) return res.send(err);
                         // searching weather the books is donated by anom
-                        sql_1 = 'select book_id from book where book_anom=1'
+                        sql_1 = 'select * from book where book_anom=1'
 
-                        con.query(sql_1, (err, result54, feilds) => {
+                        con.query(sql_1, (err, result_anom_Details, feilds) => {
                             book_is_anom = 0;
-                            console.log(result54)
-                            for (i = 0; i < result54.length; i++)
-                                if (result54[i]['book_id'] == req.query['book_id']) {
+                            console.log(result_anom_Details)
+                            for (i = 0; i < result_anom_Details.length; i++)
+                                if (result_anom_Details[i]['book_id'] == req.query['book_id']) {
                                     book_is_anom = 1;
                                     console.log("this book is anom ")
                                 }
                             //    if the book belong to annomyus
-                            if (book_is_anom == 0) {
-                                sql = "select owner_id,Book_id,title from book where book_id ='" + req.query['book_id'] + "'";
-                                con.query(sql, (err, result_) => {
+                            if (result_book_details[0].book_anom == 0) {
+
+
+                                sql = "select * from user where user_id ='" + result_book_details[0]['owner_id'] + "'";
+                                con.query(sql, (err, result_owner_info) => {
                                     if (err) res.send(err);
+
+
                                     // if(result_[])
                                     //writing into notify file
                                     const Date_time = new Date()
-                                    fs.appendFile(`C:/Users/Dhruvam/Desktop/mongodb_project/noti/doner/${result_[0]['owner_id']}.txt`, "\r\n  " + Date_time.getDate() + " your book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " is requested by user " + req.user[0].username + " phone no " + req.user[0].phone_no, (err) => {
+                                    fs.appendFile(`C:/Users/Dhruvam/Desktop/mongodb_project/noti/doner/${result_book_details[0]['owner_id']}.txt`, "\r\n  " + Date() + " your book with name " + result_book_details[0]['title'] + " and id " + result_book_details[0]['Book_id'] + " is requested by user " + req.user[0].username + " phone no " + req.user[0].phone_no, (err) => {
                                         if (err) {
+                                            if (err) {
+                                                console.log(result_, "err", err)
+                                            }
                                             fs.writeFile(`C:/Users/Dhruvam/Desktop/mongodb_project/noti/doner/${result_[0]['owner_id']}.txt`, "\r\n  " + Date() + " your book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " is requested by user " + req.user[0].username + " phone no " + req.user[0].phone_no, (err) => {
                                                 console.log(err);
                                             });
                                         }
                                     });
-                                    con.query("update user set last_noti = current_timestamp where user_id='" + result_[0]['owner_id'] + "'", (err, result) => {
-                                       
-                                            if (err)  {
-                                                console.log("err in updating last_noti of book owner", err)
-                                            }
+                                    con.query("update user set last_noti = current_timestamp where user_id='" + result_owner_info[0]['user_id'] + "'", (err, result) => {
+
+                                        if (err) {
+                                            console.log("err in updating last_noti of book owner", err)
+                                        }
                                     });
 
 
-                                    fs.appendFile(`C:/Users/Dhruvam/Desktop/mongodb_project/noti/reciever/${req.user[0].user_id}.txt`, "\r\n  " + Date() + " you have book a book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " from  by user " + req.user[0].username + " his phone no " + req.user[0].phone_no, (err) => {
+                                    fs.appendFile(`C:/Users/Dhruvam/Desktop/mongodb_project/noti/reciever/${req.user[0].user_id}.txt`, "\r\n  " + Date() + " you have requested a book with name " + result_book_details[0]['title'] + " and id " + result_book_details[0]['Book_id'] + " from  by user " + result_owner_info[0]['username'] + " his phone no " + result_owner_info[0]['phone_no'], (err) => {
                                         if (err) {
-                                            fs.writeFile(`C:/Users/Dhruvam/Desktop/mongodb_project/noti/reciever/${req.user[0].user_id}.txt`, "\r\n  " + Date() + " you have book a book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " from  by user " + req.user[0].username + " his phone no " + req.user[0].phone_no, (err) => {
+                                            fs.writeFile(`C:/Users/Dhruvam/Desktop/mongodb_project/noti/reciever/${req.user[0].user_id}.txt`, "\r\n  " + Date() + " you have book a book with name " + result_[0]['title'] + " and id " + result_[0]['Book_id'] + " from  by user " + result_owner_info[0]['username'] + " his phone no " + result_owner_info[0]['phone_no'], (err) => {
                                                 console.log(err);
                                             });
 
                                         }
                                     });
                                     //acknolegment to the user that book has been issued
-                                    sql = "select address,phone_no,username,prof_img_id from user where user_id='" + result_[0]['owner_id'] + "'";
-                                    con.query(sql, (err, result__) => {
-                                        if (err) res.send(err);
-                                        else {
-                                            console.log(result__[0], sql);
-                                            res.render(path.resolve(__dirname, "..", "View", "confirmation_page.ejs"), result__[0]);
-                                        }
-                                    })
+
+                                    res.render(path.resolve(__dirname, "..", "View", "confirmation_page.ejs"), result_owner_info[0]);
                                 })
-
                                 //updating number of books issued by user
-
                                 con.query("update user set book_issued=" + (book_issued_by_user + 1) + " where username='" + req.user[0].username + "'", (err, result) => {
                                     if (err) console.log(err);
                                 });
@@ -503,6 +502,40 @@ Router.get("/delete", (req, res) => {
     });
 });
 
+Router.get("/notification", (req, res) => {
+    //validation is left
+    if (req.isAuthenticated()) { //remember that this will not facilate on the spot notification to user means if the user logged and some othe user request then notification will not be displayed
+        con.query("select * from user where user_id='" + req.user[0].user_id + "'", (err, result_user_details) => {
+            last_noti = new Date(req.user[0]['last_noti']).getTime()
+            pre_login = new Date(req.user[0]['last_login']).getTime()
+           
+            if (last_noti !== 0) {
+                console.log("last login was on ", pre_login, "and last noti", last_noti);
+                if (pre_login < last_noti) {
+                    console.log("needs notification pls")
+                    res.json({
+                        "notification": "you have new notification","last_login": JSON.stringify(new Date(pre_login))
+                    })
+
+                } else
+                    res.send({
+                        "notification": "you have no new notification here"
+                    })
+
+            } else
+                res.send({
+                    "notification": "you have no new notification"
+                })
+        })
+
+
+    }
+    setTimeout(ab,100)
+    function ab(){
+    con.query("update user set last_login=current_timestamp where user_id='" + req.user[0].user_id + "'",(err)=>{console.log(err)})
+    }
+    
+});
 //changing book details
 Router.post("/book_update/", (req, res) => {
 

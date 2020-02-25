@@ -200,8 +200,30 @@ $(document).ready(function () {
                     }
                 $("#noti_tab").html(text);
             }
+            else if( Object.keys(result_JSON)[0] == "notification"){ 
+                
+                last_login = result_JSON["last_login"]
+                num_noti = parseInt(document.querySelector("#noti_tab").childElementCount)
+                if(result_JSON['notification']=="you have new notification","last_login")
+                for(i=1;i<num_noti;i++)
+                {
+                    data = document.querySelector("#noti_"+String(i)+"> div").textContent
+                    console.log(last_login )
+
+                    if(new Date(data.slice(0,35)) > new Date(last_login.slice(1,25)))
+                    {
+                       
+                        console.log(new Date(data.slice(0,35)).getTime()
+                        ,new Date(data.slice(0,35)).getTime(),
+                        new Date(data.slice(0,35)).getTime());
+                        document.querySelector("#noti_"+String(i)+"> div").setAttribute("class","text-noti-indiv bg-primary")
+                    }}
+            }
+
+            
         }
     }
+    setTimeout(user_data_1,200)
     setTimeout(user_data, 100);
     setTimeout(user_data_3, 900);
     setTimeout(user_data_2, 500);
@@ -215,7 +237,10 @@ $(document).ready(function () {
         xhttp.open("GET", "http://localhost:5400/user_noti", true)
         xhttp.send();
     }
-
+    function user_data_1(){
+        xhttp.open("GET", "http://" + window.location.host + "/mysql/notification", true);
+        xhttp.send();
+}
 
     function user_data_2() {
         xhttp.open("GET", "http://localhost:5400/mysql/user_book_issued?index=0", true)
