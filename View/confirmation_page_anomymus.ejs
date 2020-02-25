@@ -7,20 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
         Booking Confirm </title>
-        <link href="css/index/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/index/bootstrap.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="../fonts/material-icon/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="../css/signup/style.css">
+     <link rel="stylesheet" href="../css/signup/style.css">
     <link rel="stylesheet" type="text/css" href="../css/common/nav.css">
 
 </head>
 
 <body>
     <div class="navbar">
-        <a href="/"> <img class="nav-logo-img" src="../images/index/logo.png"></a>
-        <a href="/" class="nav-title-a">
-            <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
-        </a>
+        <a href="/"> <img class="nav-logo-img" src="../images/index/logo.png" style="width:316px"></a>
+    
 
         <div class="dropdown">
             <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
@@ -39,8 +36,14 @@
 
     <div class="main" style="padding-top: 50px;padding-bottom: 50px;">
         <section class="signup" style="margin-bottom: 50px;">
-            <div class="container">
-                <div class="signup-content">
+            <div class="container" style="display: flex;">
+                <div class="img-holder" style="    margin: auto;">
+               <img id="121" src="../images/anom_user/<%= prof_img_id %>" style="    max-width: 165px;
+               border-radius: 12px;"  >
+                </div>
+                  <div class="signup-content" style="width: 75%;">
+                      <div style=    "text-align: left;
+                      margin: 0;">
                     <div style="text-align: left; margin :auto;">
                     <h1>Booking Confirm</h1>
                      <p>phone no of owner :- <%= phone_no%></p>
@@ -89,5 +92,6 @@
     
 </body>
 <script src="../js/signup/signup.js"></script>
-
+<link rel="stylesheet" href="../fonts/material-icon/css/material-design-iconic-font.min.css">
+   
 </html>

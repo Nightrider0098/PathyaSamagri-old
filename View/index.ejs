@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
-
+ 
   <!-- for buttons  -->
   <link href="css/index/bootstrap.min.css" rel="stylesheet">
   <link href="css/index/buttons.css" rel="stylesheet">
@@ -97,17 +96,21 @@
 
     }
   </style>
+<style>
+body{
+  background-color: #f4b41a;
 
+};
+
+</style>
 </head>
 
 
-<body>
+<body >
 
   <div class="navbar">
-    <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
-    <a href="/" class="nav-title-a">
-      <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
-    </a>
+    <a href="/"> <img class="nav-logo-img" src="images/index/logo.png" style="width:316px"></a>
+    
 
     <div class="dropdown">
       <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
@@ -116,9 +119,10 @@
       <div class="dropdown-content">
       <a href="<% if(Log_message=="true") { %> /logout <% } else { %> /login <% } %> "> <i class="fas fa-sign-out-alt dropdown-list-item"></i><% if(Log_message=="true") { %> logout <% } else { %> login/Signup <% } %> </a>
         <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
-        <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
         <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
         <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>  
+        <a href="/anom_donate"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(anonymous</a>  
+        
         <!-- <a href="/"></a> -->
 
       </div>
@@ -140,8 +144,9 @@
         </div>
         <a href="/book_search" style="margin: auto;">
           <button type="button" class="btn btn-outline-dark btn-lg btn-radius advbtn" id="advance-button"
-            style="margin: auto;" >advance
-            search</button></a>
+            style="margin: auto;" >advance search</button></a>
+            <a href="/unused" style="margin: auto;"><button type="button" class="btn btn-outline-dark btn-lg btn-radius advbtn" id="advance-button"
+            style="margin: auto;" >Only Available</button></a>
 
       </div>
     </div>
@@ -184,7 +189,7 @@
       <h3 style="color: white;">About Us</h3>
       <h5 style="color: white;"> Address:</h5>
       <pre style="color: white;">
-  Near Isschanath chakra,
+  Near Isschanath circle,
   SVNIT,
   Dumas Road
   Surat
@@ -216,5 +221,6 @@
 <script src="js/jquery-3.4.1.js"></script>
 <script src="js/index/index.js"></script>
 
+<script src="js/common/fontawsome.js"></script>
 
 </html>

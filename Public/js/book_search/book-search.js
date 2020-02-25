@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     var xhttp = new XMLHttpRequest();
@@ -11,18 +10,24 @@ $(document).ready(function () {
             if (Object.keys(result_JSON)[0] == "book_find") {
                 if (result_JSON['book_find'] == 0) {
                     alert("no such book");
-                }
-                else {
+                } else {
 
                     book_tags = '';
                     book_display = '';
 
 
                     for (i = 0; i < result_JSON['book_find'].length; i++) {
-                        if (result_JSON['book_find'][i]['available_now'] == 0)
-                            book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: red ;display:flex;flex-direction: column;max-width:300px; margin: 20px auto auto auto ; border-width: 1px;border-style: solid;">' +
-                                `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/books/${result_JSON['book_find'][i]['img_id']}">
-                            <h3>${Object.values(result_JSON['book_find'][i])[1]}</h3>
+                        if (result_JSON['book_find'][i]['available_now'] == 0) {
+                            book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: red ;display:flex;flex-direction: column;max-width:300px; margin: 20px auto 0 auto ; border-width: 1px;border-style: solid;">'
+                            if (result_JSON['book_find'][i].book_anom == '1')
+                                book_tags += `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/anom_user/${result_JSON['book_find'][i]['img_id']}"`
+                            else {
+                                // console.log(type(result_JSON['book_find'][i].book_anom), result_JSON['book_find'][i].book_anom)
+                                book_tags += `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/books/${result_JSON['book_find'][i]['img_id']}">`
+                            }
+                            // console.log(type(result_JSON['book_find'][i].book_anom), result_JSON['book_find'][i].book_anom)
+
+                            book_tags += `<h3>${Object.values(result_JSON['book_find'][i])[1]}</h3>
                             <h4>${Object.values(result_JSON['book_find'][i])[2]}</h4>
                             <h4>For:- ${Object.values(result_JSON['book_find'][i])[8]}</h4>
                             <div class="container">
@@ -31,10 +36,15 @@ $(document).ready(function () {
                             </div>
                             </div>
                             </div>`;
-                        else
-                            book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;display:flex;flex-direction: column;max-width:300px; margin: 20px auto auto auto; border-width: 1px;border-style: solid;">' +
-                                `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/books/${result_JSON["book_find"][i]['img_id']}">
-                            <h3>${Object.values(result_JSON['book_find'][i])[1]}</h3>
+                        } else {
+                            book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;display:flex;flex-direction: column;max-width:300px; margin: 20px auto 0 auto; border-width: 1px;border-style: solid;">'
+                            if (result_JSON['book_find'][i].book_anom == '1')
+                                book_tags += `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/anom_user/${result_JSON['book_find'][i]['img_id']}"`
+                            else {
+                                book_tags += `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/books/${result_JSON['book_find'][i]['img_id']}">`
+                            }
+
+                            book_tags += `<h3>${Object.values(result_JSON['book_find'][i])[1]}</h3>
                             <h4>${Object.values(result_JSON['book_find'][i])[2]}</h4>
                             <h4>For:- ${Object.values(result_JSON['book_find'][i])[8]}</h4>
                             <div class="container">
@@ -43,6 +53,7 @@ $(document).ready(function () {
                             </div>
                             </div>
                             </div>`;
+                        }
                     }
                     //for each books
                     for (j = 0; j < result_JSON['book_find'].length; j++) {
@@ -57,10 +68,16 @@ $(document).ready(function () {
                 
                         <div class="data-flexbox">
                         <div class="img-wrapper">
-                        // <img src="images/books/${result_JSON['book_find'][j]['img_id']}">
-                        </div>
-    
-                        <div class="text-data-container">`;
+                        `
+                        if (result_JSON['book_find'][j].book_anom == '1')
+                                book_display += 
+                                `<img src="images/anom_user/${result_JSON['book_find'][j]['img_id']}">`
+                                 else {
+                                book_display += 
+                                `<img src="images/books/${result_JSON['book_find'][j]['img_id']}">`
+                                
+                            }
+                        book_display += `</div><div class="text-data-container">`;
 
                         for (i = 0; i < Object.keys(result_JSON['book_find'][0]).length; i++) {
                             book_display = book_display + `<div class="book-chr-holder">
@@ -95,7 +112,7 @@ $(document).ready(function () {
                     $("#book-data").html(book_tags + book_display);
 
 
-                    // console.log(book_display)
+                    console.log(book_display)
                 }
 
 
@@ -110,7 +127,7 @@ $(document).ready(function () {
 
 
     var suggestion_list = "";
-    const valid_sub = ['maths', 'english', 'science', 'physics', 'chemistry', 'biology', 'communication', 'mechinacal', 'electronics', 'electrical', 'civil'];
+    const valid_sub = ['Maths', 'English', 'Science', 'Physics', 'Chemistry', 'Computer','Biology', 'Communication', 'Mechinacal', 'Electronics', 'Electrical', 'Civil','Chemical',"Stationery"];
   
     for (i = 0; i < valid_sub.length; i++) {
 
@@ -158,21 +175,20 @@ $(document).ready(function () {
     $('#previous').on('click', () => {
         var json_request = '';
         mam = "&";
-        if(index_ > 12){
-        index_ = index_ -12;
-        for (p = 0; p < Object.keys($('#frm-book-data').serializeArray()).length; p = p + 1) {
-            json_request = json_request + encodeURI($('#frm-book-data').serializeArray()[p]['name']) + "=" + encodeURI($('#frm-book-data').serializeArray()[p]['value']) + mam;
-        }
-        json_request = json_request + "index=" + index_
-        xhttp.open("POST", "/mysql/advance_search", true);
+        if (index_ > 12) {
+            index_ = index_ - 12;
+            for (p = 0; p < Object.keys($('#frm-book-data').serializeArray()).length; p = p + 1) {
+                json_request = json_request + encodeURI($('#frm-book-data').serializeArray()[p]['name']) + "=" + encodeURI($('#frm-book-data').serializeArray()[p]['value']) + mam;
+            }
+            json_request = json_request + "index=" + index_
+            xhttp.open("POST", "/mysql/advance_search", true);
 
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(json_request)
-        // console.log('sen');
-    }
-    else{
-        alert("reached Starting of the index");
-    }
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(json_request)
+            // console.log('sen');
+        } else {
+            alert("reached Starting of the index");
+        }
     })
 
 

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- for buttons  -->
+  <link href="css/index/bootstrap.min.css" rel="stylesheet">
+  <link href="css/index/buttons.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="css/index/index.css">
+  <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+
+
+  <!-- for each book -->
+  <link rel="stylesheet" type="text/css" href="css/common/indiv-book.css">
+
+
+
+  <title>Home</title>
+  <style>
+    h3 {
+      font-size: 16px;
+    }
+
+    .btn {
+      margin-left: 13%;
+    }
+
+    .searchTerm:focus {
+
+      outline: 0px;
+    }
+
+    .searchTerm {
+
+      height: inherit;
+      border: 0px;
+      width: 87%;
+      height: 34px;
+    }
+
+    .input-search-div {
+      line-height: 1.15;
+      margin-bottom: 15px;
+      font-family: 'Poppins', sans-serif;
+      box-sizing: border-box;
+      vertical-align: top;
+      overflow: hidden;
+      cursor: text;
+      min-height: 60px;
+      border: 3px double #e75918;
+      background: white;
+      ;
+      width: 50%;
+      padding: 10px 12px 10px 32px;
+      font-size: 18px;
+      color: #000000;
+      border-radius: 34px;
+      display: flex;
+      /* flex-wrap: wrap; */
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .advbtn {
+      margin-left: 17px;
+    }
+
+    @media screen and (max-width: 800px) {
+
+
+      .searchTerm {
+        width: 80%;
+
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+
+
+      .input-search-div {
+        width: 90%;
+
+      }
+
+      .advbtn {
+        margin-left: 50px;
+      }
+
+      .searchTerm {
+
+        width: 80%;
+      }
+
+
+    }
+  </style>
+  <style>
+    body {
+      background-color: #f4b41a;
+
+    }
+
+    ;
+  </style>
+</head>
+<style>
+  .sidenav {
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 160px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 2;
+    /* Stay on top */
+    top: 38px;
+    /* Stay at the top */
+    left: 0;
+    background-color: #111;
+    /* Black */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  /* Style page content */
+  .main {
+    margin-left: 160px;
+    /* Same as the width of the sidebar */
+    padding: 0px 10px;
+  }
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<body>
+
+  <div class="navbar" style="z-index: 1;">
+    <a href="/"> <img class="nav-logo-img" src="images/index/logo.png" style="width:316px"></a>
+
+
+    <div class="dropdown">
+      <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+        </i>
+      </button>
+      <div class="dropdown-content">
+        <a href="<% if(Log_message=="true") { %> /logout <% } else { %> /login <% } %> "> <i
+            class="fas fa-sign-out-alt dropdown-list-item"></i><% if(Log_message=="true") { %> logout <% } else { %>
+          login/Signup <% } %> </a>
+        <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
+        <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+        <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>
+        <a href="/anom_donate"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(anonymous</a>
+        <a href="/chat_bot"><i class="fas fa-clipboard-list dropdown-list-item"></i>Chat</a>
+      </div>
+    </div>
+  </div>
+  <!-- <a href="/"></a> -->
+  <div class="sidenav">
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+  </div>
+
+
+  <!-- Page content -->
+  <div class="main">
+
+  
+
+  <section class="data " style="justify-content: center; margin-top: 10px;">
+
+    <!-- to be built using js-->
+    <div id="book-data-holders" style="display: flex;margin:0 10% 0 10%; flex-wrap:wrap;justify-content: center;">
+
+
+
+    </div>
+  </section>
+
+  <section>
+
+    <div style="margin: 18px auto 5px auto; align-items: center; height: fit-content">
+      <div style="display: inline;">
+        <div style="margin:5px 2px 5px 30%;float:left">
+          <a id="previous" style="margin: 5px ;display:block;line-height: 1.5;display: block; text-align: center;">
+            <i class="fas fa-arrow-circle-left fa-2x"></i>
+            <p style="margin:auto;">Previous</p>
+          </a>
+        </div>
+        <div> <a id="next"
+            style="margin: 5px 30% 5px 2px ;float:right;display: block;line-height: 1.5;text-align: center;">
+            <i class="fas fa-arrow-circle-right fa-2x"></i>
+            <p style="margin:auto;">Next</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <footer style="margin: 102px 0 0 0;display: flex;padding: 25px 0% 25px 50px;background-color: black;flex-wrap: wrap;">
+    <div style="display: block;margin:auto;width:30%;min-width: 245px;">
+      <h3 style="color: white;">About Us</h3>
+      <h5 style="color: white;"> Address:</h5>
+      <pre style="color: white;">
+  Near Isschanath circle,
+  SVNIT,
+  Dumas Road
+  Surat
+  </pre>
+    </div>
+
+
+    <div style="display: block;margin: auto;margin-top: 42px;width:30%;min-width: 250px;">
+
+      <h5 style="color: white;">Have You any Question?</h5>
+      <pre style="color: white;">
+  hitesh08011999@gmail.com  
+  </pre>
+    </div>
+
+    <div style="display: block;margin: auto;margin-top: 42px;width:32%;min-width: 250px;text-align: center;">
+      <h3 style="color: white; margin-bottom: 11px; width:100%; text-align:center;">Follow Us </h3>
+      <div>
+        <i class="fab fa-facebook-f fa-2x" style="margin:0 10px;color: white;"></i>
+        <i class="fab fa-twitter fa-2x" style="margin:0 10px ;color: white;"></i>
+        <i class="fab fa-instagram fa-2x" style="margin:0 10px ;color: white;"></i>
+
+      </div>
+
+
+
+  </footer>
+</body>
+<script src="js/jquery-3.4.1.js"></script>
+<script src="js/index/index copy.js"></script>
+
+<script src="js/common/fontawsome.js"></script>
+
+</html>

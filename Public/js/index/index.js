@@ -1,4 +1,5 @@
 
+
 $(document).ready(function () {
     // var book_tags = '', book_display = '';
     var xhttp = new XMLHttpRequest();
@@ -34,31 +35,42 @@ $(document).ready(function () {
 
 
                         for (i = 0; i < result_JSON['book_find'].length; i++) {
-                            if (result_JSON['book_find'][i]['available_now'] == 0)
-                                book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: red ;display:flex;flex-direction: column;max-width:300px;border-width: 1px;border-style: solid;">' +
-                                    `<img style="margin: 0 auto 10px auto;max-width: 180px" src="images/books/${result_JSON['book_find'][i]['img_id']}">
+                            if (result_JSON['book_find'][i]['available_now'] == 0){
+                                book_tags = book_tags + '<div class="book-data shadow-box" style="opacity: 0.7; border-color: red ;display:flex;flex-direction: column;max-width:300px;border-width: 1px;border-style: solid;">' 
+                                if (result_JSON['book_find'][i]['book_anom'] == 0)
+                                    book_tags = book_tags + `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/books/${result_JSON['book_find'][i]['img_id']}">`
+                                else
+                                    book_tags = book_tags + `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/anom_user/${result_JSON['book_find'][i]['img_id']}">`
+                                book_tags = book_tags + `   
+                                
                         <h3>${Object.values(result_JSON['book_find'][i])[1]}</h3>
                         <h4>${Object.values(result_JSON['book_find'][i])[2]}</h4>
-                        <h4>For:- ${Object.values(result_JSON['book_find'][i])[8]}</h4>
+                        <h4 style="font-family:impact" >Price:- Rs   ${Object.values(result_JSON['book_find'][i])[13]}</h4>
+                        <h4>For:- ${Object.values(result_JSON['book_find'][i])[8]}  Year</h4>
                         <div class="container">
                         <div class="interior">
                         <a class="btn a-link" href="#open-modal${i}">more details</a>
                         </div>
                         </div>
                         </div>`;
+                        }else{
+                                book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;max-width:300px;border-width: 1px;display:flex;flex-direction: column;border-style: solid;">' 
+                                if (result_JSON['book_find'][i]['book_anom'] == 0)
+                                book_tags = book_tags + `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/books/${result_JSON['book_find'][i]['img_id']}">`
                             else
-                                book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;max-width:300px;border-width: 1px;display:flex;flex-direction: column;border-style: solid;">' +
-                                    `<img  style="margin: 0 auto 10px auto;max-width: 180px" src="images/books/${result_JSON['book_find'][i]['img_id']}">
+                                book_tags = book_tags + `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/anom_user/${result_JSON['book_find'][i]['img_id']}">`
+                            book_tags = book_tags +   `
                         <h3>${Object.values(result_JSON['book_find'][i])[1]}</h3>
                         <h4>${Object.values(result_JSON['book_find'][i])[2]}</h4>
-                        <h4> For:- ${Object.values(result_JSON['book_find'][i])[8]}</h4>
+                        <h4 style="font-family:impact">Price:- Rs  ${Object.values(result_JSON['book_find'][i])[13]}</h4>
+                        <h4> For:- ${Object.values(result_JSON['book_find'][i])[8]} Year</h4>
                         <div class="container">
                         <div class="interior">
                         <a class="btn a-link" href="#open-modal${i}">more details</a>
                         </div>
                         </div>
                         </div>`;
-                        }
+                        }}
                         //for each books
                         for (j = 0; j < result_JSON['book_find'].length; j++) {
                             book_display = book_display + `
@@ -120,7 +132,7 @@ $(document).ready(function () {
 
                 for (i = 0; i < result_JSON['recent_books'].length; i++) {
                     if (result_JSON['recent_books'][i]['available_now'] == 0) {
-                        book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: red ;display:flex;flex-direction: column;max-width:300px; margin: 20px auto auto auto ; border-width: 1px;border-style: solid;">'
+                        book_tags = book_tags + `<div class="book-data shadow-box" style="opacity: 0.7;border-color: red ;display:flex;flex-direction: column;max-width:300px; margin: 20px auto 0 auto ; border-width: 1px;border-style: solid;">`
                         if (result_JSON['recent_books'][i]['book_anom'] == 0)
                             book_tags = book_tags + `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/books/${result_JSON['recent_books'][i]['img_id']}">`
                         else
@@ -128,7 +140,8 @@ $(document).ready(function () {
                         book_tags = book_tags + `
                        <h3>${Object.values(result_JSON['recent_books'][i])[1]}</h3>
                         <h4>${Object.values(result_JSON['recent_books'][i])[2]}</h4>
-                        <h4>For:- ${Object.values(result_JSON['recent_books'][i])[8]}</h4>
+                        <h4 style="font-family:impact">Price:- Rs  ${Object.values(result_JSON['recent_books'][i])[13]} </h4>
+                        <h4>For:- ${Object.values(result_JSON['recent_books'][i])[8]}  Year</h4>
                         <div class="container">
                         <div class="interior">
                         <a class="btn a-link" href="#open-modal${i}">more details</a>
@@ -137,7 +150,7 @@ $(document).ready(function () {
                         </div>`;
                     }
                     else
-{                        book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;display:flex;flex-direction: column;max-width:300px; margin: 20px auto auto auto; border-width: 1px;border-style: solid;">' 
+{                        book_tags = book_tags + '<div class="book-data shadow-box" style="border-color: black ;display:flex;flex-direction: column;max-width:300px; margin: 20px auto 0 auto; border-width: 1px;border-style: solid;">' 
                         if (result_JSON['recent_books'][i]['book_anom'] == 0)
                             book_tags = book_tags + `<img style="margin: 0 auto 10px auto; max-width: 180px" src="images/books/${result_JSON['recent_books'][i]['img_id']}">`
                         else
@@ -145,7 +158,8 @@ $(document).ready(function () {
                         book_tags = book_tags + `
                         <h3>${Object.values(result_JSON['recent_books'][i])[1]}</h3>
                         <h4>${Object.values(result_JSON['recent_books'][i])[2]}</h4>
-                        <h4>For:- ${Object.values(result_JSON['recent_books'][i])[8]}</h4>
+                        <h4 style="font-family:impact">Price:- Rs   ${Object.values(result_JSON['recent_books'][i])[13]}</h4>
+                        <h4>For:- ${Object.values(result_JSON['recent_books'][i])[8]} Year</h4>
                         <div class="container">
                         <div class="interior">
                         <a class="btn a-link" href="#open-modal${i}">more details</a>
@@ -181,7 +195,7 @@ $(document).ready(function () {
 
                     <div class="text-data-container">`;
 
-                        for (i = 0; i < Object.keys(result_JSON['recent_books'][1]).length; i++) {
+                        for (i = 0; i < Object.keys(result_JSON['recent_books'][0]).length; i++) {
                             if (i == 5 || i == 10 || i == 11)
                                 continue;
                             book_display = book_display + `<div class="book-chr-holder">
@@ -214,7 +228,7 @@ $(document).ready(function () {
                     }
 
                     $("#book-data-holders").html(book_tags + book_display);
-
+console.log("completed");
 
                 }
 

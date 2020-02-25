@@ -1,7 +1,7 @@
 
 $(document).ready(() => {
     var suggestion_list = "";
-    const valid_sub = ['maths', 'english', 'science', 'physics', 'chemistry', 'biology', 'communication', 'mechinacal', 'electronics', 'electrical', 'civil'];
+    const valid_sub = ['Maths', 'English', 'Science', 'Physics', 'Chemistry', 'Computer','Biology', 'Communication', 'Mechinacal', 'Electronics', 'Electrical', 'Civil','Chemical',"Stationery"];
   
     for (i = 0; i < valid_sub.length; i++) {
 

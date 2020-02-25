@@ -10,17 +10,15 @@
    
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
     <link rel="stylesheet" href="css/book_entry/style.css">
-    <script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+  <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+   
    
 </head>
 
 <body style="margin: 0px;padding : 0px">
     <div class="navbar">
-        <a href="/"> <img class="nav-logo-img" src="images/index/logo.png"></a>
-        <a href="/" class="nav-title-a">
-            <h2 class="form-title" style="color: black; padding-top:10px    ;">Book Search</h2>
-        </a>
+        <a href="/"> <img class="nav-logo-img" src="images/index/logo.png" style="width:316px"></a>
+    
 
         <div class="dropdown">
             <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
@@ -89,6 +87,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="book_pri"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="number" name="book_pr" id="book-edition" placeholder="Price"
+                                    value="<%= book_pr %>" />
+                            </div>
+                            <div class="form-group">
                                 <label for="year"><i class="zmdi zmdi-lock"></i></label>
                                 <input type="text" list="year_list" name="for_year" id="book-ref-year" placeholder="For year"
                                     value="<%=for_year%>" />
@@ -98,7 +101,7 @@
                                         <option value="Second"></option>
                                         <option value="Third"></option>
                                         <option value="Forth"></option>
-                                        <option value="Firth"></option>
+                                        <option value="Fifth"></option>
                                         <option value="Masters"></option>
                                         <option value="PHD"></option>
                                         <option value="All"></option>
@@ -116,6 +119,12 @@
                                 </datalist>
 
 
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="available_now"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="number" name="available_now" id="available_now" placeholder="availability"
+                                    value="<%= available_now %>" />
                             </div>
 
                             <div class="form-group form-button">
@@ -155,7 +164,8 @@
 
 <script src="js/jquery-3.4.1.js"></script>
 <script src="js/book_edit/book_edit.js"></script>
-
+<script src="https://kit.fontawesome.com/76f853596c.js" crossorigin="anonymous"></script>
+    
 </html>
 
 
@@ -165,7 +175,7 @@
       <h3 style="color: white;">About Us</h3>
       <h5 style="color: white;"> Address:</h5>
       <pre style="color: white;">
-  Near Isschanath chakra,
+  Near Isschanath circle,
   SVNIT,
   Dumas Road
   Surat

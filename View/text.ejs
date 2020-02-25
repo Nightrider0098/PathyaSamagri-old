@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <link href="css/index/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/common/nav.css">
+
+  <script src="js/common/fontawsome.js"></script>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <a href="/"> <img class="nav-logo-img" src="images/index/logo.png" style="width:316px"></a>
+
+
+    <div class="dropdown">
+      <button class="dropbtn"><i style="color: black; margin-left:0px;" class="fas fa-user-circle fa-2x"></i>
+        </i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/"><i class="fas fa-home dropdown-list-item"></i>Home</a>
+        <a href="/profile"><i class="fas fa-id-badge dropdown-list-item "></i>Profile</a>
+        <a href="/book_entry"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(registered)</a>
+        <a href="/anom_donate"><i class="fas fa-clipboard-list dropdown-list-item"></i>Donate(anonymous</a>
+
+        <!-- <a href="/"></a> -->
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="container mt-2">
+    <h1>Want to chat with the donor?</h1>
+    <h2> <small>List of available donor</small></h2>
+    <div class="container">
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        hitesh
+      </button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
+        dinesh
+      </button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+        lokesh
+      </button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal3">
+        raman
+      </button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
+        jainish
+      </button>
+
+    </div>
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">hitesh</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body" id="text_message">
+            <%- data  %>
+          </div>
+
+
+          <div class="input-group  mb-3">
+            <input type="text" id="message" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="submit" onclick="send()">Go</button>
+            </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="myModal1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">dinesh</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body" id="text_message1">
+            <%- data1  %>
+          </div>
+
+
+          <div class="input-group  mb-3">
+            <input type="text" id="message1" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="submit" onclick="send1()">Go</button>
+            </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="myModal2">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">lokesh</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body" id="text_message">
+            <%- data2  %>
+          </div>
+
+
+          <div class="input-group  mb-3">
+            <input type="text" id="message2" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="submit" onclick="send2()">Go</button>
+            </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="myModal3">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">raman</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body" id="text_message">
+            <%- data3  %>
+          </div>
+
+
+          <div class="input-group  mb-3">
+            <input type="text" id="message3" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="submit" onclick="send3()">Go</button>
+            </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="myModal4">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">jainish</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body" id="text_message">
+            <%- data4  %>
+          </div>
+
+
+          <div class="input-group  mb-3">
+            <input type="text" id="message4" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+              <button class="btn btn-success" type="submit" onclick="send4()">Go</button>
+            </div>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+
+<script>
+  var xhttp = new XMLHttpRequest();
+  var xhttp2 = new XMLHttpRequest();
+  var xhttp1 = new XMLHttpRequest();
+
+  function send() {
+
+    var mess = document.querySelector("#message").value
+    xhttp.onreadystatechange = function () {
+      if (this.status == 200) {
+        response_json = JSON.parse(xhttp.response)
+        if (Object.keys(response_json)[0] == 'data') {
+          console.log("we took xttp and entered in 1st")
+          document.querySelector("#text_message").innerHTML = response_json['data']
+        }
+        if (Object.keys(response_json)[1] == 'data1') {
+          document.querySelector("#text_message1").innerHTML = response_json['data1']
+          console.log("we took xttp and entered in 2st")
+        }
+      }
+    }
+
+    xhttp1.open("get", "http://" + window.location.host + "/mysql/message?data=" + mess, true);
+    xhttp1.send();
+    xhttp.open("get", "http://" + window.location.host + "/chat_bot_message", true);
+    xhttp.send();
+  }
+
+  function send1() {
+
+    var mess = document.querySelector("#message1").value
+    xhttp.onreadystatechange = function () {
+      if (this.status == 200) {
+        response_json = JSON.parse(xhttp.response)
+        if (Object.keys(response_json)[0] == 'data') {
+          console.log("we took xttp and entered in 1st")
+          document.querySelector("#text_message").innerHTML = response_json['data']
+        }
+        if (Object.keys(response_json)[1] == 'data1') {
+          document.querySelector("#text_message1").innerHTML = response_json['data1']
+          console.log("we took xttp and entered in 2st")
+        }
+      }
+    }
+
+
+    xhttp1.open("get", "http://" + window.location.host + "/mysql/message1?data=" + mess, true);
+    xhttp1.send();
+    xhttp.open("get", "http://" + window.location.host + "/chat_bot_message", true);
+    xhttp.send();
+  }
+</script>
+
+</html>
